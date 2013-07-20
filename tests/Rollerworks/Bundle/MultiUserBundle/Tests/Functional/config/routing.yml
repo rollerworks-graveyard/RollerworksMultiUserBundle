@@ -1,0 +1,60 @@
+#_fos_user_security:
+#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+#
+#_fos_user_profile:
+#    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+#    prefix: /profile
+#
+#_fos_user_register:
+#    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+#    prefix: /register
+#
+#_fos_user_resetting:
+#    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+#    prefix: /resetting
+#
+#_fos_user_change_password:
+#    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+#    prefix: /profile
+
+# Acme user bundle
+_acmeuser_security:
+    resource: "@AcmeUserBundle/Resources/config/routing/security.xml"
+    prefix: /user
+
+_acmeuser_profile:
+    resource: "@AcmeUserBundle/Resources/config/routing/profile.xml"
+    prefix: /user/profile
+
+_acmeuser_register:
+    resource: "@AcmeUserBundle/Resources/config/routing/registration.xml"
+    prefix: /user/register
+
+_acmeuser_resetting:
+    resource: "@AcmeUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /user/resetting
+
+_acmeuser_change_password:
+    resource: "@AcmeUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /user/profile
+
+# Acme admin bundle
+_acme_admin_security:
+    resource: "@AcmeAdminBundle/Resources/config/routing/security.xml"
+    prefix: /admin
+
+_acme_admin_profile:
+    resource: "@AcmeAdminBundle/Resources/config/routing/profile.xml"
+    prefix: /admin/profile
+
+_acme_admin_register:
+    resource: "@AcmeAdminBundle/Resources/config/routing/registration.xml"
+    prefix: /admin/register
+
+_acme_admin_resetting:
+    resource: "@AcmeAdminBundle/Resources/config/routing/resetting.xml"
+    prefix: /admin/resetting
+
+_acme_admin_change_password:
+    resource: "@AcmeAdminBundle/Resources/config/routing/change_password.xml"
+    prefix: /admin/profile

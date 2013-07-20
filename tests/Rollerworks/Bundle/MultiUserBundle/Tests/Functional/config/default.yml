@@ -1,0 +1,5 @@
+imports:
+    - { resource: framework.yml }
+    - { resource: doctrine.yml }
+
+rollerworks_multi_user: ~

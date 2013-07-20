@@ -1,0 +1,36 @@
+framework:
+    translator: { fallback: en }
+    secret: test
+    router:
+        resource: %kernel.root_dir%/config/routing.yml
+        strict_requirements: %kernel.debug%
+    profiler: { only_exceptions: false }
+
+    form:                true
+    csrf_protection:     true
+    validation:          { enable_annotations: true }
+    templating:          { engines: ['twig', 'php'] }
+    default_locale:      en
+    trusted_proxies:     []
+    session:
+        storage_id: session.storage.filesystem
+    test: ~
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+        firephp:
+            type:  firephp
+            level: info
+
+swiftmailer:
+    transport: mail
+    spool:     { type: memory }
+    disable_delivery: true

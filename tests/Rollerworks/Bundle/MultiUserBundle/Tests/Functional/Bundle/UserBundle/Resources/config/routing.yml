@@ -1,0 +1,70 @@
+acme_user_profile_show
+    path: "/"
+    defaults: { _controller: "FOSUserBundle:Profile:show" }
+    requirement:
+        _method: [GET]
+
+acme_user_profile_edit
+    path: "/edit"
+    defaults: { _controller: "FOSUserBundle:Profile:edit" }
+
+##
+
+
+acme_user_security_login
+    path: "/"
+    defaults: { _controller: "FOSUserBundle:Security:login" }
+
+# Not sure if this is really needed, allow excluding routes from rewriting
+acme_user_security_check
+    path: "/login_check"
+    defaults: { _controller: "FOSUserBundle:Security:check" }
+    requirement:
+        _method: [POST]
+
+acme_user_security_logout
+    path: "/logout"
+    defaults: { _controller: "FOSUserBundle:Security:logout" }
+
+##
+
+
+acme_user_change_password
+    path: "/change-password"
+    defaults: { _controller: "FOSUserBundle:ChangePassword:changePassword" }
+    requirement:
+        _method: [GET, POST]
+
+##
+
+
+acme_user_
+    path: "/"
+    defaults: { _controller: "FOSUserBundle::" }
+    requirement:
+        _method: [GET]
+
+##
+
+
+acme_user_registration_register
+    path: "/"
+    defaults: { _controller: "FOSUserBundle:Registration:register" }
+
+acme_user_registration_check_email
+    path: "/check-emaik"
+    defaults: { _controller: "FOSUserBundle:Registration:checkEmail" }
+    requirement:
+        _method: [GET]
+
+acme_user_registration_confirm
+    path: "/confirm/{token}"
+    defaults: { _controller: "FOSUserBundle:Registration:confirm" }
+    requirement:
+        _method: [GET]
+
+acme_user_registration_confirmed
+    path: "/confirmed"
+    defaults: { _controller: "FOSUserBundle:Registration:confirmed" }
+    requirement:
+        _method: [GET]

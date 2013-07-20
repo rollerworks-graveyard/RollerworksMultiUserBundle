@@ -1,0 +1,37 @@
+<?xml version="1.0"  ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="rollerworks_multi_user.matcher.class">Symfony\Component\HttpFoundation\RequestMatcher</parameter>
+        <parameter key="rollerworks_multi_user.user_discriminator.class">Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator</parameter>
+    </parameters>
+
+    <services>
+        <service id="rollerworks_multi_user.user_discriminator" class="%rollerworks_multi_user.user_discriminator.class%">
+            <argument type="service" id="session" />
+        </service>
+
+        <service id="rollerworks_multi_user.user_manager.delegating" class="Rollerworks\Bundle\MultiUserBundle\Model\DelegatingUserManager" public="false">
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+        </service>
+
+        <service id="rollerworks_multi_user.group_manager.delegating" class="Rollerworks\Bundle\MultiUserBundle\Model\DelegatingGroupManager" public="false">
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+        </service>
+
+        <service id="rollerworks_multi_user.group_manager.noop" class="Rollerworks\Bundle\MultiUserBundle\Model\NoopGroupManager" public="false" />
+
+        <service id="rollerworks_multi_user.mailer.delegating" class="Rollerworks\Bundle\MultiUserBundle\Mailer\DelegatingMailer" public="false">
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="rollerworks_multi_user.routing.user_discriminator_url_generator" class="Rollerworks\Bundle\MultiUserBundle\Routing\UserDiscriminatorUrlGenerator">
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            <argument type="service" id="router" />
+        </service>
+    </services>
+</container>

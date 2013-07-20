@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="rollerworks_multi_user.user_discriminator.class">Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator</parameter>
+    </parameters>
+
+    <services>
+        <service id="rollerworks_multi_user.abstract.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory" abstract="true">
+            <argument type="service" id="form.factory" />
+            <argument /><!-- name -->
+            <argument /><!-- type -->
+            <argument /><!-- validation_groups -->
+
+            <call method="setUserDiscriminator">
+                <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            </call>
+        </service>
+
+        <service id="rollerworks_multi_user.registration.form.factory" class="Rollerworks\Bundle\MultiUserBundle\Form\FormFactory">
+            <argument type="service" id="form.factory" />
+            <argument>registration</argument>
+            <call method="setUserDiscriminator">
+                <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            </call>
+        </service>
+
+        <service id="rollerworks_multi_user.resetting.form.factory" class="Rollerworks\Bundle\MultiUserBundle\Form\FormFactory">
+            <argument type="service" id="form.factory" />
+            <argument>resetting</argument>
+            <call method="setUserDiscriminator">
+                <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            </call>
+        </service>
+
+        <service id="rollerworks_multi_user.profile.form.factory" class="Rollerworks\Bundle\MultiUserBundle\Form\FormFactory">
+            <argument type="service" id="form.factory" />
+            <argument>profile</argument>
+            <call method="setUserDiscriminator">
+                <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            </call>
+        </service>
+
+        <service id="rollerworks_multi_user.change_password.form.factory" class="Rollerworks\Bundle\MultiUserBundle\Form\FormFactory">
+            <argument type="service" id="form.factory" />
+            <argument>change_password</argument>
+            <call method="setUserDiscriminator">
+                <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            </call>
+        </service>
+
+        <service id="rollerworks_multi_user.group.form.factory" class="Rollerworks\Bundle\MultiUserBundle\Form\FormFactory">
+            <argument type="service" id="form.factory" />
+            <argument>group</argument>
+            <call method="setUserDiscriminator">
+                <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            </call>
+        </service>
+
+    </services>
+
+</container>
