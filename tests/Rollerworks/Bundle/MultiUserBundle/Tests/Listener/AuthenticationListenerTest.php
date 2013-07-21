@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\Listener;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Listener;
 
 use Rollerworks\Bundle\MultiUserBundle\EventListener\AuthenticationListener;
 use Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User;

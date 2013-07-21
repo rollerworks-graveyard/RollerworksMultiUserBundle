@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\Form;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Form;
 
 use Rollerworks\Bundle\MultiUserBundle\Form\FormFactory;
 

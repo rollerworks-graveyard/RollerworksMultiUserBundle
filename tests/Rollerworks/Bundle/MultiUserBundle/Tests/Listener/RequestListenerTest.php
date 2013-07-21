@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\Listener;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator;

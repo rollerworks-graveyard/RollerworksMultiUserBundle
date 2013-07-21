@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\Twig;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Twig;
 
 use Rollerworks\Bundle\MultiUserBundle\Twig\Extension\MultiUserExtension;
 

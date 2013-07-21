@@ -1,6 +1,6 @@
 <?php
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\DependencyInjection\Compiler;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;

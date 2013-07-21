@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\Model;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Model;
 
 use Rollerworks\Bundle\MultiUserBundle\Model\UserConfig;
 

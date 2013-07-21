@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Unit\Routing;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Routing;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Rollerworks\Bundle\MultiUserBundle\Routing\UserDiscriminatorUrlGenerator;
