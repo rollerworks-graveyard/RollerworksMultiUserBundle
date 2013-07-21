@@ -27,14 +27,14 @@ if (version_compare(PHP_VERSION, '5.4', '>=') && gc_enabled()) {
 /**
  * @var $loader ClassLoader
  */
-$loader = require_once __DIR__ . '/../../../../../vendor/autoload.php';
+$loader = require_once __DIR__ . '/../vendor/autoload.php';
 $loader->add('Rollerworks\\Bundle\\MultiUserBundle\\Tests', __DIR__);
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 // Do this explicit as the Swiftmailer is only loaded automatically when its used by the Application
 // Without this ResettingControllerTest fails
-require_once __DIR__ . '/../../../../../vendor/swiftmailer/swiftmailer/lib/classes/Swift.php';
+require_once __DIR__ . '/../vendor/swiftmailer/swiftmailer/lib/classes/Swift.php';
 Swift::registerAutoload();
 
 // Don't use the system tempdir on Windows as that fails to work!
