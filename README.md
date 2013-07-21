@@ -24,12 +24,12 @@ Documentation
 The bulk of the documentation is stored in the `doc/index.md`
 file in this bundle:
 
-[Read the Documentation for master](https://github.com/Rollerworks/RollerworksMultiUserBundle/blob/master/doc/index.md)
+[Read the Documentation for master](https://github.com/rollerworks/RollerworksMultiUserBundle/blob/master/docs/index.md)
 
 Installation
 ------------
 
-All the installation instructions are located in [documentation](https://github.com/Rollerworks/RollerworksMultiUserBundle/blob/master/doc/index.md).
+All the installation instructions are located in [documentation](https://github.com/rollerworks/RollerworksMultiUserBundle/blob/master/docs/index.md).
 
 License
 -------
