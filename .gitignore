@@ -29,6 +29,7 @@ nbproject
 phpunit.xml
 php-cs-fixer.phar
 composer.phar
+composer.lock
 
 # Folders to ignore
 /vendor/

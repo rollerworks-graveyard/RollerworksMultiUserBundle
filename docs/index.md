@@ -559,10 +559,13 @@ Before running the tests, you will need to install the bundle dependencies. Do t
 $ php composer.phar --dev install
 ```
 
-Then you can simply launch phpunit
+Then you can launch phpunit (make sure its installed https://github.com/sebastianbergmann/phpunit/#installation)
+
+> Using the Composer version of PHPUnit currently fails so make sure to either use the Phar archive or PEAR version.
+> You need at least version 3.5 of PHPUnit and MockObject plugin 1.0.8
 
 ``` bash
-$ bin/phpunit -c phpunit.xml.dist
+$ phpunit -c phpunit.xml.dist
 ```
 
 **Note:** Functional test are by default not run, to run all tests make sure PDO_SQLite is installed,
