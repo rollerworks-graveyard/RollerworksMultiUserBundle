@@ -14,13 +14,14 @@ use Composer\Autoload\ClassLoader;
 
 error_reporting(E_ALL | E_STRICT);
 
-if (!class_exists('PHPUnit_Framework_TestCase') || version_compare(PHPUnit_Runner_Version::id(), '3.5') < 0) {
-    throw new \RuntimeException('PHPUnit framework is required, at least 3.5 version');
-}
-
-if (!class_exists('PHPUnit_Framework_MockObject_MockBuilder')) {
-    throw new \RuntimeException('PHPUnit MockObject plugin is required, at least 1.0.8 version');
-}
+// Disabled as fails with insulated tests, find a better way to do this
+//if (!class_exists('PHPUnit_Framework_TestCase') || version_compare(PHPUnit_Runner_Version::id(), '3.5') < 0) {
+//    throw new \RuntimeException('PHPUnit framework is required, at least 3.5 version');
+//}
+//
+//if (!class_exists('PHPUnit_Framework_MockObject_MockBuilder')) {
+//    throw new \RuntimeException('PHPUnit MockObject plugin is required, at least 1.0.8 version');
+//}
 
 if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
     throw new \RuntimeException('Did not find vendor/autoload.php. Please Install vendors using command: composer.phar install --dev');
