@@ -21,6 +21,9 @@ so if something is not described in detail here you can read the FOSUserBundle d
 
 **Note:** Using the app/console commands of the FOSUserBundle is currently not supported.
 
+**Note: Each user-system must have its own Form types to functional properly,
+  you can not reuse form types for multiple user-systems.**
+
 ## Working
 
 The system works with a `UserDiscriminator`-service which determines which user-type should be handled,
@@ -490,6 +493,11 @@ provider service is `acme_user.user_provider.username`.
 > For example if you used `acme_user_di` as service_prefix then use
 > `acme_user_di.user_provider.username` instead.
 
+**Caution:**
+
+> NEVER use `fos_user.username` or `fos_user.username_email` for your user-system, doing so will break the authentication
+> when the current user-system is changed. Using the user-system's user-provider ensures you always get the correct service.
+
 Next, take a look at and examine the `firewalls` section. Here we have declared a
 firewall named `main`. By specifying `form_login`, you have told the Symfony2
 framework that any time a request is made to this firewall that leads to the
@@ -551,26 +559,17 @@ rollerworks_multi_user:
         sender_name: webmaster
 ```
 
-## Running the Tests
+## Next Steps
 
-Before running the tests, you will need to install the bundle dependencies. Do this using composer:
+Now that you have completed the basic installation and configuration of your user-bundle,
+you are ready to learn about more advanced features and usages
+of the system.
 
-``` bash
-$ php composer.phar --dev install
-```
+**Note:**
 
-Then you can launch phpunit (make sure its installed https://github.com/sebastianbergmann/phpunit/#installation)
+> Keep in mind that most of the documentation will refer back to the FOSUserBundle,
+> the documentation of RollerworksMultiUserBundle only describes
+> what is different compared to FOSUserBundle.
 
-> Using the Composer version of PHPUnit currently fails so make sure to either use the Phar archive or PEAR version.
-> You need at least version 3.5 of PHPUnit and MockObject plugin 1.0.8
-
-``` bash
-$ phpunit -c phpunit.xml.dist
-```
-
-**Note:** Functional test are by default not run, to run all tests make sure PDO_SQLite is installed,
-and launch phpunit with:
-
-``` bash
-$ bin/phpunit -c phpunit.xml.dist --exclude-group ""
-```
+- [Overriding Forms](overriding_forms.md)
+- [Using the UserManager and GroupManager](user_manager.md)

@@ -17,7 +17,3 @@ php:
   - 5.5
   
 script: phpunit --configuration phpunit.xml.dist --exclude-group ""
-
-matrix:
-  allow_failures:
-    - php: 5.5
