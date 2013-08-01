@@ -44,8 +44,8 @@ class RollerworksMultiUserExtension extends Extension implements PrependExtensio
         $this->addClassesToCompile(array(
             'Rollerworks\\Bundle\\MultiUserBundle\\Model\\UserConfig',
             'Rollerworks\\Bundle\\MultiUserBundle\\Model\\UserDiscriminator',
-            'Rollerworks\\Bundle\\MultiUserBundle\\Listener\\RequestListener',
-            'Rollerworks\\Bundle\\MultiUserBundle\\Listener\\AuthenticationListener',
+            'Rollerworks\\Bundle\\MultiUserBundle\\EventListener\\RequestListener',
+            'Rollerworks\\Bundle\\MultiUserBundle\\EventListener\\AuthenticationListener',
         ));
     }
 
