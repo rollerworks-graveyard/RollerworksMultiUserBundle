@@ -33,6 +33,12 @@ class AcmeAdminExtension extends Extension
 
                 'group' => false,
 
+                'security' => array(
+                    'login' => array(
+                        'template' => 'AcmeAdminBundle:Security:login.html.twig',
+                    )
+                ),
+
                 'profile' => array(
                     'template' => array(
                         'edit' => 'AcmeAdminBundle:Profile:edit.html.twig',

@@ -31,6 +31,12 @@ class AcmeUserExtension extends Extension
                 'routes_prefix' => 'acme_user',
                 'firewall_name' => 'user',
 
+                'security' => array(
+                    'login' => array(
+                        'template' => 'AcmeUserBundle:Security:login.html.twig',
+                    )
+                ),
+
                 'group' => array(
                     'group_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\UserBundle\Entity\Group'
                 ),

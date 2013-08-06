@@ -97,6 +97,7 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addSecuritySection($rootNode);
         $this->addServiceSection($rootNode);
         $this->addTemplateSection($rootNode);
 
@@ -112,6 +113,24 @@ class Configuration implements ConfigurationInterface
         }
 
         return $rootNode;
+    }
+
+    final public function addSecuritySection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('security')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('login')
+                            ->children()
+                                ->scalarNode('template')->defaultValue('RollerworksMultiUserBundle:UserBundle/Security:login.html.twig')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 
     // Everything below this is copied from the FOSUserBundle, and is considered @internal
