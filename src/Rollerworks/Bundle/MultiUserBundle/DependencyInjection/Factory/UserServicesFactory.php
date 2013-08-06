@@ -64,7 +64,7 @@ class UserServicesFactory
     {
         $knownOptions = array(
             'db_driver', 'path', 'host', 'request_matcher', 'user_class', 'services_prefix', 'routes_prefix',
-            'firewall_name', 'model_manager_name', 'use_username_form_type', 'from_email', 'profile', 'change_password',
+            'firewall_name', 'model_manager_name', 'use_username_form_type', 'from_email', 'security', 'profile', 'change_password',
             'registration', 'resetting', 'group', 'service'
         );
 
@@ -108,6 +108,10 @@ class UserServicesFactory
 
         if (!empty($config['profile'])) {
             $this->loadProfile($config['profile'], $this->container, $user);
+        }
+
+        if (!empty($config['security'])) {
+            $this->loadSecurity($config['security'], $this->container, $user);
         }
 
         if (!empty($config['registration'])) {
@@ -215,10 +219,17 @@ class UserServicesFactory
      */
     protected function setTemplates($section, array $config, Definition $user)
     {
-        foreach ($config['template'] as $name => $resource) {
+        if (is_array($config['template'])) {
+            foreach ($config['template'] as $name => $resource) {
+                $user->addMethodCall('setTemplate', array(
+                    sprintf('%s.%s', $section, $name),
+                    sprintf('%%%s.%s.%s.template%%', $this->servicePrefix, $section, $name),
+                ));
+            }
+        } else {
             $user->addMethodCall('setTemplate', array(
-                sprintf('%s.%s', $section, $name),
-                sprintf('%%%s.%s.%s.template%%', $this->servicePrefix, $section, $name),
+                $section,
+                sprintf('%%%s.%s.template%%', $this->servicePrefix, $section)
             ));
         }
     }
@@ -385,6 +396,14 @@ class UserServicesFactory
         }
 
         // Custom or noop-mailer
+    }
+
+    private function loadSecurity(array $config, ContainerBuilder $container, Definition $user)
+    {
+        $this->setTemplates('security.login', $config['login'], $user);
+        $this->remapParametersNamespaces($config, $container, array(
+            'login' => array('template' => $this->servicePrefix . '.security.login.template'),
+        ));
     }
 
     private function loadProfile(array $config, ContainerBuilder $container, Definition $user)

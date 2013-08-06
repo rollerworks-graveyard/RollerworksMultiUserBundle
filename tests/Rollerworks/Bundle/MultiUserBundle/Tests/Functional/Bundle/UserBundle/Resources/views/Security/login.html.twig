@@ -7,7 +7,7 @@
     <div>{{ error|trans }}</div>
 {% endif %}
 
-<form action="{{ path("acme_user_security_check") }}" method="post">
+<form action="{{ path("acme_user_security_check") }}" method="post" id="user-login-form">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
     <label for="username">{{ 'security.login.username'|trans }}</label>

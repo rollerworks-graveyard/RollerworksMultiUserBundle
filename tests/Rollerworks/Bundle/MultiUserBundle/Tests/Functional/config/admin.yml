@@ -26,6 +26,7 @@ security:
             form_login:
                 provider: acme_adminbundle
                 csrf_provider: form.csrf_provider
+                login_path: /admin/login
             logout:       true
             anonymous:    true
 
@@ -34,6 +35,7 @@ security:
             form_login:
                 provider: acme_userbundle
                 csrf_provider: form.csrf_provider
+                login_path: /user/login
             logout:       true
             anonymous:    true
 
