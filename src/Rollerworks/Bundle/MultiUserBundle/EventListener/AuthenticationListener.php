@@ -76,8 +76,8 @@ class AuthenticationListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            FOSUserEvents::SECURITY_IMPLICIT_LOGIN => 'onSecurityImplicitLogin',
-            SecurityEvents::INTERACTIVE_LOGIN => 'onSecurityInteractiveLogin',
+            FOSUserEvents::SECURITY_IMPLICIT_LOGIN => array('onSecurityImplicitLogin', 255),
+            SecurityEvents::INTERACTIVE_LOGIN => array('onSecurityInteractiveLogin', 255),
         );
     }
 
