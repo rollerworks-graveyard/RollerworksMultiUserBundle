@@ -11,7 +11,7 @@
 
     <services>
         <service id="rollerworks_multi_user.user_discriminator" class="%rollerworks_multi_user.user_discriminator.class%">
-            <argument type="service" id="session" />
+            <argument type="collection" />
         </service>
 
         <service id="rollerworks_multi_user.user_manager.delegating" class="Rollerworks\Bundle\MultiUserBundle\Model\DelegatingUserManager" public="false">

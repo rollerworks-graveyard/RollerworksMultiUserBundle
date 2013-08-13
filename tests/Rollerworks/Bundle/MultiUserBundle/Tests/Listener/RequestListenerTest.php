@@ -98,39 +98,12 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener->onKernelRequest($event);
     }
 
-    public function testAlreadySetBySession()
-    {
-        $this->session->expects($this->once())->method('get')->with(UserDiscriminator::SESSION_NAME)->will($this->returnValue('user2'));
-
-        $matcher1 = $this->getMock('Symfony\Component\HttpFoundation\RequestMatcherInterface');
-        $matcher1->expects($this->never())->method('matches')->will($this->returnValue(false));
-
-        $matcher2 = $this->getMock('Symfony\Component\HttpFoundation\RequestMatcherInterface');
-        $matcher2->expects($this->never())->method('matches')->will($this->returnValue(true));
-
-        $this->listener->addUser('user1', $matcher1);
-        $this->listener->addUser('user2', $matcher2);
-
-        $request = new Request();
-
-        $event = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')->disableOriginalConstructor()->getMock();
-        $event->expects($this->never())->method('getRequest')->will($this->returnValue($request));
-
-        $this->userDiscriminator->expects($this->once())->method('setCurrentUser')->with('user2');
-        $this->userDiscriminator->expects($this->any())->method('getCurrentUser')->will($this->returnValue(null));
-
-        $this->listener->onKernelRequest($event);
-    }
-
     protected function setUp()
     {
-        $this->session = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\SessionInterface')
-                ->getMock();
-
         $this->userDiscriminator = $this->getMockBuilder('Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator')
                 ->disableOriginalConstructor()->getMock();
 
-        $this->listener = new RequestListener($this->session, $this->userDiscriminator);
+        $this->listener = new RequestListener($this->userDiscriminator);
     }
 
 }
