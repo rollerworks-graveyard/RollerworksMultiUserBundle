@@ -55,7 +55,7 @@ class ResettingControllerTest extends WebTestCaseFunctional
         // Check that an e-mail was sent
         $this->assertEquals(1, $mailCollector->getMessageCount());
 
-        $collectedMessages = $mailCollector->getMessages();
+        $collectedMessages = $mailCollector->getMessages('default');
         $message = $collectedMessages[0];
 
         // Asserting that the correct URL is used
