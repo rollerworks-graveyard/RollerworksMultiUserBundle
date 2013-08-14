@@ -156,6 +156,10 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
                 'profile' => false,
                 'change_password' => false,
+
+                'confirmation' => array(),
+                'registration' => array(),
+                'resetting' => array(),
             )
         );
 
@@ -198,6 +202,10 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
                 'profile' => false,
                 'change_password' => false,
+
+                'confirmation' => array(),
+                'registration' => array(),
+                'resetting' => array(),
             )
         );
 
@@ -244,6 +252,10 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
                 'profile' => false,
                 'change_password' => false,
+
+                'confirmation' => array(),
+                'registration' => array(),
+                'resetting' => array(),
             )
         );
 
@@ -280,6 +292,10 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
                 'profile' => false,
                 'change_password' => false,
+
+                'confirmation' => array(),
+                'registration' => array(),
+                'resetting' => array(),
             )
         );
 
@@ -296,7 +312,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTemplateConfigEqual('RollerworksMultiUserBundle:UserBundle/Resetting:email.txt.twig', 'acme_user', 'resetting', 'email', $def);
     }
 
-    public function testProfileConfiguration()
+    public function testProfileConfigurationDefaults()
     {
         $factory = new UserServicesFactory($this->containerBuilder);
 
@@ -310,6 +326,8 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
+
+                'profile' => array(),
             )
         );
 
@@ -351,6 +369,70 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testProfileConfiguration()
+    {
+        $factory = new UserServicesFactory($this->containerBuilder);
+
+        $config = array(
+            array(
+                'path' => '/',
+                'user_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User',
+                'services_prefix' => 'acme_user',
+                'routes_prefix' => 'acme_user',
+
+                'registration' => false,
+                'resetting' => false,
+                'change_password' => false,
+
+                'profile' => array(
+                    'form' => array(
+                        'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\ProfileType',
+                        'type' => 'acme_user_profile',
+                        'name' => 'acme_user_profile_form',
+                        'validation_groups' => array('Profile')
+                    )
+                )
+            )
+        );
+
+        $factory->create('acme', $config);
+
+        $this->assertTrue($this->containerBuilder->hasAlias('acme_user.user_manager'));
+        $this->assertTrue($this->containerBuilder->hasAlias('acme_user.group_manager'));
+
+        $this->assertTrue($this->containerBuilder->hasDefinition('rollerworks_multi_user.user_system.acme'));
+
+        $def = $this->containerBuilder->getDefinition('acme_user.user_manager.default');
+        $this->assertEquals(new Reference('rollerworks_multi_user.acme_user.model_manager'), $def->getArgument(3));
+        $this->assertEquals('%acme_user.model.user.class%', $def->getArgument(4));
+
+        $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
+        $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
+        $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null)), $def->getTag('rollerworks_multi_user.user_system'));
+
+        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
+            $this->assertTrue($def->isLazy());
+        }
+
+        $expected = array(
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\ProfileType',
+            'type' => 'acme_user_profile',
+            'name' => 'acme_user_profile_form',
+            'validation_groups' => array('Profile'),
+        );
+
+        $this->assertFormDefinitionEqual($expected, 'acme_user', 'profile', $def);
+
+        $expected = array(
+            'edit' => 'RollerworksMultiUserBundle:UserBundle/Profile:edit.html.twig',
+            'show' => 'RollerworksMultiUserBundle:UserBundle/Profile:show.html.twig',
+        );
+
+        foreach ($expected as $name => $resource) {
+            $this->assertTemplateConfigEqual($resource, 'acme_user', 'profile', $name, $def);
+        }
+    }
+
     public function testRegistrationConfiguration()
     {
         $factory = new UserServicesFactory($this->containerBuilder);
@@ -365,6 +447,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'profile' => false,
                 'resetting' => false,
                 'change_password' => false,
+                'registration' => array(),
             )
         );
 
@@ -420,6 +503,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'profile' => false,
                 'registration' => false,
                 'change_password' => false,
+                'resetting' => array(),
             )
         );
 
@@ -496,6 +580,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'profile' => false,
                 'registration' => false,
                 'resetting' => false,
+                'change_password' => array(),
             )
         );
 
