@@ -8,8 +8,8 @@ env:
 # 'symfony/templating' is a hack for https://github.com/symfony/symfony/pull/8280 resulting in method access mismatch  
 before_script:
     - COMPOSER_ROOT_VERSION=dev-master
-    - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
-    - sh -c "if [ '$SYMFONY_VERSION' = '2.2.*' ] || [ '$SYMFONY_VERSION' = '2.3.*' ]; then composer require --no-update symfony/templating:${SYMFONY_VERSION} symfony/security-bundle:${SYMFONY_VERSION} symfony/twig-bundle:${SYMFONY_VERSION} symfony/web-profiler-bundle:${SYMFONY_VERSION} symfony/browser-kit:${SYMFONY_VERSION} symfony/monolog-bundle:${SYMFONY_VERSION}; fi"
+    - composer self-update
+    - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
     - composer install --dev
 
 php:
