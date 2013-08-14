@@ -24,7 +24,6 @@
 
         <service id="rollerworks_multi_user.listener.request" class="Rollerworks\Bundle\MultiUserBundle\EventListener\RequestListener">
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="-4" />
-            <argument type="service" id="session" />
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
         </service>
 

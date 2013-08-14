@@ -33,8 +33,6 @@ class UserDiscriminatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->session = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\SessionInterface')->disableOriginalConstructor()->getMock();
-
         $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
@@ -45,7 +43,7 @@ class UserDiscriminatorTest extends \PHPUnit_Framework_TestCase
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager2 */
         $config2 = new UserConfig('acme_user', 'acme_user_route', $userManager2, $groupManager2);
 
-        $this->discriminator = new UserDiscriminator($this->session, array('user1' => $config, 'user2' => $config2));
+        $this->discriminator = new UserDiscriminator(array('user1' => $config, 'user2' => $config2));
         $this->users = array('user1' => $config, 'user2' => $config2);
     }
 
@@ -60,29 +58,5 @@ class UserDiscriminatorTest extends \PHPUnit_Framework_TestCase
         $this->discriminator->setCurrentUser('user2');
         $this->assertEquals('user2', $this->discriminator->getCurrentUser());
         $this->assertSame($this->users['user2'], $this->discriminator->getCurrentUserConfig());
-    }
-
-    public function testSetClassPersist()
-    {
-        $this->session->expects($this->exactly(1))->method('set')->with(UserDiscriminator::SESSION_NAME, 'user2');
-        $this->discriminator->setCurrentUser('user2', true);
-    }
-
-    public function testGetUserDefault()
-    {
-        $this->session->expects($this->exactly(1))->method('get')->with(UserDiscriminator::SESSION_NAME, null)->will($this->onConsecutiveCalls(null));
-        $this->assertNull($this->discriminator->getCurrentUser());
-    }
-
-    public function testGetUserConfigDefault()
-    {
-        $this->session->expects($this->exactly(1))->method('get')->with(UserDiscriminator::SESSION_NAME, null)->will($this->onConsecutiveCalls(null));
-        $this->assertNull($this->discriminator->getCurrentUserConfig());
-    }
-
-    public function testGetClassStored()
-    {
-        $this->session->expects($this->exactly(1))->method('get')->with(UserDiscriminator::SESSION_NAME, null)->will($this->onConsecutiveCalls('user2'));
-        $this->assertEquals('user2', $this->discriminator->getCurrentUser());
     }
 }

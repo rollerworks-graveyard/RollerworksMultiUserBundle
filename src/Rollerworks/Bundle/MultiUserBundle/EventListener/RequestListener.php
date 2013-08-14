@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
-use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator;
 
 /**
  * Tries to determine the current user-system.
@@ -24,11 +23,6 @@ use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator;
  */
 class RequestListener
 {
-    /**
-     * @var SessionInterface
-     */
-    protected $session;
-
     /**
      * @var UserDiscriminatorInterface
      */
@@ -43,9 +37,8 @@ class RequestListener
      * @param SessionInterface           $session
      * @param UserDiscriminatorInterface $userDiscriminator
      */
-    public function __construct(SessionInterface $session, UserDiscriminatorInterface $userDiscriminator)
+    public function __construct(UserDiscriminatorInterface $userDiscriminator)
     {
-        $this->session = $session;
         $this->userDiscriminator = $userDiscriminator;
         $this->users = array();
     }
@@ -66,12 +59,6 @@ class RequestListener
     {
         // Already set
         if (null !== $this->userDiscriminator->getCurrentUser()) {
-            return;
-        }
-
-        if ($name = $this->session->get(UserDiscriminator::SESSION_NAME)) {
-            $this->userDiscriminator->setCurrentUser($name);
-
             return;
         }
 
