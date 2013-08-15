@@ -120,7 +120,6 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('security')
-                    ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('login')
                             ->children()
@@ -141,7 +140,6 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('profile')
-                    ->addDefaultsIfNotSet()
                     ->canBeUnset()
                     ->children()
                         ->arrayNode('form')
@@ -174,7 +172,6 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('registration')
-                    ->addDefaultsIfNotSet()
                     ->canBeUnset()
                     ->children()
                         ->arrayNode('confirmation')
@@ -227,7 +224,6 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('resetting')
-                    ->addDefaultsIfNotSet()
                     ->canBeUnset()
                     ->children()
                         ->integerNode('token_ttl')->defaultValue(86400)->end()
@@ -278,7 +274,6 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('change_password')
-                    ->addDefaultsIfNotSet()
                     ->canBeUnset()
                     ->children()
                         ->arrayNode('form')
@@ -308,10 +303,8 @@ class Configuration implements ConfigurationInterface
     final public function addServiceSection(ArrayNodeDefinition $node)
     {
         $node
-            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('service')
-                    ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('mailer')->defaultValue('fos_user.mailer.default')->end()
                             ->scalarNode('email_canonicalizer')->defaultValue('fos_user.util.canonicalizer.default')->end()

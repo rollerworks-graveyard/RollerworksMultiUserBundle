@@ -86,6 +86,13 @@ class UserServicesFactory
             )
         ));
 
+        // Ensure the service section is always set
+        // This can not be done automatically because then the app-config
+        // will overwrite it with the defaults again.
+        if (!isset($config[0]['service'])) {
+            $config[0]['service'] = array();
+        }
+
         $config = $this->processConfiguration($config);
 
         $this->servicePrefix = ($config['services_prefix'] ?: $name);
@@ -185,6 +192,7 @@ class UserServicesFactory
      */
     protected function createFormService(ContainerBuilder $container, $type, array $config, Definition $user, $modelRef = null)
     {
+        // Register the form-factory, this is only to be used for user-specific forms
         if ('resetting' !== $type) {
             $container->setDefinition(sprintf('%s.%s.form.factory', $this->servicePrefix, $type), new DefinitionDecorator('rollerworks_multi_user.abstract.form.factory'))
             ->replaceArgument(1, sprintf('%%%s.%s.form.name%%', $this->servicePrefix, $type))
