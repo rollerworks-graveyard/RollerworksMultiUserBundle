@@ -49,5 +49,11 @@
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
         </service>
+
+        <service id="rollerworks_multi_user.listener.events" class="Rollerworks\Bundle\MultiUserBundle\EventListener\EventDiscriminator">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
     </services>
 </container>

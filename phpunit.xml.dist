@@ -39,7 +39,7 @@
             <exclude>
                 <directory>./vendor</directory>
                 <directory>./src/Resources</directory>
-                <directory>./tests/Rollerworks/Bundle/MultiUserBundle/Tests/Fixtures</directory>
+                <directory>./tests/</directory>
             </exclude>
         </whitelist>
     </filter>
