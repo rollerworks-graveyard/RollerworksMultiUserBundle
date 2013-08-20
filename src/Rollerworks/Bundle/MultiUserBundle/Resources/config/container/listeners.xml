@@ -22,6 +22,24 @@
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
         </service>
 
+        <service id="rollerworks_multi_user.listener.change_password" class="Rollerworks\Bundle\MultiUserBundle\EventListener\ChangePasswordListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="router" />
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+        </service>
+
+        <service id="rollerworks_multi_user.listener.profile_edit" class="Rollerworks\Bundle\MultiUserBundle\EventListener\ProfileEditListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="router" />
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+        </service>
+
+        <service id="rollerworks_multi_user.listener.group" class="Rollerworks\Bundle\MultiUserBundle\EventListener\GroupListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="router" />
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+        </service>
+
         <service id="rollerworks_multi_user.listener.request" class="Rollerworks\Bundle\MultiUserBundle\EventListener\RequestListener">
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="-4" />
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
