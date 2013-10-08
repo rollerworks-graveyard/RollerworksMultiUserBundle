@@ -13,7 +13,6 @@ namespace Rollerworks\Bundle\MultiUserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use FOS\UserBundle\Controller\ResettingController as BaseResettingController;
 use FOS\UserBundle\Model\UserInterface;
 
