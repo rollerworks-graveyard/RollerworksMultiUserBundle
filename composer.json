@@ -33,9 +33,9 @@
         "symfony/css-selector":        "~2.2",
         "symfony/process":             "~2.2"
     },
-    "conflict": [
+    "conflict": {
         "pugx/multi-user-bundle": "*"
-    ],
+    },
     "autoload": {
         "psr-0": {
             "Rollerworks\\Bundle\\MultiUserBundle": "src/"
