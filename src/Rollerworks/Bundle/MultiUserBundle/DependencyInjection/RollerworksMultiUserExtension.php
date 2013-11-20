@@ -62,7 +62,7 @@ class RollerworksMultiUserExtension extends Extension implements PrependExtensio
             'from_email' => $config['from_email'],
             'registration' => array(
                 'confirmation' => array(
-                    'enabled' => true
+                    'enabled' => false,
                 )
             ),
             'service' => array(

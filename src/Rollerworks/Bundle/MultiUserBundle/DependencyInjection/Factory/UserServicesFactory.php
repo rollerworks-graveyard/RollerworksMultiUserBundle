@@ -360,7 +360,9 @@ class UserServicesFactory
         ->replaceArgument(0, new Reference(sprintf('%s.user_manager', $this->servicePrefix)));
 
         $container->setDefinition(sprintf('%s.listener.authentication', $this->servicePrefix), new DefinitionDecorator('fos_user.listener.authentication'))
-        ->replaceArgument(1, sprintf('%%%s.firewall_name%%', $this->servicePrefix));
+        ->replaceArgument(1, sprintf('%%%s.firewall_name%%', $this->servicePrefix))
+        ->addTag('kernel.event_subscriber')
+        ;
     }
 
     private function loadMailer(array $config, ContainerBuilder $container)

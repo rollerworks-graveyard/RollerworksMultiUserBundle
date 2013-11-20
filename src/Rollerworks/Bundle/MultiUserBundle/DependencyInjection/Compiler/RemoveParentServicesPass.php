@@ -25,10 +25,8 @@ class RemoveParentServicesPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $container->getDefinition('fos_user.listener.authentication')->setAbstract(true);
-
-        $container->getDefinition('fos_user.listener.email_confirmation')->setAbstract(true);
-        $container->getDefinition('fos_user.listener.resetting')->setAbstract(true);
+        $container->getDefinition('fos_user.listener.authentication')->setAbstract(true)->clearTags();
+        $container->getDefinition('fos_user.listener.resetting')->setAbstract(true)->clearTags();
 
         // Forms
         $container->getDefinition('fos_user.registration.form.type')->setAbstract(true);
