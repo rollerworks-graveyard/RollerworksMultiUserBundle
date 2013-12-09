@@ -434,7 +434,7 @@ class UserServicesFactory
 
         if (isset($config['confirmation']['from_email'])) {
             // overwrite the global one
-            $fromEmail = $config['email']['from_email'];
+            $fromEmail = $config['confirmation']['from_email'];
             unset($config['confirmation']['from_email']);
         }
 
