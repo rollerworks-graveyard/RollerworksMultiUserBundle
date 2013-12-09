@@ -3,6 +3,7 @@ language: php
 env:
     - SYMFONY_VERSION="2.2.*"
     - SYMFONY_VERSION="2.3.*"
+    - SYMFONY_VERSION="2.4.*"
     - SYMFONY_VERSION="dev-master"
 
 # 'symfony/templating' is a hack for https://github.com/symfony/symfony/pull/8280 resulting in method access mismatch  
