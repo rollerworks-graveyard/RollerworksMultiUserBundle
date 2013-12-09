@@ -11,13 +11,13 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory;
 
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Configuration;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**

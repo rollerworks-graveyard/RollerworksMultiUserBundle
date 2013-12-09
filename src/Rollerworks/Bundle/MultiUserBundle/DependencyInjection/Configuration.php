@@ -91,7 +91,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->validate()
-                ->ifTrue(function($v){ return null === $v['request_matcher'] && null === $v['host'] && null === $v['path']; })
+                ->ifTrue(function ($v) { return null === $v['request_matcher'] && null === $v['host'] && null === $v['path']; })
                 ->thenInvalid('You need to specify a "request_matcher" service-id or "host" and/or url "path" for the discriminator.')
             ->end()
         ;
