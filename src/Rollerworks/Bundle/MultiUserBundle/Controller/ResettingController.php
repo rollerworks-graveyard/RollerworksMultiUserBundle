@@ -18,14 +18,11 @@ use FOS\UserBundle\Model\UserInterface;
 
 class ResettingController extends BaseResettingController
 {
-    public function checkEmailAction()
+    public function checkEmailAction(Request $request)
     {
         $userDiscriminator = $this->container->get('rollerworks_multi_user.user_discriminator');
         /** @var \Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface $userDiscriminator */
-
-        $session = $this->container->get('session');
-        $email = $session->get(static::SESSION_EMAIL);
-        $session->remove(static::SESSION_EMAIL);
+        $email = $request->query->get(static::QUERY_EMAIL);
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
@@ -61,11 +58,12 @@ class ResettingController extends BaseResettingController
             $user->setConfirmationToken($tokenGenerator->generateToken());
         }
 
-        $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
         $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        return new RedirectResponse($route);
+        return new RedirectResponse($route,
+            array(static::QUERY_EMAIL => $this->getObfuscatedEmail($user)
+        ));
     }
 }
