@@ -22,7 +22,7 @@ class ResettingController extends BaseResettingController
     {
         $userDiscriminator = $this->container->get('rollerworks_multi_user.user_discriminator');
         /** @var \Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface $userDiscriminator */
-        $email = $request->query->get(static::QUERY_EMAIL);
+        $email = $request->query->get('email');
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
@@ -38,7 +38,6 @@ class ResettingController extends BaseResettingController
     {
         $userDiscriminator = $this->container->get('rollerworks_multi_user.user_discriminator');
         /** @var \Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface $userDiscriminator */
-        $route = $this->container->get('router')->generate($userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_resetting_check_email');
 
         $username = $request->request->get('username');
         /** @var $user UserInterface */
@@ -62,8 +61,9 @@ class ResettingController extends BaseResettingController
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        return new RedirectResponse($route,
-            array(static::QUERY_EMAIL => $this->getObfuscatedEmail($user)
+        return new RedirectResponse($this->container->get('router')->generate(
+            $userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_resetting_check_email',
+            array('email' => $this->getObfuscatedEmail($user))
         ));
     }
 }

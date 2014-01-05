@@ -48,7 +48,7 @@ class ResettingControllerTest extends WebTestCaseFunctional
         $form['username'] = 'dummy-example';
 
         $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect('/admin/resetting/check-email'));
+        $this->assertTrue($client->getResponse()->isRedirect('/admin/resetting/check-email?email=...%40example.com'));
 
         $mailCollector = $client->getProfile()->getCollector('swiftmailer');
 
