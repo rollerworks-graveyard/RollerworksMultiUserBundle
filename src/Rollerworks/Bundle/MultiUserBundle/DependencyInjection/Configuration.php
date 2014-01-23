@@ -119,6 +119,7 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('security')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('login')
                             ->children()
