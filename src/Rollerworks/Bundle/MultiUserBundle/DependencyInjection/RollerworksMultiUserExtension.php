@@ -55,7 +55,7 @@ class RollerworksMultiUserExtension extends Extension implements PrependExtensio
         $config = $this->processConfiguration(new Configuration(), $configs);
 
         $fosConfig = array(
-            'db_driver' => 'orm', // This is not really an issue as the Model manager is handled by the Factory
+            'db_driver' => $config['db_driver'], // Pass the driver until we have a proper fix for issue multiple drivers
             'use_listener' => $config['use_listener'],
             'firewall_name' => 'dummy',
             'user_class' => 'Acme\UserBundle\Entity\User',

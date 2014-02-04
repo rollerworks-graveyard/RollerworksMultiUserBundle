@@ -25,11 +25,20 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
+        $supportedDrivers = array('orm', 'mongodb', 'couchdb');
+
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('rollerworks_multi_user');
 
         $rootNode
             ->children()
+                ->scalarNode('db_driver')
+                    ->defaultValue('orm')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of: ' . implode(',', $supportedDrivers))
+                    ->end()
+                ->end()
                 ->booleanNode('use_listener')->defaultTrue()->end()
                 ->arrayNode('from_email')
                     ->addDefaultsIfNotSet()
