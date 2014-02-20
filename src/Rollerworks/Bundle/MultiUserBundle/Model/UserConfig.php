@@ -13,6 +13,7 @@ namespace Rollerworks\Bundle\MultiUserBundle\Model;
 
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Model\GroupManagerInterface;
+use Rollerworks\Bundle\MultiUserBundle\Exception\MissingTemplateException;
 
 /**
  * UserConfiguration, holds the configuration of a user in the system.
@@ -142,13 +143,24 @@ class UserConfig
     /**
      * Get the View template for the given config-name.
      *
-     * @param $name
+     * @param string $name
      *
-     * @return string|null
+     * @return string
      */
     public function getTemplate($name)
     {
-        return isset($this->templates[$name]) ? $this->templates[$name] : null;
+        $template = '';
+
+        if (!isset($this->templates[$name])) {
+            throw new MissingTemplateException(sprintf('Unable to get template for "%s", there is no such template configured.', $name));
+        }
+
+        $template = (string) $this->templates[$name];
+        if ('' === $template) {
+            throw new MissingTemplateException(sprintf('Unable to get template for "%s", it seems the template value is empty. Make sure you enabled the proper section and configured a proper value.', $name));
+        }
+
+        return $template;
     }
 
     /**
