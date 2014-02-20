@@ -86,8 +86,33 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
         $config->setTemplate('registration.confirm', 'RollerworksMultiUserBundle:UserBundle/Registration:confirmed.html.twig');
         $config->setTemplate('registration.email', 'RollerworksMultiUserBundle:UserBundle/Registration:email.txt.twig');
 
-        $this->assertNull($config->getTemplate('profile'));
         $this->assertEquals('RollerworksMultiUserBundle:UserBundle/Registration:confirmed.html.twig', $config->getTemplate('registration.confirm'));
         $this->assertEquals('RollerworksMultiUserBundle:UserBundle/Registration:email.txt.twig', $config->getTemplate('registration.email'));
+    }
+
+    public function testGetEmptyTemplate()
+    {
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
+        /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
+
+        $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
+
+        $config->setTemplate('registration.confirm', '');
+
+        $this->setExpectedException('Rollerworks\Bundle\MultiUserBundle\Exception\MissingTemplateException', 'Unable to get template for "registration.confirm", it seems the template value is empty. Make sure you enabled the proper section and configured a proper value.');
+        $config->getTemplate('registration.confirm');
+    }
+
+    public function testGetUnregisteredTemplate()
+    {
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
+        /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
+
+        $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
+
+        $this->setExpectedException('Rollerworks\Bundle\MultiUserBundle\Exception\MissingTemplateException', 'Unable to get template for "profile", there is no such template configured.');
+        $config->getTemplate('profile');
     }
 }

@@ -11,6 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Model;
 
+use Rollerworks\Bundle\MultiUserBundle\Exception\NoActiveUserSystemException;
+
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
@@ -41,7 +43,11 @@ interface UserDiscriminatorInterface
     /**
      * Returns the configuration of the current user.
      *
-     * @return UserConfig|null
+     * This must throw an NoActiveUserSystemException when there is no user-system active.
+     *
+     * @return UserConfig
+     *
+     * @throws NoActiveUserSystemException when there is no user-system active
      */
     public function getCurrentUserConfig();
 }

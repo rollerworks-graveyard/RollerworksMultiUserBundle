@@ -11,6 +11,9 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Model;
 
+use Rollerworks\Bundle\MultiUserBundle\Exception\NoActiveUserSystemException;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
+
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
@@ -34,7 +37,11 @@ class UserDiscriminator implements UserDiscriminatorInterface
     {
         if ($users) {
             foreach ($users as $name => $user) {
-                $this->addUser($name, $user);
+                if (!$user instanceof UserConfig) {
+                    throw new UnexpectedTypeException($user, 'Rollerworks\Bundle\MultiUserBundle\Model\UserConfig');
+                }
+
+                $this->users[$name] = $user;
             }
         }
     }
@@ -52,11 +59,19 @@ class UserDiscriminator implements UserDiscriminatorInterface
      */
     public function getCurrentUserConfig()
     {
-        if (!isset($this->users[$this->currentUser])) {
-            return null;
+        if (!$this->currentUser) {
+            throw new NoActiveUserSystemException('Unable to get UserConfig, because there is no user-system active. Please call setCurrentUser() to activate a user-system or refer to the user-system services directly.');
         }
 
         return $this->users[$this->currentUser];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasCurrentUserConfig()
+    {
+        return null !== $this->currentUser;
     }
 
     /**
@@ -76,10 +91,6 @@ class UserDiscriminator implements UserDiscriminatorInterface
      */
     public function getCurrentUser()
     {
-        if (!isset($this->users[$this->currentUser])) {
-            return null;
-        }
-
         return $this->currentUser;
     }
 }
