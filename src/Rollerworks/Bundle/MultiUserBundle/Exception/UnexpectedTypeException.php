@@ -11,7 +11,7 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Exception;
 
-class UnexpectedTypeException extends InvalidArgumentException
+class UnexpectedTypeException extends \InvalidArgumentException
 {
     public function __construct($value, $expectedType)
     {
