@@ -13,6 +13,7 @@ namespace Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -35,6 +36,7 @@ class RegisterUserPass implements CompilerPassInterface
 
         $requestListener = null;
         $authenticationListener = null;
+        $dbDrivers = array();
 
         if ($container->hasDefinition('rollerworks_multi_user.listener.request')) {
             $requestListener = $container->getDefinition('rollerworks_multi_user.listener.request');
@@ -48,6 +50,10 @@ class RegisterUserPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('rollerworks_multi_user.user_system') as $id => $attributes) {
             $name = $attributes[0]['alias'];
+
+            if ('custom' !== $attributes[0]['db_driver']) {
+                $dbDrivers[] = $attributes[0]['db_driver'];
+            }
 
             if (!isset($attributes[0]['request_matcher'])) {
                 $requestMatcher = $this->createRequestMatcher($container, $container->getParameterBag()->resolveValue($attributes[0]['path']), $container->getParameterBag()->resolveValue($attributes[0]['host']));

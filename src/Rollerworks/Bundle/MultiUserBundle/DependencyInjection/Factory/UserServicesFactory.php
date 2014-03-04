@@ -65,7 +65,7 @@ class UserServicesFactory
         $knownOptions = array(
             'db_driver', 'path', 'host', 'request_matcher', 'user_class', 'services_prefix', 'routes_prefix',
             'firewall_name', 'model_manager_name', 'use_username_form_type', 'from_email', 'security', 'profile', 'change_password',
-            'registration', 'resetting', 'group', 'service'
+            'registration', 'resetting', 'group', 'service', 'use_listener',
         );
 
         // Strip unknown configuration keys, so that the user-configuration can be kept at root level
@@ -277,6 +277,7 @@ class UserServicesFactory
             'class' => $config['user_class'],
             'path' => $config['path'],
             'host' => $config['host'],
+            'db_driver' => $config['db_driver'],
         );
 
         if (null !== $config['request_matcher']) {
@@ -289,6 +290,7 @@ class UserServicesFactory
             ->addArgument($this->routesPrefix)
             ->addArgument(new Reference(sprintf('%s.user_manager', $this->servicePrefix)))
             ->addArgument(new Reference(sprintf('%s.group_manager', $this->servicePrefix)))
+            ->addMethodCall('setConfig', array('use_listener', $config['use_listener']))
             ->setPublic(false)
             ->addTag('rollerworks_multi_user.user_system', $tagParams)
         ;
@@ -330,9 +332,45 @@ class UserServicesFactory
             ->setFactoryMethod('getManager')
             ->setPublic(false)
             ->setArguments(array($config['model_manager_name']));
+
+            // Note. Its no issue to set the listener multiple times
+            // Symfony will just overwrite them, each listener is unique per db-driver
+            $this->registerUserListener($container, $config['db_driver']);
         }
 
         return $serviceName;
+    }
+
+    private function registerUserListener(ContainerBuilder $container, $dbDriver)
+    {
+        switch ($dbDriver) {
+            case 'orm':
+                $listenerService = new Definition('Rollerworks\\Bundle\\MultiUserBundle\\Doctrine\\Orm\\UserListener');
+                $listenerService->addTag('doctrine.event_subscriber');
+                break;
+
+            case 'mongodb':
+                $listenerService = new Definition('Rollerworks\\Bundle\\MultiUserBundle\\Doctrine\\MongoDB\\UserListener');
+                $listenerService->addTag('doctrine_mongodb.odm.event_subscriber');
+                break;
+
+            case 'couchdb':
+                $listenerService = new Definition('Rollerworks\\Bundle\\MultiUserBundle\\Doctrine\\CouchDB\\UserListener');
+                $listenerService->addTag('doctrine_couchdb.event_subscriber');
+                break;
+
+            default:
+                break;
+        }
+
+        if ($listenerService) {
+            $listenerService->setArguments(array(
+                new Reference('service_container'),
+            ));
+
+            $listenerService->setPublic(false);
+            $container->setDefinition(sprintf('rollerworks_multi_user.%s.user_listener', $dbDriver), $listenerService);
+        }
     }
 
     /**
@@ -353,16 +391,7 @@ class UserServicesFactory
 
         // Only create a UserManager service when not using a custom one
         if ('fos_user.user_manager.default' === $config['service']['user_manager']) {
-            $modelManager = $this->loadModelManager($config, $container);
-
-            $config['service']['user_manager'] = sprintf('%s.user_manager.default', $this->servicePrefix);
-
-            $container->setDefinition($config['service']['user_manager'], new DefinitionDecorator('fos_user.user_manager.default'))
-            ->replaceArgument(1, new Reference($config['service']['username_canonicalizer']))
-            ->replaceArgument(2, new Reference($config['service']['email_canonicalizer']))
-            ->replaceArgument(3, new Reference($modelManager))
-            ->replaceArgument(4, sprintf('%%%s.model.user.class%%', $this->servicePrefix))
-            ->setPublic(false);
+            $config['service']['user_manager'] = $this->createUserManager($config, $container);
         }
 
         if (sprintf('%s.user_manager', $this->servicePrefix) !== $config['service']['user_manager']) {
@@ -382,8 +411,22 @@ class UserServicesFactory
 
         $container->setDefinition(sprintf('%s.listener.authentication', $this->servicePrefix), new DefinitionDecorator('fos_user.listener.authentication'))
         ->replaceArgument(1, sprintf('%%%s.firewall_name%%', $this->servicePrefix))
-        ->addTag('kernel.event_subscriber')
-        ;
+        ->addTag('kernel.event_subscriber');
+    }
+
+    private function createUserManager(array $config, ContainerBuilder $container)
+    {
+        $serviceName = sprintf('%s.user_manager.default', $this->servicePrefix);
+        $modelManager = $this->loadModelManager($config, $container);
+
+        $container->setDefinition($serviceName, new DefinitionDecorator('fos_user.user_manager.default'))
+            ->replaceArgument(1, new Reference($config['service']['username_canonicalizer']))
+            ->replaceArgument(2, new Reference($config['service']['email_canonicalizer']))
+            ->replaceArgument(3, new Reference($modelManager))
+            ->replaceArgument(4, sprintf('%%%s.model.user.class%%', $this->servicePrefix))
+            ->setPublic(false);
+
+        return $serviceName;
     }
 
     private function loadMailer(array $config, ContainerBuilder $container)

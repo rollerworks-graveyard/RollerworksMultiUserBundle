@@ -76,6 +76,7 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('The driver %s is not supported. Please choose one of: ' . implode(',', $supportedDrivers))
                     ->end()
                 ->end()
+                ->booleanNode('use_listener')->defaultTrue()->end()
                 ->scalarNode('path')->defaultNull()->end()
                 ->scalarNode('host')->defaultNull()->end()
                 ->scalarNode('request_matcher')->defaultNull()->end()
@@ -88,7 +89,6 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('routes_prefix')->defaultNull()->end()
-
                 ->scalarNode('firewall_name')->defaultNull()->end()
                 ->scalarNode('model_manager_name')->defaultValue('default')->end()
                 ->booleanNode('use_username_form_type')->defaultTrue()->end()
