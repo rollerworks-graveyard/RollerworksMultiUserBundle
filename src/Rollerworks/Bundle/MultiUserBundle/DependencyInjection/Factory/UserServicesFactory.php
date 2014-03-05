@@ -132,12 +132,20 @@ class UserServicesFactory
         if (!empty($config['resetting'])) {
             $this->loadResetting($config['resetting'], $this->container, $user, $config['from_email']);
         }
-
         if (!empty($config['group'])) {
             $this->loadGroups($config['group'], $this->container, $user);
         } else {
             // Always do this prevent undefined methods
             $this->container->setAlias(sprintf('%s.group_manager', $this->servicePrefix), 'rollerworks_multi_user.group_manager.noop');
+        }
+
+        $this->ensureParameterSet(sprintf('%s.registration.confirmation.email.template', $this->servicePrefix), 'Please configure registration properly');
+        $this->ensureParameterSet(sprintf('%s.resetting.email.template', $this->servicePrefix), 'Please configure resetting properly');
+        $this->ensureParameterSet(sprintf('%s.registration.confirmation.email.from_email', $this->servicePrefix), $config['from_email']);
+        $this->ensureParameterSet(sprintf('%s.resetting.email.from_email', $this->servicePrefix), $config['from_email']);
+
+        if ('db_driver' !== $config['db_driver']) {
+            $this->container->setParameter('fos_user.backend_type_' . $config['db_driver'], true);
         }
     }
 
@@ -168,6 +176,19 @@ class UserServicesFactory
                     $container->setParameter(sprintf($map, $name), $value);
                 }
             }
+        }
+    }
+
+    /**
+     * Ensure the parameter is set, or set the $value otherwise.
+     *
+     * @param string $name
+     * @param mixed  $value
+     */
+    protected function ensureParameterSet($name, $value)
+    {
+        if (!$this->container->getParameterBag()->has($name)) {
+            $this->container->getParameterBag()->set($name, $value);
         }
     }
 

@@ -30,7 +30,7 @@ abstract class WebTestCaseFunctional extends WebTestCase
         parent::setUp();
 
         $fs = new Filesystem();
-        $fs->remove(getenv('TMPDIR') . '/UserCoreBundle');
+        $fs->remove(getenv('TMPDIR') . '/MultiUserBundle');
     }
 
     protected function tearDown()
@@ -38,9 +38,6 @@ abstract class WebTestCaseFunctional extends WebTestCase
         parent::tearDown();
 
         self::$dbIsSetUp = false;
-
-        //$fs = new Filesystem();
-        //$fs->remove(getenv('TMPDIR') . '/UserCoreBundle');
     }
 
     /**
