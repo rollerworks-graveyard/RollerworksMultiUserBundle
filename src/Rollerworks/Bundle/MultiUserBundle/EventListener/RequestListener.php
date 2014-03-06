@@ -11,7 +11,6 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
@@ -34,7 +33,6 @@ class RequestListener
     protected $users;
 
     /**
-     * @param SessionInterface           $session
      * @param UserDiscriminatorInterface $userDiscriminator
      */
     public function __construct(UserDiscriminatorInterface $userDiscriminator)

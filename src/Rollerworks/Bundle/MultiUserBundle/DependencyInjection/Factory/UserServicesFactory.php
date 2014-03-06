@@ -33,7 +33,7 @@ class UserServicesFactory
     protected $routesPrefix;
 
     /**
-     * @var \Symfony\Component\Config\Definition\NodeInterface
+     * @var TreeBuilder
      */
     private static $configTree;
 

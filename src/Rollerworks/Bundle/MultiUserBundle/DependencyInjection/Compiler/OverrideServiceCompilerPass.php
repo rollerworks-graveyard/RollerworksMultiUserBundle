@@ -25,6 +25,10 @@ class OverrideServiceCompilerPass implements CompilerPassInterface
         $this->changeService($container, 'fos_user.group.form.factory', 'rollerworks_multi_user.group.form.factory');
     }
 
+    /**
+     * @param string $serviceName
+     * @param string $newServiceName
+     */
     private function changeService(ContainerBuilder $container, $serviceName, $newServiceName)
     {
         if ($container->hasDefinition($serviceName) && $container->hasDefinition($newServiceName)) {

@@ -30,8 +30,7 @@ class UserDiscriminator implements UserDiscriminatorInterface
     protected $currentUser = null;
 
     /**
-     * @param SessionInterface $session
-     * @param UserConfig[]     $users
+     * @param UserConfig[] $users
      */
     public function __construct(array $users = null)
     {

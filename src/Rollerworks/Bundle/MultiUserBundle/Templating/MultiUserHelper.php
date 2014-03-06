@@ -11,6 +11,7 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Templating;
 
+use Rollerworks\Bundle\MultiUserBundle\Model\UserConfig;
 use Symfony\Component\Templating\Helper\Helper;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 
@@ -38,7 +39,7 @@ class MultiUserHelper extends Helper
     }
 
     /**
-     * @return \Rollerworks\Bundle\MultiUserBundle\Model\UserConfig|null
+     * @return UserConfig
      */
     public function getUserConfig()
     {

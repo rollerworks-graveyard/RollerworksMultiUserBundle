@@ -62,8 +62,8 @@ class UserConfig
     }
 
     /**
-     * @param string $name
-     * @param mixed  $defaultValue
+     * @param string  $name
+     * @param integer $defaultValue
      *
      * @return mixed
      */
@@ -149,8 +149,6 @@ class UserConfig
      */
     public function getTemplate($name)
     {
-        $template = '';
-
         if (!isset($this->templates[$name])) {
             throw new MissingTemplateException(sprintf('Unable to get template for "%s", there is no such template configured.', $name));
         }
