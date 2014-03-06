@@ -58,3 +58,8 @@ _acme_admin_resetting:
 _acme_admin_change_password:
     resource: "@AcmeAdminBundle/Resources/config/routing/change_password.xml"
     prefix: /admin/profile
+
+# Acme admin bundle
+_acme_mongo_security:
+    resource: "@AcmeMongoBundle/Resources/config/routing/security.xml"
+    prefix: /mongo

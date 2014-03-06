@@ -11,7 +11,6 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class WebTestCaseFunctional extends WebTestCase
@@ -25,22 +24,19 @@ abstract class WebTestCaseFunctional extends WebTestCase
         );
     }
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $fs = new Filesystem();
-        $fs->remove(getenv('TMPDIR') . '/UserCoreBundle');
-    }
-
     protected function tearDown()
     {
+        if (static::$kernel && static::$kernel->getContainer()) {
+            $em = static::$kernel->getContainer()->get('doctrine.orm.default_entity_manager');
+
+            // Initialize the database
+            $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
+            $schemaTool->dropDatabase();
+        }
+
         parent::tearDown();
 
         self::$dbIsSetUp = false;
-
-        //$fs = new Filesystem();
-        //$fs->remove(getenv('TMPDIR') . '/UserCoreBundle');
     }
 
     /**

@@ -16,6 +16,9 @@ security:
         acme_userbundle:
             id: acme_user.user_provider.username
 
+        acme_mongobundle:
+            id: acme_mongo.user_provider.username
+
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -41,6 +44,16 @@ security:
             logout:       true
             anonymous:    true
 
+        mongodb:
+            pattern: ^/mongodb
+            form_login:
+                provider: acme_mongobundle
+                csrf_provider: form.csrf_provider
+                login_path: /mongodb/login
+                check_path: null
+            logout:       true
+            anonymous:    true
+
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -51,3 +64,8 @@ security:
         - { path: ^/user/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user/, role: ROLE_USER }
+
+        - { path: ^/mongodb/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/mongodb/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/mongodb/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/mongodb/, role: ROLE_USER }

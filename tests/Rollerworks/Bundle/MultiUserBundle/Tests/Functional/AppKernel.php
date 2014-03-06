@@ -49,12 +49,14 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
 
             new \FOS\UserBundle\FOSUserBundle(),
             new \Rollerworks\Bundle\MultiUserBundle\RollerworksMultiUserBundle(),
 
             new \Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\UserBundle\AcmeUserBundle(),
             new \Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\AdminBundle\AcmeAdminBundle(),
+            new \Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\MongoBundle\AcmeMongoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -71,7 +73,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return getenv('TMPDIR') . '/UserCoreBundle/' . substr(sha1($this->config), 0, 6);
+        return getenv('TMPDIR') . '/MultiUserBundle/' . substr(sha1($this->config), 0, 6);
     }
 
     public function serialize()

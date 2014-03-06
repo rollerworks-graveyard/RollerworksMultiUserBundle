@@ -6,8 +6,10 @@ env:
     - SYMFONY_VERSION="2.4.*"
     - SYMFONY_VERSION="dev-master"
 
-# 'symfony/templating' is a hack for https://github.com/symfony/symfony/pull/8280 resulting in method access mismatch  
+# 'symfony/templating' is a hack for https://github.com/symfony/symfony/pull/8280 resulting in method access mismatch
+# We only install Mongo to ensure the container compiles properly with multiple db-drivers
 before_script:
+    - echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - COMPOSER_ROOT_VERSION=dev-master
     - composer self-update
     - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
@@ -17,5 +19,5 @@ php:
   - 5.3
   - 5.4
   - 5.5
-  
+
 script: phpunit --configuration phpunit.xml.dist --exclude-group ""
