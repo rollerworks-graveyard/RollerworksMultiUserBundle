@@ -1,6 +1,6 @@
 <?php
 
-namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\UserBundle\Form\Type;
+namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\MongoBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\ResettingFormType  as BaseType;
 

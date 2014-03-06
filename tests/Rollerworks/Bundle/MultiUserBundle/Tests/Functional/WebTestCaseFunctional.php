@@ -11,7 +11,6 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class WebTestCaseFunctional extends WebTestCase

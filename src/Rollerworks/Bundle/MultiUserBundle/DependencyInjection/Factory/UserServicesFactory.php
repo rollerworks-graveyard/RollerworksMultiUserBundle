@@ -132,6 +132,7 @@ class UserServicesFactory
         if (!empty($config['resetting'])) {
             $this->loadResetting($config['resetting'], $this->container, $user, $config['from_email']);
         }
+
         if (!empty($config['group'])) {
             $this->loadGroups($config['group'], $this->container, $user);
         } else {
