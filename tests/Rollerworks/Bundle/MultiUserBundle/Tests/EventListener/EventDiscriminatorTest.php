@@ -141,7 +141,7 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
 
 interface MyEventSubscriber extends EventSubscriberInterface
 {
-    public function myFunc($func, $event);
+    public function myFunc($event);
 }
 
 class Event extends BaseEvent
