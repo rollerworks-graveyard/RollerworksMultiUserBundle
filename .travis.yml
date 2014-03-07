@@ -13,6 +13,8 @@ before_script:
     - COMPOSER_ROOT_VERSION=dev-master
     - composer self-update
     - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
+    - composer require doctrine/mongodb-odm:"1.0.*@dev" --no-update
+    - composer require doctrine/mongodb-odm-bundle:"3.0.*@dev" --no-update
     - composer install --dev
 
 php:

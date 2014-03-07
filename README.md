@@ -70,22 +70,30 @@ Running the Tests
 
 Before running the tests, you will need to install the bundle dependencies. Do this using composer:
 
+> The doctrine/mongodb-odm is required for functional tests
+> but are not installed by default as it fails with some of the automated code analyzers.
+
 ``` bash
+$ php composer.phar composer require doctrine/mongodb-odm:"1.0.*@dev" --no-update
+$ php composer.phar composer require doctrine/mongodb-odm-bundle:"3.0.*@dev" --no-update
 $ php composer.phar --dev install
 ```
 
 Then you can launch phpunit (make sure its installed https://github.com/sebastianbergmann/phpunit/#installation)
 
 > Using the Composer version of PHPUnit currently fails so make sure to either use the Phar archive or PEAR version.
-> You need at least version 3.5 of PHPUnit and MockObject plugin 1.0.8
+> You need at least version 3.6 of PHPUnit and MockObject plugin 1.0.8
 
 ``` bash
 $ phpunit -c phpunit.xml.dist
 ```
 
-**Note:** Functional test are by default not run, to run all tests make sure PDO_SQLite is installed,
-and launch phpunit with:
+**Note:** Functional test are not run by default, to run all tests make sure both
+PDO_SQLite and the PHP extension for MongoDB are installed, and launch phpunit with:
 
 ``` bash
 $ bin/phpunit -c phpunit.xml.dist --exclude-group ""
 ```
+
+> Optionally you skip the functional tests as these are always run automatically on Travis-CI
+> when opening a Pull Request.
