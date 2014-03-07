@@ -4,7 +4,7 @@ env:
     - SYMFONY_VERSION="2.2.*"
     - SYMFONY_VERSION="2.3.*"
     - SYMFONY_VERSION="2.4.*"
-    - SYMFONY_VERSION="dev-master"
+    - SYMFONY_VERSION="2.5.*"
 
 # 'symfony/templating' is a hack for https://github.com/symfony/symfony/pull/8280 resulting in method access mismatch
 # We only install Mongo to ensure the container compiles properly with multiple db-drivers
