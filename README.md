@@ -1,6 +1,12 @@
 RollerworksMultiUserBundle
 ==========================
 
+[![Build Status](https://travis-ci.org/rollerworks/RollerworksMultiUserBundle.png?branch=master)](https://travis-ci.org/rollerworks/RollerworksMultiUserBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/badges/quality-score.png?s=d98ca957ce5deb8b4bd41532cae263b8a1639121)](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/)
+[![Code Coverage](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/badges/coverage.png?s=7c6bc63ae39599e5af8326c848dc62759a290c6e)](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/9a47cef8-7640-4f20-9efe-0153325d66ba/mini.png)](https://insight.sensiolabs.com/projects/9a47cef8-7640-4f20-9efe-0153325d66ba)
+
+
 The RollerworksMultiUserBundle adds support for a multi-user set-up using the FOSUserBundle.
 It provides a fully compatible in-place replacement for the 'fos_user' services.
 
