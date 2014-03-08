@@ -344,6 +344,8 @@ class UserServicesFactory
 
     private function registerUserListener(ContainerBuilder $container, $dbDriver)
     {
+        $listenerService = null;
+
         switch ($dbDriver) {
             case 'orm':
                 $listenerService = new Definition('Rollerworks\\Bundle\\MultiUserBundle\\Doctrine\\Orm\\UserListener');
