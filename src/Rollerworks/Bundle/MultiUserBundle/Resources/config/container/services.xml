@@ -14,6 +14,10 @@
             <argument type="collection" />
         </service>
 
+        <service id="rollerworks_multi_user.service_container_injector" class="Rollerworks\Component\SfContainerInjector\ContainerInjector">
+            <argument type="service" id="service_container" />
+        </service>
+
         <service id="rollerworks_multi_user.user_manager.delegating" class="Rollerworks\Bundle\MultiUserBundle\Model\DelegatingUserManager" public="false">
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
         </service>
@@ -26,7 +30,7 @@
 
         <service id="rollerworks_multi_user.mailer.delegating" class="Rollerworks\Bundle\MultiUserBundle\Mailer\DelegatingMailer" public="false">
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
-            <argument type="service" id="service_container" />
+            <argument type="service" id="rollerworks_multi_user.service_container_injector" />
         </service>
 
         <service id="rollerworks_multi_user.routing.user_discriminator_url_generator" class="Rollerworks\Bundle\MultiUserBundle\Routing\UserDiscriminatorUrlGenerator">

@@ -11,7 +11,7 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Mailer;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Rollerworks\Component\SfContainerInjector\ContainerInjector;
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
@@ -21,7 +21,7 @@ class DelegatingMailer implements MailerInterface
     private $userDiscriminator;
     private $container;
 
-    public function __construct(UserDiscriminatorInterface $userDiscriminator, ContainerInterface $container)
+    public function __construct(UserDiscriminatorInterface $userDiscriminator, ContainerInjector $container)
     {
         $this->userDiscriminator = $userDiscriminator;
         $this->container = $container;

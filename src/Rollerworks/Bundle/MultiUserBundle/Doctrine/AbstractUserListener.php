@@ -16,7 +16,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Rollerworks\Component\SfContainerInjector\ContainerInjector;
 
 /**
  * Base Doctrine listener updating the canonical username and password fields.
@@ -41,16 +41,16 @@ abstract class AbstractUserListener implements EventSubscriber
     private $userDiscriminator;
 
     /**
-     * @var ContainerInterface
+     * @var ContainerInjector
      */
     private $container;
 
     /**
      * Constructor
      *
-     * @param ContainerInterface $container
+     * @param ContainerInjector $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInjector $container)
     {
         $this->container = $container;
     }
