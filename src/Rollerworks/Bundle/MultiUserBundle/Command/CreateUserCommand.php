@@ -1,0 +1,66 @@
+<?php
+
+/*
+ * This file is part of the RollerworksMultiUserBundle package.
+ *
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Rollerworks\Bundle\MultiUserBundle\Command;
+
+use FOS\UserBundle\Command\CreateUserCommand as BaseCreateUserCommand;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * @author Sebastiaan Stok <s.stok@rollerscapes.net>
+ */
+class CreateUserCommand extends BaseCreateUserCommand
+{
+    protected function configure()
+    {
+        parent::configure();
+
+        $definition = $this->getDefinition();
+        $definition->addArgument(
+            new InputArgument('user-system', InputArgument::REQUIRED, 'The user-system to use')
+        );
+
+        $this
+            ->setHelp(<<<EOT
+The <info>fos:user:create</info> command creates a user:
+
+  <info>php app/console fos:user:create --user-system=acme_user matthieu</info>
+
+This interactive shell will ask you for an email and then a password.
+
+You can alternatively specify the email and password as the second and third arguments:
+
+  <info>php app/console fos:user:create --user-system=acme_user matthieu matthieu@example.com mypassword</info>
+
+You can create a super admin via the super-admin flag:
+
+  <info>php app/console fos:user:create admin --super-admin</info>
+
+You can create an inactive user (will not be able to log in):
+
+  <info>php app/console fos:user:create thibault --inactive</info>
+
+EOT
+            );
+    }
+
+    protected function interact(InputInterface $input, OutputInterface $output)
+    {
+        /** @var UserDiscriminatorInterface $discriminator */
+        $discriminator = $this->getContainer()->get('rollerworks_multi_user.user_discriminator');
+        $discriminator->setCurrentUser($input->getArgument('user-system'));
+
+        parent::interact($input, $output);
+    }
+}

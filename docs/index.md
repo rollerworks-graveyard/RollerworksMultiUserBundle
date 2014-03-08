@@ -19,7 +19,12 @@ You need at least Symfony 2.2, FOSUserBundle 2.0 and the Composer package manage
 Most of the configuration and creating of classes is kept in sync with the FOSUserBundle,
 so if something is not described in detail here you can read the FOSUserBundle documentation as reference.
 
-**Note:** Using the app/console commands of the FOSUserBundle is currently not supported.
+Original commands can be used, but require you also include the '--user-system' parameter,
+to indicate which user-system must be used.
+
+```bash
+php app/console fos:user:create --user-system=acme_user matthieu
+```
 
 **Note: Each user-system must have its own Form types to functional properly,
   you can not reuse form types for multiple user-systems.**

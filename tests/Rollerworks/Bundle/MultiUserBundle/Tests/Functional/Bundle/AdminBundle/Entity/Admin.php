@@ -26,4 +26,9 @@ class Admin extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
 }
