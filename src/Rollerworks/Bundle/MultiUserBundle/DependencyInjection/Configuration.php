@@ -110,13 +110,16 @@ class Configuration implements ConfigurationInterface
         $this->addTemplateSection($rootNode);
 
         $availableSections = array('profile', 'change_password', 'registration', 'resetting', 'group');
+        $camelize = function ($match) {
+            return ('.' === $match[1] ? '_' : '') . strtoupper($match[2]);
+        };
 
         foreach ($enableServices as $serviceName) {
             if (!in_array($serviceName, $availableSections)) {
                 throw new \InvalidArgumentException(sprintf('Unable to add unknown configuration-section "%s".', $serviceName));
             }
 
-            $methodName = 'add' . preg_replace_callback('/(^|_|\.)+(.)/', function ($match) { return ('.' === $match[1] ? '_' : '').strtoupper($match[2]); }, $serviceName) . 'Section';
+            $methodName = 'add' . preg_replace_callback('/(^|_|\.)+(.)/', $camelize, $serviceName) . 'Section';
             call_user_func(array($this, $methodName), $rootNode);
         }
 
