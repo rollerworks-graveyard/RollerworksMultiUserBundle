@@ -54,6 +54,9 @@ class AcmeUserExtension extends Extension
                 ),
 
                 'registration' => array(
+                    'confirmation' => array(
+                        'enabled' => true,
+                    ),
                     'template' => array(
                         'register' => 'AcmeUserBundle:Registration:register.html.twig',
                         'check_email' => 'AcmeUserBundle:Registration:checkEmail.html.twig',
