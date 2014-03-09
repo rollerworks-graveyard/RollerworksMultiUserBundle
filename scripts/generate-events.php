@@ -21,14 +21,14 @@ $loader = require_once __DIR__ . '/../vendor/autoload.php';
 $eventsClass = new \ReflectionClass('FOS\UserBundle\FOSUserEvents');
 $events = $eventsClass->getConstants();
 
-function underscoreToCamelCase($string)
+$underscoreToCamelCase = function ($string)
 {
     $string = strtolower($string);
 
     return preg_replace_callback('/_([a-z])/', function ($c) {
         return strtoupper($c[1]);
     }, $string);
-}
+};
 
 $date = date('Y-m-d');
 
@@ -41,7 +41,7 @@ EOT;
 
 foreach ($events as $event => $eventName) {
 
-    $event = ucfirst(underscoreToCamelCase($event));
+    $event = ucfirst($underscoreToCamelCase($event));
     $eventName = substr($eventName, 8);
 
 echo <<<EOT
@@ -71,7 +71,7 @@ EOT;
 
 foreach ($events as $event => $eventName) {
 
-    $eventFunc = ucfirst(underscoreToCamelCase($event));
+    $eventFunc = ucfirst($underscoreToCamelCase($event));
 
 echo <<<EOT
             FOSUserEvents::$event => 'dispatch$eventFunc',
