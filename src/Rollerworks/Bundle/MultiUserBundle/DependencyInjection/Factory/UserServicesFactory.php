@@ -506,6 +506,7 @@ class UserServicesFactory
         }
 
         $container->setParameter($this->servicePrefix . '.registration.confirmation.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
+        $user->addMethodCall('setConfig', array('registering.confirmation.enabled', isset($config['confirmation']) ? $config['confirmation']['enabled'] : false));
 
         $this->remapParametersNamespaces($config, $container, array(
             'confirmation' => $this->servicePrefix . '.registration.confirmation.%s',

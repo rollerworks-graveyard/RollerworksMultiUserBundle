@@ -16,6 +16,15 @@
             <argument type="service" id="rollerworks_multi_user.user_discriminator" />
         </service>
 
+        <service id="rollerworks_multi_user.listener.email_confirmation" class="Rollerworks\Bundle\MultiUserBundle\EventListener\EmailConfirmationListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="rollerworks_multi_user.mailer.delegating" />
+            <argument type="service" id="fos_user.util.token_generator" />
+            <argument type="service" id="router" />
+            <argument type="service" id="session" />
+            <argument type="service" id="rollerworks_multi_user.user_discriminator" />
+        </service>
+
         <service id="rollerworks_multi_user.listener.resetting" class="Rollerworks\Bundle\MultiUserBundle\EventListener\ResettingListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="router" />

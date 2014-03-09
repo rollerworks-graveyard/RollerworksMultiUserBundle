@@ -29,7 +29,7 @@ class DelegatingMailer implements MailerInterface
 
     public function sendConfirmationEmailMessage(UserInterface $user)
     {
-        $this->container->get($this->userDiscriminator->getCurrentUserConfig()->getServicePrefix() . '.mailer')->sendConfirmation($user);
+        $this->container->get($this->userDiscriminator->getCurrentUserConfig()->getServicePrefix() . '.mailer')->sendConfirmationEmailMessage($user);
     }
 
     public function sendResettingEmailMessage(UserInterface $user)

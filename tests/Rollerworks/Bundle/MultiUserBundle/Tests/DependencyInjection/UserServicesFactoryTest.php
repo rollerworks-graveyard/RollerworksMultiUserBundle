@@ -463,6 +463,66 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->containerBuilder->hasAlias('acme_user.user_manager'));
         $this->assertTrue($this->containerBuilder->hasAlias('acme_user.group_manager'));
+        $this->assertTrue($this->containerBuilder->hasDefinition('rollerworks_multi_user.user_system.acme'));
+
+        $def = $this->containerBuilder->getDefinition('acme_user.user_manager.default');
+        $this->assertEquals(new Reference('rollerworks_multi_user.acme_user.model_manager'), $def->getArgument(3));
+        $this->assertEquals('%acme_user.model.user.class%', $def->getArgument(4));
+
+        $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
+        $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
+        $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
+        $this->assertUserConfigEquals($def, 'registering.confirmation.enabled', false, true);
+
+        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
+            $this->assertTrue($def->isLazy());
+        }
+
+        $expected = array(
+            'class' => 'FOS\UserBundle\Form\Type\RegistrationFormType',
+            'type' => 'fos_user_registration',
+            'name' => 'fos_user_registration_form',
+            'validation_groups' => array('Registration', 'Default'),
+        );
+
+        $this->assertFormDefinitionEqual($expected, 'acme_user', 'registration', $def);
+
+        $expected = array(
+            'register' => 'RollerworksMultiUserBundle:UserBundle/Registration:register.html.twig',
+            'check_email' => 'RollerworksMultiUserBundle:UserBundle/Registration:checkEmail.html.twig',
+        );
+
+        foreach ($expected as $name => $resource) {
+            $this->assertTemplateConfigEqual($resource, 'acme_user', 'registration', $name, $def);
+        }
+    }
+
+    public function testRegistrationConfigurationWithConfirmationEnabled()
+    {
+        $factory = new UserServicesFactory($this->containerBuilder);
+
+        $config = array(
+            array(
+                'path' => '/',
+                'user_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User',
+                'services_prefix' => 'acme_user',
+                'routes_prefix' => 'acme_user',
+
+                'profile' => false,
+                'resetting' => false,
+                'change_password' => false,
+                'registration' => array(
+                    'confirmation' => array(
+                        'enabled' => true,
+                    )
+                ),
+            )
+        );
+
+        $factory->create('acme', $config);
+
+        $this->assertTrue($this->containerBuilder->hasAlias('acme_user.user_manager'));
+        $this->assertTrue($this->containerBuilder->hasAlias('acme_user.group_manager'));
 
         $this->assertTrue($this->containerBuilder->hasDefinition('rollerworks_multi_user.user_system.acme'));
 
@@ -473,6 +533,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
+        $this->assertUserConfigEquals($def, 'registering.confirmation.enabled', true);
 
         if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
             $this->assertTrue($def->isLazy());
@@ -702,6 +763,28 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
             array('mongodb', 'doctrine_mongodb', 'Doctrine\ODM\MongoDB\DocumentManager'),
             array('couchdb', 'doctrine_couchdb', 'Doctrine\ODM\CouchDB\DocumentManager'),
         );
+    }
+
+    protected function assertUserConfigEquals(Definition $definition, $configKey, $expectedValue, $allowMissing = false)
+    {
+        $this->assertTrue($definition->hasMethodCall('setConfig'));
+
+        $found = false;
+
+        foreach ($definition->getMethodCalls() as $call) {
+            if ('setConfig' !== $call[0] || $configKey !== $call[1][0]) {
+                continue;
+            }
+
+            $this->assertEquals($expectedValue, $call[1][1]);
+            $found = true;
+
+            // Don't stop the loop the ensure no configuration is overwritten
+        }
+
+        if (!$allowMissing && !$found) {
+            $this->fail(sprintf('No configuration was found with key "%s".', $configKey));
+        }
     }
 
     protected function assertFormDefinitionEqual($expected, $servicePrefix, $type, Definition $userSystem = null)
