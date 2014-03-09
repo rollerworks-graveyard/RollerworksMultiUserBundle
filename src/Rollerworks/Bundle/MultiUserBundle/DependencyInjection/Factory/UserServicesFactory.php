@@ -368,7 +368,7 @@ class UserServicesFactory
 
         if ($listenerService) {
             $listenerService->setArguments(array(
-                new Reference('service_container'),
+                new Reference('rollerworks_multi_user.service_container_injector'),
             ));
 
             $listenerService->setPublic(false);
