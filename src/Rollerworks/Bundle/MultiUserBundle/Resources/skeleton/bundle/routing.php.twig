@@ -1,0 +1,28 @@
+<?php
+
+{% block use_statements %}
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Route;
+{% endblock use_statements %}
+
+{% block definition %}
+$collection = new RouteCollection();
+{% endblock definition %}
+
+{% block body %}
+{% for name, route in routes %}
+
+$collection->add('{{ extension_alias }}_{{ name }}', new Route('{{ route.path }}', array(
+    '_controller' => '{{ route.controller_action }}'
+)
+{% if route.method is not empty %}
+    , array(), array(), '', array(), array('{{ route.method|join("', '") }}')
+{% endif %}
+));
+{% endfor %}
+
+{% endblock body %}
+
+{% block return %}
+return $collection;
+{% endblock return %}

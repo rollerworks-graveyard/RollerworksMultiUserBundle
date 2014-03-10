@@ -16,6 +16,7 @@ Features include:
 
 - Fully compatible with existing bundles that already use the FOSUserBundle
 - Unlimited user-systems, each with there own configuration, storage engine, templates, forms, etc.
+- Easy generation of new user-systems
 - Unit tested
 
 **Caution:** This bundle is developed in sync with [FOSUserBundle's repository](https://github.com/FriendsOfSymfony/FOSUserBundle).
