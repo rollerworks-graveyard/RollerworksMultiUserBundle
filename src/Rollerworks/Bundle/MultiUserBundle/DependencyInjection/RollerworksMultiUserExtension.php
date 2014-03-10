@@ -57,6 +57,7 @@ class RollerworksMultiUserExtension extends Extension implements PrependExtensio
         $fosConfig = array(
             'db_driver' => $config['db_driver'], // Pass the driver until we have a proper fix for issue multiple drivers
             'use_listener' => false,
+            'use_flash_notifications' => $config['use_flash_notifications'],
             'firewall_name' => 'dummy',
             'user_class' => 'Acme\UserBundle\Entity\User',
             'from_email' => $config['from_email'],

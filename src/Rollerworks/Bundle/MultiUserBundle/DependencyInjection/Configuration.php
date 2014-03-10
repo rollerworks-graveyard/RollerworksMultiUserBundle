@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->booleanNode('use_listener')->defaultTrue()->end()
+                ->booleanNode('use_flash_notifications')->defaultTrue()->end()
                 ->arrayNode('from_email')
                     ->addDefaultsIfNotSet()
                     ->children()
