@@ -6,7 +6,7 @@ See [Overriding Default FOSUserBundle Forms](https://github.com/FriendsOfSymfony
 
 **Note:**
 
-> Each user-system must have its own form-types, you can not reuse types
+> Each user-system must have its own form-types, you can not reuse the form types of UserA for UserB
 > as a form form-type can only be registered once, make sure `getName()` returns a unique name.
 
 Replace the `%fos_user.model.user.class%` with `%[service-prefix].model.user.class%` to get the correct model class.
@@ -55,4 +55,5 @@ class AcmeUserExtension extends Extension
 
 This will automatically register the `acme_user.registration.form.type` service with the correct user class.
 
-*Caution:* the `type` configuration is always required and must be the same as the returned value of the Form's `getName()` method.
+*Caution:* the `type` configuration is always required and must be the same as the returned value
+of the Form's `getName()` method.

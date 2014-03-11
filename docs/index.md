@@ -12,40 +12,46 @@ Because its build on-top of the FOSUserBundle, you don't have to change existing
 You need at least Symfony 2.2, FOSUserBundle 2.0 and the Composer package manager.
 
 > Using at least Symfony 2.3 and installing the symfony/proxy-manager-bridge is
-> highly recommended so UserSystems can be lazy loaded then.
+> highly recommended, so each UserSystem can be lazy loaded.
 >
 > http://symfony.com/doc/current/components/dependency_injection/lazy_services.html
 
 Most of the configuration and creating of classes is kept in sync with the FOSUserBundle,
 so if something is not described in detail here you can read the FOSUserBundle documentation as reference.
 
-Original commands can be used, but require you also include the '--user-system' parameter,
+The original commands can be used as normal, but require you also include the '--user-system' parameter,
 to indicate which user-system must be used.
+
+*The user-system name is the first parameter you pass to UserServicesFactory::create()*
 
 ```bash
 php app/console fos:user:create --user-system=acme_user matthieu
 ```
 
-**Note: Each user-system must have its own Form types to functional properly,
-  you can not reuse form types for multiple user-systems.**
+**Note:** Each user-system is required to have its own Form types to functional properly,
+you can not reuse the form types of UserA for UserB.
 
 ## Working
 
-The system works with a `UserDiscriminator`-service which determines which user-type should be handled,
+The system works with a `UserDiscriminator`-service which determines which user-system should be handled,
 and delegates all handling to actual user-services.
 
-**Note:** The original fos_user service definitions and configuration are overwritten and automatically set
-witch delegated versions, setting the fos_user configuration will break this bundle.
+**Note:** The original fos_user service definitions and configuration are overwritten and automatically
+configured for multi user support, setting the fos_user configuration manually will break this bundle.
 
-> Finding the correct user is done using the RequestMatcher and session key (for speed),
-> but you can also choose to build your own discriminator service.
+> Finding the correct user is done using the AuthenticationListener and RequestListener services.
+> You can also choose to build your own discriminator service, just be care full.
+
+A user-system is also referred to as a 'user-bundle'.
 
 ## Installation
 
 **Note:**
 
-> As this bundle allows to create, multiple user-systems, you can repeat the steps from 3. to create as many as you need.
-> And remember that each user-system must have its own name, firewall, request-matcher to cause any conflicts.
+> The RollerworksMultiUserBundle allows you to create as many user-systems as you need,
+> just repeat all the steps described in section 3 for each system you want to create.
+>
+> But. Remember that each user-system must have its own: name, firewall and request-matcher to not cause any conflict.
 
 1. Download RollerworksMultiUserBundle
 2. Enable the Bundle
@@ -81,7 +87,10 @@ Composer will install the bundle to your project's `vendor/rollerworks` director
 
 **Caution:** Make sure FOSUserBundle always comes before the RollerworksMultiUserBundle.
 
-Enable the bundle in the kernel:
+**Note:** If you want to use the SonataUserBundle make sure to NOT set the FOSUserBundle as parent,
+every bundle can only have one parent.
+
+Enable the bundles in the kernel:
 
 ``` php
 <?php
@@ -99,10 +108,13 @@ public function registerBundles()
 
 ### 3: Create your UserSystem(s)
 
-To create your user-system, first create a new bundle skeleton.
+To create your new user-system, first create a new bundle skeleton.
 
-> There are some plans on providing a app/console command to easily create a new user-bundle skeleton,
-> with all the routing and such already configured.
+**Note:** Using this method requires the SensioGeneratorBundle to be installed and enabled,
+which is the case for the symfony-standard edition.
+
+> There are some plans on providing an app/console command to easily create a new user-bundle skeleton,
+> with all the user-sys, routing information and form types already configured.
 
 ``` bash
 $ php app/console generate:bundle
@@ -111,9 +123,10 @@ $ php app/console generate:bundle
 See: [Generating a New Bundle Skeleton](http://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_bundle.html)
     for more details on creating a new bundle skeleton.
 
-For this example we will be using `AcmeUserBundle` as bundle name, in the `Acme\UserBundle` namespace with YAML as configuration format.
+For this example we'll be using `AcmeUserBundle` as our bundle name, which will be planed in the `Acme\UserBundle` namespace
+with YAML as configuration format.
 
-All the routing path's will be prefixed with 'user/' for explicitness, you can decide not to use them or use your own.
+All routing path's will be prefixed with 'user/' for explicitness, you can decide not to use them or use your own.
 
 #### 3.1: Create your User class
 
@@ -121,13 +134,22 @@ See [FOSUserBundle - Create your User class](https://github.com/FriendsOfSymfony
 
 #### 3.2: Register the user-system
 
-Registering the system happens only with enabling your user bundle.
+**Note.** Activating the new user-system requires it to be enabled in the AppKernel.
 
-To make registering all the service a lot easier you can use the `UserServicesFactory`,
-which will then register all services for you.
+To make registering all services for the user-system as simple as possible,
+the RollerworksMultiUserBundle comes with a handy Dependency Injector helper
+named the `UserServicesFactory`. Which will register all the internal services for you.
+
+`UserServicesFactory::create()` will register a new user-system in the `ContainerBuilder` for you.
+
+The first parameter is the name of the user-system, the second is the configuration which internally
+is normalized by the Symfony Config component. In the next section you will learn how you can use this
+to make your user-bundle more configurable.
+
+> You can also choose to add more then one user-system in your bundle,
+> but from a separation perspective its better to only have one user-system per bundle.
 
 ```php
-
 <?php
 // src/Acme/UserBundle/DependencyInjection/AcmeUserExtension.php
 
@@ -142,29 +164,35 @@ class AcmeUserExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $factory = new UserServicesFactory($container);
+
         $factory->create('acme_user', array(
             array(
                 'path' => '^/user',
                 'host' => null,
+                'request_matcher' => null,
 
+                // When not set these will inherit from the user-system name provided above
                 'services_prefix' => 'acme_user',
                 'routes_prefix' => 'acme_user',
 
-                'db_driver' => 'orm',
+                'db_driver' => 'orm', // can be either: orm, mongodb, couchdb or custom (Propel is not supported)
                 'model_manager_name' => 'default',
 
+                // When not set these will inherit from the system wide configuration
                 'from_email' => array(
                     'address' => 'info@example.com',
                     'sender_name' => 'webmaster',
                 ),
 
                 'user_class' => 'Acme\UserBundle\Entity\User',
-                'firewall_name' => 'user',
+                'firewall_name' => 'user', // this must equal to the firewall-name used for this section
 
+                // Optional can be empty
                 'group' => array(
                     'group_class' => 'Acme\UserBundle\Entity\Group'
                 ),
 
+                // Optional can be empty
                 'profile' => array(
                     'template' => array(
                         'edit' => 'AcmeUserBundle:Profile:edit.html.twig',
@@ -177,6 +205,7 @@ class AcmeUserExtension extends Extension
                     ),
                 ),
 
+                // Optional can be empty
                 'registration' => array(
                     'template' => array(
                         'register' => 'AcmeUserBundle:Registration:register.html.twig',
@@ -189,6 +218,7 @@ class AcmeUserExtension extends Extension
                     ),
                 ),
 
+                // Optional can be empty
                 'resetting' => array(
                     'template' => array(
                         'check_email' => 'AcmeUserBundle:Resetting:checkEmail.html.twig',
@@ -199,6 +229,7 @@ class AcmeUserExtension extends Extension
                     )
                 ),
 
+                // Optional can be empty
                 'change_password' => array(
                     'template' => array(
                         'change_password' => 'AcmeUserBundle:changePassword:changePassword.html.twig',
@@ -210,33 +241,24 @@ class AcmeUserExtension extends Extension
 }
 ```
 
-`UserServicesFactory::create()` will register a new user-system in the `ContainerBuilder` for you.
-
-The first parameter is the name of the user-system, the second is the configuration which internally
-is normalized by the Symfony Config component. In the next section will learn how you can use this
-to make your bundle more configurable.
-
-> You can also choose to add more then one user-system in your bundle,
-> but from a separation perspective its better to only use one bundle per user-system.
-
-The configuration above is actually a pretty verbose example, everything except 'user_class' and is 'firewall_name' is optional.
-When 'services_prefix' and 'routes_prefix' are empty they inherit the user-system's name, which is given with the first parameter of `UserServicesFactory::create()`.
-
 **Note:**
 
-> `path` and `host` are used by the UserDiscriminator service for finding the correct user-type.
+> `path` and `host` are used by the `RequestListener` service for finding the correct user-type.
 > You can either set only a path or host, or both.
-> Or you can choose to use your own matcher-service by using the `request_matcher`, and giving it the service-id.
+> Or you can choose to use your own matcher-service by setting the `request_matcher`, and giving it the service-id.
 >
 > A request-matcher must always implement the `Symfony\Component\HttpFoundation\RequestMatcherInterface`.
 
-**Caution:** Never set the template namespace to FOSUserBundle or RollerworksMultiUserBundle as that creates a loop-back!
+**Caution:** Never set the template namespace to FOSUserBundle or RollerworksMultiUserBundle as this create a loop-back!
 
-For more details on configuration reference see [FOSUserBundle Configuration Reference](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/configuration_reference.md)
+For more details on the configuration reference see
+[FOSUserBundle Configuration Reference](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/configuration_reference.md)
+for original description.
 
 #### 3.3: Make your bundle configurable
 
-As you don't want to hard-code the configuration in your bundle, you can add the following to make your bundle more configurable.
+As you'd properly don't want to hard-code the configuration of your user-bundle,
+you can use the following to make your bundle more configurable.
 
 ```php
 
@@ -307,16 +329,18 @@ class Configuration implements ConfigurationInterface
     }
 ```
 
-Now you can easily configuring the user-bundle in your `app/config/config.yml` config using the `acme_user` configuration-tree.
+Now you can now easily configure the user-bundle in your `app/config/config.yml`
+config using the `acme_user` configuration-tree.
 
 > You can limit what is configurable by passing an array as second parameter to `UserConfiguration::addUserConfig()`
 > Available values are: 'profile', 'change_password', 'registration', 'resetting', 'group'.
 
-**Tip:** The `UserServicesFactory::create()` will automatically strip any unknown configuration-keys that are passed to it.
+**Note:** The `UserServicesFactory::create()` ignores any unknown configuration-keys that are passed to it, so you don't
+have to worry about passing to much.
 
 ##### Placing the configuration under its own level.
 
-If you don't want to add the user-configuration at root level, use the following.
+If you don't want to add the user-configuration at root level, use the following instead.
 
 ```php
 
@@ -367,20 +391,18 @@ public function registerBundles()
         // ...
         new FOS\UserBundle\FOSUserBundle(),
         new Rollerworks\Bundle\MultiUserBundle\RollerworksMultiUserBundle(),
-
         new Acme\UserBundle\AcmeUserBundle(),
     );
 }
 ```
 
-And if bundle configuration is made possible (see previous sub-section).
+And if bundle configuration is enabled (see previous sub-section: 3.3).
 
 ```yaml
 # app/config/config.yml
 
 acme_user:
     path: "^/user"
-
 ```
 
 #### 3.5: Creating routing files
@@ -440,10 +462,12 @@ Or if you prefer XML:
 
 > In order to use the built-in email functionality (confirmation of the account,
 > resetting of the password), you must activate and configure the SwiftmailerBundle.
+> Or configure your own mailer service.
+
 
 ### 4: Configure your application's security.yml
 
-In order for Symfony's security component to use the user-system, you must
+In order for the Symfony security component to use the user-system, you must
 tell it to do so in the `security.yml` file. The `security.yml` file is where the
 basic security configuration for your application is contained.
 
@@ -466,7 +490,11 @@ security:
 
     firewalls:
         main:
-            pattern: ^/
+            # Pattern should equal the pattern you configured for the bundle
+            pattern: ^/user
+            # Or if you use a custom request_matcher configure that one instead
+            #request_matcher: some.service.id
+
             form_login:
                 provider: acme_user_bundle
                 csrf_provider: form.csrf_provider
@@ -500,13 +528,12 @@ provider service is `acme_user.user_provider.username`.
 
 **Caution:**
 
-> NEVER use `fos_user.username` or `fos_user.username_email` for your user-system, doing so will break the authentication
+> NEVER use `fos_user.username` or `fos_user.username_email` for your user-provider, doing so will break the authentication
 > when the current user-system is changed. Using the user-system's user-provider ensures you always get the correct service.
 
-Next, take a look at and examine the `firewalls` section. Here we have declared a
-firewall named `main`. By specifying `form_login`, you have told the Symfony2
-framework that any time a request is made to this firewall that leads to the
-user needing to authenticate himself, the user will be redirected to a form
+Next, take a look at and examine the `firewalls` section. Here we have declared a firewall named `main`.
+By specifying `form_login`, you have told the Symfony2 framework that any time a request is made to this
+firewall that leads to the user needing to authenticate himself, the user will be redirected to a form
 where he will be able to enter his credentials. It should come as no surprise
 then that you have specified the user provider service we declared earlier as the
 provider for the firewall to use as part of the authentication process.
@@ -537,28 +564,20 @@ security component [documentation](http://symfony.com/doc/current/book/security.
 > your user-system is configured in. This is the same name as you configured for the user-system.
 >
 > And make sure the firewall matching also matches for the corresponding user-system,
-> else the UserDiscriminator-service will not be able to determine the current user-system.
+> else the UserDiscriminator will not be able to determine the current user-system.
 
 ### 5: Configure the RollerworksMultiUserBundle
 
-**Note:** Remember that the original fos_user service definitions and configuration
-are overwritten and automatically set witch delegated versions,
-setting the fos_user configuration will break this bundle.
-
-You don't really have set anything for the RollerworksMultiUserBundle
+You don't have to configure anything for the RollerworksMultiUserBundle
 as most configuration is handled per user-system.
 
 What you properly want to configure is the `from_email` so that any user system
-that has no configured this explicitly will inherit this.
+that has none configured this explicitly, will inherit from this.
 
 ``` yaml
 # app/config/config/config.yml
 
 rollerworks_multi_user:
-
-    # Enable the listeners for the storage engine
-    use_listener: true
-
     from_email:
         address: webmaster@example.com
         sender_name: webmaster
