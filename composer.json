@@ -16,7 +16,7 @@
         "symfony/framework-bundle":     "~2.2",
         "symfony/finder":               "~2.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "rollerworks/sf-container-injector": "1.*@dev"
+        "rollerworks/sf-container-injector": "~1.0"
     },
     "require-dev": {
         "twig/twig":                   "~1.5",
