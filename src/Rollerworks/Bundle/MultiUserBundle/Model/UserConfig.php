@@ -53,8 +53,8 @@ class UserConfig
     /**
      * Set a config.
      *
-     * @param string $name
-     * @param mixed  $value
+     * @param string                       $name
+     * @param string|integer|boolean|array $value
      */
     public function setConfig($name, $value)
     {
@@ -62,10 +62,10 @@ class UserConfig
     }
 
     /**
-     * @param string  $name
-     * @param integer $defaultValue
+     * @param string                       $name
+     * @param string|integer|boolean|array $defaultValue
      *
-     * @return mixed
+     * @return string|integer|boolean|array
      */
     public function getConfig($name, $defaultValue = null)
     {
