@@ -359,9 +359,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = array(
-            'class' => 'FOS\UserBundle\Form\Type\ProfileFormType',
-            'type' => 'fos_user_profile',
-            'name' => 'fos_user_profile_form',
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\ProfileFormType',
+            'type' => 'acme_user_profile',
+            'name' => 'acme_user_profile_form',
             'validation_groups' => array('Profile', 'Default'),
         );
 
@@ -479,9 +479,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = array(
-            'class' => 'FOS\UserBundle\Form\Type\RegistrationFormType',
-            'type' => 'fos_user_registration',
-            'name' => 'fos_user_registration_form',
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\RegistrationFormType',
+            'type' => 'acme_user_registration',
+            'name' => 'acme_user_registration_form',
             'validation_groups' => array('Registration', 'Default'),
         );
 
@@ -540,9 +540,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = array(
-            'class' => 'FOS\UserBundle\Form\Type\RegistrationFormType',
-            'type' => 'fos_user_registration',
-            'name' => 'fos_user_registration_form',
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\RegistrationFormType',
+            'type' => 'acme_user_registration',
+            'name' => 'acme_user_registration_form',
             'validation_groups' => array('Registration', 'Default'),
         );
 
@@ -614,9 +614,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = array(
-            'class' => 'FOS\UserBundle\Form\Type\ResettingFormType',
-            'type' => 'fos_user_resetting',
-            'name' => 'fos_user_resetting_form',
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\ResettingFormType',
+            'type' => 'acme_user_resetting',
+            'name' => 'acme_user_resetting_form',
             'validation_groups' => array('Resetting', 'Default'),
         );
 
@@ -673,9 +673,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = array(
-            'class' => 'FOS\UserBundle\Form\Type\ChangePasswordFormType',
-            'type' => 'fos_user_change_password',
-            'name' => 'fos_user_change_password_form',
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\ChangePasswordFormType',
+            'type' => 'acme_user_change_password',
+            'name' => 'acme_user_change_password_form',
             'validation_groups' => array('ChangePassword', 'Default'),
         );
 
@@ -736,9 +736,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = array(
-            'class' => 'FOS\UserBundle\Form\Type\GroupFormType',
-            'type' => 'fos_user_change_password',
-            'name' => 'fos_user_change_password_form',
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\GroupFormType',
+            'type' => 'acme_user_change_password',
+            'name' => 'acme_user_change_password_form',
             'validation_groups' => array('Registration', 'Default'),
         );
 

@@ -242,6 +242,24 @@ class UserServicesFactory
         ));
     }
 
+    protected function convertFormType(ContainerBuilder $container, $type, array $config, $modelRef = null)
+    {
+        if ('fos_user_' . $type === $config['type'] || 'FOS\\UserBundle\\Form\\Type\\' === substr($config['class'], 0, 25) || 'fos_user_' . $type . '_form' === $config['name']) {
+            $config['type'] = sprintf('%s_%s',  $this->servicePrefix, $type);
+            $config['class'] = 'Rollerworks\\Bundle\\MultiUserBundle\Form\\Type\\' . join('', array_slice(explode('\\', $config['class']), -1));
+            $config['name'] = sprintf('%s_%s_form',  $this->servicePrefix, $type);
+
+            $container->setDefinition(sprintf('%s.%s.form.type', $this->servicePrefix, $type), new Definition($config['class']))
+                ->setTags(array('form.type' => array(array('alias' => $config['type']))))
+                ->addArgument(sprintf('%%%s.model.%s.class%%', $this->servicePrefix, $modelRef))
+                ->addArgument($config['type']);
+
+            $config['class'] = null;
+        }
+
+        return $config;
+    }
+
     /**
      * @param string     $section
      * @param array      $config
@@ -485,6 +503,7 @@ class UserServicesFactory
 
     private function loadProfile(array $config, ContainerBuilder $container, Definition $user)
     {
+        $config['form'] = $this->convertFormType($container, 'profile', $config['form'], 'user');
         $this->createFormService($container, 'profile', $config, $user, 'user');
         $this->setTemplates('profile', $config, $user);
 
@@ -496,6 +515,7 @@ class UserServicesFactory
 
     private function loadRegistration(array $config, ContainerBuilder $container, Definition $user, array $fromEmail)
     {
+        $config['form'] = $this->convertFormType($container, 'registration', $config['form'], 'user');
         $this->createFormService($container, 'registration', $config, $user, 'user');
         $this->setTemplates('registration', $config, $user);
 
@@ -525,6 +545,7 @@ class UserServicesFactory
 
     private function loadChangePassword(array $config, ContainerBuilder $container, Definition $user)
     {
+        $config['form'] = $this->convertFormType($container, 'change_password', $config['form'], 'user');
         $this->createFormService($container, 'change_password', $config, $user, 'user');
         $this->setTemplates('change_password', $config, $user);
 
@@ -536,6 +557,7 @@ class UserServicesFactory
 
     private function loadResetting(array $config, ContainerBuilder $container, Definition $user, array $fromEmail)
     {
+        $config['form'] = $this->convertFormType($container, 'resetting', $config['form'], 'user');
         $this->createFormService($container, 'resetting', $config, $user, 'user');
         $this->setTemplates('resetting', $config, $user);
 
@@ -572,6 +594,7 @@ class UserServicesFactory
             ->setPublic(false);
         }
 
+        $config['form'] = $this->convertFormType($container, 'group', $config['form'], 'group');
         $this->createFormService($container, 'group', $config, $user, 'group');
 
         if (sprintf('%s.group_manager', $this->servicePrefix) !== $config['group_manager']) {

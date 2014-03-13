@@ -72,8 +72,8 @@ class ResettingControllerTest extends WebTestCaseFunctional
         $this->assertEquals($crawler->filter('form')->count(), 1);
 
         $form = $crawler->selectButton('Change password')->form();
-        $form['fos_user_resetting_form[plainPassword][first]'] = 'mySecret0Password';
-        $form['fos_user_resetting_form[plainPassword][second]'] = 'mySecret0Password';
+        $form['acme_admin_resetting_form[plainPassword][first]'] = 'mySecret0Password';
+        $form['acme_admin_resetting_form[plainPassword][second]'] = 'mySecret0Password';
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/admin/profile/'));

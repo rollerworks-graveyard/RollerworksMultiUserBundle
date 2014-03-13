@@ -32,10 +32,10 @@ class RegistrationControllerTest extends WebTestCaseFunctional
         $this->assertEquals($crawler->filter('form')->count(), 1);
 
         $form = $crawler->selectButton('Register')->form();
-        $form['fos_user_registration_form[username]'] = 'dummy-example';
-        $form['fos_user_registration_form[email]'] = 'dummy-example@example.com';
-        $form['fos_user_registration_form[plainPassword][first]'] = 'mySecret0Password';
-        $form['fos_user_registration_form[plainPassword][second]'] = 'mySecret0Password';
+        $form['acme_admin_registration_form[username]'] = 'dummy-example';
+        $form['acme_admin_registration_form[email]'] = 'dummy-example@example.com';
+        $form['acme_admin_registration_form[plainPassword][first]'] = 'mySecret0Password';
+        $form['acme_admin_registration_form[plainPassword][second]'] = 'mySecret0Password';
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/admin/register/confirmed'));
@@ -139,10 +139,10 @@ class RegistrationControllerTest extends WebTestCaseFunctional
         $this->assertEquals($crawler->filter('form')->count(), 1);
 
         $form = $crawler->selectButton('Register')->form();
-        $form['fos_user_registration_form[username]'] = 'dummy-example';
-        $form['fos_user_registration_form[email]'] = 'dummy-example2@example.com';
-        $form['fos_user_registration_form[plainPassword][first]'] = 'mySecret0Password';
-        $form['fos_user_registration_form[plainPassword][second]'] = 'mySecret0Password';
+        $form['acme_admin_registration_form[username]'] = 'dummy-example';
+        $form['acme_admin_registration_form[email]'] = 'dummy-example2@example.com';
+        $form['acme_admin_registration_form[plainPassword][first]'] = 'mySecret0Password';
+        $form['acme_admin_registration_form[plainPassword][second]'] = 'mySecret0Password';
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/admin/register/confirmed'));
