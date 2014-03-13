@@ -29,7 +29,8 @@ php app/console fos:user:create --user-system=acme_user matthieu
 ```
 
 **Note:** Each user-system is required to have its own Form types to functional properly,
-you can not reuse the form types of UserA for UserB.
+you can not reuse the form types of UserA for UserB. If you don't specify anyone explicit
+the system will register the user-system form-types for you.
 
 ## Working
 
@@ -142,6 +143,30 @@ named the `UserServicesFactory`. Which will register all the internal services f
 
 `UserServicesFactory::create()` will register a new user-system in the `ContainerBuilder` for you.
 
+And the `UserServicesFactory::create()` will also register the form-types you need,
+any form-type/name/class that belongs to the FOSUserBundle will be converted to an ready
+to use form-type. Remember form types and names will start the service-prefix of the user-system.
+
+```
+'form' => array(
+    'type' => 'fos_user_profile',
+    'class' => 'FOS\UserBundle\Form\Type\ProfileFormType',
+    'name' => 'fos_user_profile_form',
+),
+```
+
+Will internally get converted to an 'acme_user_profile' form-type service definition.
+Using the `Rollerworks\Bundle\MultiUserBundle\Form\Type\ProfileFormType` as class for
+the service definition.
+
+But of course you can also use your own form classes, see [Overriding Forms](overriding_forms.md)
+for more information.
+
+**Note:**
+
+> You should not extend from the `Rollerworks\Bundle\MultiUserBundle\Form\Type\\` namespace.
+> These form classes are only meant to be used and registered by the RollerworksMultiUserBundle.
+
 The first parameter is the name of the user-system, the second is the configuration which internally
 is normalized by the Symfony Config component. In the next section you will learn how you can use this
 to make your user-bundle more configurable.
@@ -199,9 +224,9 @@ class AcmeUserExtension extends Extension
                         'show' => 'AcmeUserBundle:Profile:show.html.twig',
                     ),
                     'form' => array(
-                        'type' => 'acme_user_profile',
-                        'class' => 'Acme\UserBundle\Form\Type\ProfileFormType',
-                        'name' => 'acme_user_profile_form',
+                        'type' => 'fos_user_profile',
+                        'class' => 'FOS\UserBundle\Form\Type\ProfileFormType',
+                        'name' => 'fos_user_profile_form',
                     ),
                 ),
 
@@ -212,9 +237,9 @@ class AcmeUserExtension extends Extension
                         'check_email' => 'AcmeUserBundle:Registration:checkEmail.html.twig',
                     ),
                     'form' => array(
-                        'type' => 'acme_user_registration',
-                        'class' => 'Acme\UserBundle\Form\Type\RegistrationFormType',
-                        'name' => 'acme_user_registration_form',
+                        'type' => 'fos_user_registration',
+                        'class' => 'FOS\UserBundle\Form\Type\RegistrationFormType',
+                        'name' => 'fos_user_registration_form',
                     ),
                 ),
 
