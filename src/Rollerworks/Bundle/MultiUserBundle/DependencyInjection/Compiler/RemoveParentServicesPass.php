@@ -20,6 +20,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  * By making them abstract they are removed and prevent any conflict or container bloat.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * @codeCoverageIgnore
  */
 class RemoveParentServicesPass implements CompilerPassInterface
 {

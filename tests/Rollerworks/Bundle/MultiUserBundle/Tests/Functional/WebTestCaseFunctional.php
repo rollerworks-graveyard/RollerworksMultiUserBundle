@@ -61,4 +61,24 @@ abstract class WebTestCaseFunctional extends WebTestCase
 
         return $client;
     }
+
+    protected function createUser($userSys, $username, $email = 'test@example.com', $password = 'very-not-secure')
+    {
+        $container = static::$kernel->getContainer();
+        $userManager = $container->get($userSys . '.user_manager');
+
+        $user = $userManager->createUser();
+        $user->setEmail($email);
+        $user->setUsername($username);
+        $user->setPlainPassword($password);
+        $user->setEnabled(true);
+
+        if (false !== strpos($userSys, 'admin')) {
+            $user->addRole('ROLE_ADMIN');
+        }
+
+        $userManager->updateUser($user);
+
+        return $user;
+    }
 }

@@ -26,21 +26,15 @@ security:
 
         admin:
             pattern: ^/admin
-            form_login:
+            http_basic:
                 provider: acme_adminbundle
-                csrf_provider: form.csrf_provider
-                login_path: /admin/login
-                check_path: null
             logout:       true
             anonymous:    true
 
         user:
             pattern: ^/user
-            form_login:
+            http_basic:
                 provider: acme_userbundle
-                csrf_provider: form.csrf_provider
-                login_path: /user/login
-                check_path: null
             logout:       true
             anonymous:    true
 
