@@ -26,14 +26,6 @@ abstract class WebTestCaseFunctional extends WebTestCase
 
     protected function tearDown()
     {
-        if (static::$kernel && static::$kernel->getContainer()) {
-            $em = static::$kernel->getContainer()->get('doctrine.orm.default_entity_manager');
-
-            // Initialize the database
-            $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
-            $schemaTool->dropDatabase();
-        }
-
         parent::tearDown();
 
         self::$dbIsSetUp = false;
@@ -54,6 +46,7 @@ abstract class WebTestCaseFunctional extends WebTestCase
 
             // Initialize the database
             $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
+            $schemaTool->dropDatabase();
             $schemaTool->updateSchema($em->getMetadataFactory()->getAllMetadata(), false);
 
             self::$dbIsSetUp = true;
