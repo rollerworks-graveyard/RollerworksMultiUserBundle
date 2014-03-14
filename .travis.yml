@@ -6,15 +6,16 @@ env:
     - SYMFONY_VERSION="2.4.*"
     - SYMFONY_VERSION="2.5.*"
 
-# 'symfony/templating' is a hack for https://github.com/symfony/symfony/pull/8280 resulting in method access mismatch
 # We only install Mongo to ensure the container compiles properly with multiple db-drivers
 before_script:
+    - mkdir -p build/logs
     - echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - COMPOSER_ROOT_VERSION=dev-master
     - composer self-update
     - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
     - composer require doctrine/mongodb-odm:"1.0.*@dev" --no-update
     - composer require doctrine/mongodb-odm-bundle:"3.0.*@dev" --no-update
+    - composer require satooshi/php-coveralls:"dev-master" --no-update
     - composer install --dev
 
 php:
@@ -22,8 +23,9 @@ php:
   - 5.4
   - 5.5
 
-script: phpunit --configuration phpunit.xml.dist --exclude-group "" --coverage-clover=coverage.clover
+script: phpunit --configuration phpunit.xml.dist --exclude-group "" --coverage-clover build/logs/clover.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+  - bin/coveralls
