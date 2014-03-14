@@ -80,7 +80,7 @@ class AcmeUserExtension extends Extension
 
                 'change_password' => array(
                     'template' => array(
-                        'change_password' => 'AcmeUserBundle:changePassword:changePassword.html.twig',
+                        'change_password' => 'AcmeUserBundle:ChangePassword:changePassword.html.twig',
                     )
                 ),
             )

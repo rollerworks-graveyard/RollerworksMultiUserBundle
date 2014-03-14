@@ -65,7 +65,7 @@ class AcmeAdminExtension extends Extension
 
                 'change_password' => array(
                     'template' => array(
-                        'change_password' => 'AcmeAdminBundle:changePassword:changePassword.html.twig',
+                        'change_password' => 'AcmeAdminBundle:ChangePassword:changePassword.html.twig',
                     )
                 ),
             )

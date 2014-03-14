@@ -257,7 +257,7 @@ class AcmeUserExtension extends Extension
                 // Optional can be empty
                 'change_password' => array(
                     'template' => array(
-                        'change_password' => 'AcmeUserBundle:changePassword:changePassword.html.twig',
+                        'change_password' => 'AcmeUserBundle:ChangePassword:changePassword.html.twig',
                     )
                 ),
             )
