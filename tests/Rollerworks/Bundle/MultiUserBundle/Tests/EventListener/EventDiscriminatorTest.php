@@ -40,13 +40,8 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
             ->method('getCurrentUser')
             ->will($this->returnValue('acme_user'));
 
-        $subscriber = $this->getMock('Rollerworks\Bundle\MultiUserBundle\Tests\EventListener\MyEventSubscriber');
-        $subscriber->staticExpects($this->atLeastOnce())
-            ->method('getSubscribedEvents')
-            ->will($this->returnValue(array($eventName => 'myFunc')));
-
         $my = $this;
-
+        $subscriber = $this->getMock('Rollerworks\Bundle\MultiUserBundle\Tests\EventListener\MyEventSubscriber');
         $subscriber->expects($this->once())
             ->method('myFunc')
             ->with(
@@ -58,7 +53,7 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
             }));
 
         $this->eventDispatcher->addSubscriber(new EventDiscriminator($this->userDiscriminator, $this->eventDispatcher));
-        $this->eventDispatcher->addSubscriber($subscriber);
+        $this->eventDispatcher->addListener($eventName, array($subscriber, 'myFunc'));
         $this->eventDispatcher->dispatch($fosEvent, new Event($method));
     }
 
@@ -72,14 +67,10 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('acme_admin'));
 
         $subscriber = $this->getMock('Rollerworks\Bundle\MultiUserBundle\Tests\EventListener\MyEventSubscriber');
-        $subscriber->staticExpects($this->atLeastOnce())
-            ->method('getSubscribedEvents')
-            ->will($this->returnValue(array($eventName => 'myFunc')));
-
         $subscriber->expects($this->never())->method('myFunc');
 
         $this->eventDispatcher->addSubscriber(new EventDiscriminator($this->userDiscriminator, $this->eventDispatcher));
-        $this->eventDispatcher->addSubscriber($subscriber);
+        $this->eventDispatcher->addListener($eventName, array($subscriber, 'myFunc'));
         $this->eventDispatcher->dispatch($fosEvent, new Event($method));
     }
 
@@ -89,14 +80,10 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
     public function testDoesNotDispatcherWhenNoUserSysIsActive($fosEvent, $method, $eventName)
     {
         $subscriber = $this->getMock('Rollerworks\Bundle\MultiUserBundle\Tests\EventListener\MyEventSubscriber');
-        $subscriber->staticExpects($this->atLeastOnce())
-            ->method('getSubscribedEvents')
-            ->will($this->returnValue(array($eventName => 'myFunc')));
-
         $subscriber->expects($this->never())->method('myFunc');
 
         $this->eventDispatcher->addSubscriber(new EventDiscriminator($this->userDiscriminator, $this->eventDispatcher));
-        $this->eventDispatcher->addSubscriber($subscriber);
+        $this->eventDispatcher->addListener($eventName, array($subscriber, 'myFunc'));
         $this->eventDispatcher->dispatch($fosEvent, new Event($method));
     }
 
@@ -139,7 +126,7 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-interface MyEventSubscriber extends EventSubscriberInterface
+interface MyEventSubscriber
 {
     public function myFunc($event);
 }
