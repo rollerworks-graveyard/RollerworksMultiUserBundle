@@ -620,5 +620,6 @@ of the system.
 > the documentation of RollerworksMultiUserBundle only describes
 > what is different compared to FOSUserBundle.
 
+- [Overriding Templates](overriding_templates.md)
 - [Overriding Forms](overriding_forms.md)
 - [Using the UserManager and GroupManager](user_manager.md)
