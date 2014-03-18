@@ -338,6 +338,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('engine')->defaultValue('twig')->end()
+                        ->scalarNode('layout')->defaultValue('RollerworksMultiUserBundle::layout.html.twig')->end()
                     ->end()
                 ->end()
             ->end()

@@ -65,7 +65,7 @@ class UserServicesFactory
         $knownOptions = array(
             'db_driver', 'path', 'host', 'request_matcher', 'user_class', 'services_prefix', 'routes_prefix',
             'firewall_name', 'model_manager_name', 'use_username_form_type', 'from_email', 'security', 'profile', 'change_password',
-            'registration', 'resetting', 'group', 'service', 'use_listener',
+            'registration', 'resetting', 'group', 'service', 'use_listener', 'template',
         );
 
         // Strip unknown configuration keys, so that the user-configuration can be kept at root level
@@ -313,6 +313,8 @@ class UserServicesFactory
             ->setPublic(false)
             ->addTag('rollerworks_multi_user.user_system', $tagParams)
         ;
+
+        $def->addMethodCall('setTemplate', array('layout', $config['template']['layout']));
 
         if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
             $def->setLazy(true);

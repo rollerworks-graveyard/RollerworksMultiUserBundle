@@ -1,4 +1,4 @@
-{% extends "RollerworksMultiUserBundle::layout.html.twig" %}
+{% extends rollerworks_multi_user_user().getTemplate("layout") %}
 
 {% block fos_user_content %}
 {% include "RollerworksMultiUserBundle:UserBundle/Group:new_content.html.twig" %}
