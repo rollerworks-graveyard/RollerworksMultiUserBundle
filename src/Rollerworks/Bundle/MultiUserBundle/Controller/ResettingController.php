@@ -47,7 +47,7 @@ class ResettingController extends BaseResettingController
             return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.'.$this->getEngine(), array('invalid_username' => $username));
         }
 
-        if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+        if ($user->isPasswordRequestNonExpired($userDiscriminator->getCurrentUserConfig()->getConfig('resetting.token_ttl'))) {
             return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
         }
 
