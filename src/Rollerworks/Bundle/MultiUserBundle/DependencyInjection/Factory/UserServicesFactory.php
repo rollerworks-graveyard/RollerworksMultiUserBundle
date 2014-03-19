@@ -50,7 +50,7 @@ class UserServicesFactory
 
             $node = $configTree->root('user');
             $configuration = new Configuration();
-            $configuration->addUserConfig($node);
+            $configuration->addUserSysConfig($node);
 
             self::$configTree = $configTree;
         }
