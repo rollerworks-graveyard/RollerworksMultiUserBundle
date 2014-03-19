@@ -301,7 +301,7 @@ class AcmeUserExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $config);
 
         $factory = new UserServicesFactory($container);
         $factory->create('acme_user', array(
