@@ -142,7 +142,7 @@ class UserServicesFactory
 
         $this->ensureParameterSet(sprintf('%s.registration.confirmation.email.template', $this->servicePrefix), 'Please configure registration properly');
         $this->ensureParameterSet(sprintf('%s.resetting.email.template', $this->servicePrefix), 'Please configure resetting properly');
-        $this->ensureParameterSet(sprintf('%s.registration.confirmation.email.from_email', $this->servicePrefix), $config['from_email']);
+        $this->ensureParameterSet(sprintf('%s.registration.confirmation.from_email', $this->servicePrefix), $config['from_email']);
         $this->ensureParameterSet(sprintf('%s.resetting.email.from_email', $this->servicePrefix), $config['from_email']);
 
         if ('db_driver' !== $config['db_driver']) {
