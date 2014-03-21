@@ -357,8 +357,33 @@ class Configuration implements ConfigurationInterface
 Now you can now easily configure the user-bundle in your `app/config/config.yml`
 config using the `acme_user` configuration-tree.
 
-> You can limit what is configurable by passing an array as second parameter to `UserConfiguration::addUserConfig()`
-> Available values are: 'profile', 'change_password', 'registration', 'resetting', 'group'.
+You can limit what is configurable by passing a bitmask as second parameter to `UserConfiguration::addUserConfig()`
+
+Available constants of the `Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Configuration` class are:
+
+* CONFIG_SECTION_PROFILE
+* CONFIG_SECTION_CHANGE_PASSWORD
+* CONFIG_SECTION_REGISTRATION
+* CONFIG_SECTION_RESETTING
+* CONFIG_SECTION_GROUP
+* CONFIG_SECTION_SECURITY
+
+* CONFIG_DB_DRIVER
+* CONFIG_REQUEST_MATCHER
+* CONFIG_USER_CLASS
+
+* CONFIG_ALL
+
+To enable everything (which is the default) use `Configuration::CONFIG_ALL`.
+
+To remove what is configurable, use the `^` operator, `Configuration::CONFIG_ALL ^ Configuration::CONFIG_SECTION_GROUP`
+will allow everything but the Group configuration.
+
+The other way around is to define explicitly with `|`.
+
+`Configuration::CONFIG_SECTION_CHANGE_PASSWORD | Configuration::CONFIG_SECTION_PROFILE`
+
+Will only enable the change-password and profile configuration, and nothing more.
 
 **Note:** The `UserServicesFactory::create()` ignores any unknown configuration-keys that are passed to it, so you don't
 have to worry about passing to much.
