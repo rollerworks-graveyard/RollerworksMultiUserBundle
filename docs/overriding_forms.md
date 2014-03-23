@@ -45,6 +45,7 @@ class AcmeUserExtension extends Extension
                     'form' => array(
                         'type' => 'acme_user_registration',
                         'class' => 'Acme\UserBundle\Form\Type\RegistrationFormType',
+                        'name' => 'acme_user_registration_form',
                     )
                 )
             )

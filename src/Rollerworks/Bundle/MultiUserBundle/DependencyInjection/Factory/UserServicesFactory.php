@@ -244,10 +244,13 @@ class UserServicesFactory
 
     protected function convertFormType(ContainerBuilder $container, $type, array $config, $modelRef = null)
     {
-        if ('fos_user_' . $type === $config['type'] || 'FOS\\UserBundle\\Form\\Type\\' === substr($config['class'], 0, 25) || 'fos_user_' . $type . '_form' === $config['name']) {
+        if ('fos_user_' . $type === $config['type'] && 'FOS\\UserBundle\\Form\\Type\\' !== substr($config['class'], 0, 25)) {
+            throw new \RuntimeException(sprintf('Form type "%s" uses the "fos_user_" prefix with a custom class. Please overwrite the getName() method to return a unique name.', $config['type']));
+        }
+
+        if ('fos_user_' . $type === $config['type'] || 'FOS\\UserBundle\\Form\\Type\\' === substr($config['class'], 0, 25)) {
             $config['type'] = sprintf('%s_%s',  $this->servicePrefix, $type);
             $config['class'] = 'Rollerworks\\Bundle\\MultiUserBundle\Form\\Type\\' . join('', array_slice(explode('\\', $config['class']), -1));
-            $config['name'] = sprintf('%s_%s_form',  $this->servicePrefix, $type);
 
             $container->setDefinition(sprintf('%s.%s.form.type', $this->servicePrefix, $type), new Definition($config['class']))
                 ->setTags(array('form.type' => array(array('alias' => $config['type']))))
@@ -255,6 +258,10 @@ class UserServicesFactory
                 ->addArgument($config['type']);
 
             $config['class'] = null;
+        }
+
+        if ('fos_user_' . $type . '_form' === $config['name']) {
+            $config['name'] = sprintf('%s_%s_form',  $this->servicePrefix, $type);
         }
 
         return $config;
