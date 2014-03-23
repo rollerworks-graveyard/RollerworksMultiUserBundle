@@ -756,6 +756,70 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testInvalidFormConfiguration()
+    {
+        $factory = new UserServicesFactory($this->containerBuilder);
+
+        $config = array(
+            array(
+                'path' => '/',
+                'user_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User',
+                'services_prefix' => 'acme_user',
+                'routes_prefix' => 'acme_user',
+
+                'profile' => false,
+                'resetting' => false,
+                'change_password' => false,
+                'registration' => array(
+                    'form' => array(
+                        'type' => 'fos_user_registration',
+                        'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\RegistrationFormType',
+                    )
+                ),
+            )
+        );
+
+        $this->setExpectedException('RuntimeException', 'Form type "fos_user_registration" uses the "fos_user_" prefix with a custom class. Please overwrite the getName() method to return a unique name.');
+
+        $factory->create('acme', $config);
+    }
+
+    public function testFormNameIsChangedWhenDefault()
+    {
+        $factory = new UserServicesFactory($this->containerBuilder);
+
+        $config = array(
+            array(
+                'path' => '/',
+                'user_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User',
+                'services_prefix' => 'acme_user',
+                'routes_prefix' => 'acme_user',
+
+                'profile' => false,
+                'resetting' => false,
+                'change_password' => false,
+                'registration' => array(
+                    'form' => array(
+                        'type' => 'acme_user_registration',
+                        'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\RegistrationFormType',
+                    )
+                ),
+            )
+        );
+
+        $factory->create('acme', $config);
+
+        $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
+        $expected = array(
+            'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\RegistrationFormType',
+            'type' => 'acme_user_registration',
+            'name' => 'acme_user_registration_form',
+            'validation_groups' => array('Registration', 'Default'),
+        );
+
+        $this->assertFormDefinitionEqual($expected, 'acme_user', 'registration', $def);
+    }
+
     public static function provideModelManagerConfigs()
     {
         return array(
