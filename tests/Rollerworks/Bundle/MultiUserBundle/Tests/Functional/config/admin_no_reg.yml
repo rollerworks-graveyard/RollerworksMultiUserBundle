@@ -2,4 +2,4 @@ imports:
     - { resource: admin.yml }
 
 acme_admin:
-    registration: false
+    remove_registration: false

@@ -49,7 +49,7 @@ class AcmeAdminExtension extends Extension
                     )
                 ),
 
-                'registration' => array(
+                'registration' => true === $config['remove_registration'] ? false : array(
                     'template' => array(
                         'register' => 'AcmeAdminBundle:Registration:register.html.twig',
                         'check_email' => 'AcmeAdminBundle:Registration:checkEmail.html.twig',

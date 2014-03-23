@@ -28,8 +28,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('acme_admin');
 
+        $rootNode
+            ->children()
+                ->booleanNode('remove_registration')->defaultFalse()->end()
+            ->end();
+
         $configuration = new UserConfiguration();
-        $configuration->addUserConfig($rootNode, array('profile', 'change_password', 'registration', 'resetting', 'group'), false);
+        $configuration->addUserConfig($rootNode);
 
         return $treeBuilder;
     }
