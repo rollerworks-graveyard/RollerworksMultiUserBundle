@@ -62,6 +62,8 @@ built using the [Symfony Standard Edition](https://github.com/symfony/symfony-st
 to allow developers of the bundle to reproduce the issue by simply cloning it
 and following some steps.
 
+For opening a PR please use [Gush](http://gushphp.org/) with the standard template.
+
 Credits
 -------
 
