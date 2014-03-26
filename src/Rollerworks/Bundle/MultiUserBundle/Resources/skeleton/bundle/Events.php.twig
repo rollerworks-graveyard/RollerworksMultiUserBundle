@@ -1,0 +1,14 @@
+<?php
+
+namespace {{ namespace }};
+
+{% block class_definition %}
+final class {{ bundle_basename }}Events
+{% endblock class_definition %}
+{
+{% block class_body %}
+{% for name, value in events %}
+    const {{ name }} = '{{ value }}';
+{% endfor %}
+{% endblock class_body %}
+}

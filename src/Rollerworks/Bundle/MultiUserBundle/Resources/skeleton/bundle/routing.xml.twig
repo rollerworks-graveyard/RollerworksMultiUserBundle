@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+{% block body %}
+    {% for name, route in routes %}
+
+    <route id="{{ extension_alias }}_{{ name }}" path="{{ route.path }}"{% if route.method is not empty %} method="{{ route.method|join('|') }}"{% endif %}>
+        <default key="_controller">{{ route.controller_action }}</default>
+    </route>
+    {% endfor %}
+
+{% endblock body %}
+</routes>

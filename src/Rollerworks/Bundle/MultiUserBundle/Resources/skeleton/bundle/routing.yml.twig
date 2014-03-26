@@ -1,0 +1,9 @@
+{% for name, route in routes %}
+
+{{ extension_alias }}_{{ name }}:
+    path: {{ route.path }}
+    defaults: { _controller: "{{ route.controller_action }}" }
+{% if route.method is not empty %}
+    methods: "{{ route.method|join('|') }}"
+{% endif %}
+{% endfor %}

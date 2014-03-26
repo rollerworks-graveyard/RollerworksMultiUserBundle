@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }}\Entity;
+
+{% block use_statements %}
+use FOS\UserBundle\Model\User as BaseUser;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class User extends BaseUser
+{% endblock class_definition %}
+{
+{% block class_body %}
+    protected $id;
+{% endblock class_body %}
+}
