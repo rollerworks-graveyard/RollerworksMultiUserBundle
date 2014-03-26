@@ -21,8 +21,7 @@ $loader = require_once __DIR__ . '/../vendor/autoload.php';
 $eventsClass = new \ReflectionClass('FOS\UserBundle\FOSUserEvents');
 $events = $eventsClass->getConstants();
 
-$underscoreToCamelCase = function ($string)
-{
+$underscoreToCamelCase = function ($string) {
     $string = strtolower($string);
 
     return preg_replace_callback('/_([a-z])/', function ($c) {

@@ -15,7 +15,6 @@ use Rollerworks\Bundle\MultiUserBundle\EventListener\EventDiscriminator;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 use Symfony\Component\EventDispatcher\Event as BaseEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
 {

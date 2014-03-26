@@ -227,7 +227,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      * @param array   $expectedProcessedConfiguration
      * @param integer $enableServices
      */
-    protected function assertProcessedConfigurationEquals(array $configurationValues, array $expectedProcessedConfiguration, $enableServices = Configuration::CONFIG_ALL) {
+    protected function assertProcessedConfigurationEquals(array $configurationValues, array $expectedProcessedConfiguration, $enableServices = Configuration::CONFIG_ALL)
+    {
         self::assertThat(
             $expectedProcessedConfiguration,
             new ProcessedConfigurationEqualsConstraint(

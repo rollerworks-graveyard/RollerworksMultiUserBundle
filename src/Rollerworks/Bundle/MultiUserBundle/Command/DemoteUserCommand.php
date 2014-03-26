@@ -35,7 +35,6 @@ class DemoteUserCommand extends BaseDemoteUserCommand
             new InputOption('super', null, InputOption::VALUE_NONE, 'Instead specifying role, use this to quickly add the super administrator role'),
         ));
 
-
         $this->setDefinition($definition);
 
         $this
