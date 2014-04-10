@@ -38,7 +38,9 @@ The system works with a `UserDiscriminator`-service which determines which user-
 and delegates all handling to actual user-services.
 
 **Note:** The original fos_user service definitions and configuration are overwritten and automatically
-configured for multi user support, setting the fos_user configuration manually will break this bundle.
+configured for multi user support.
+
+**Configuration for the FOSUserBundle is handled trough the RollerworksMultiUserBundle, you must not set the `fos_user` (or remove it if you have it configured) configuration in your app/config, use `rollerworks_multi_user` instead. Setting the fos_user configuration yourself will break the RollerworksMultiUserBundle.**
 
 > Finding the correct user is done using the AuthenticationListener and RequestListener services.
 > You can also choose to build your own discriminator service, just be care full.
