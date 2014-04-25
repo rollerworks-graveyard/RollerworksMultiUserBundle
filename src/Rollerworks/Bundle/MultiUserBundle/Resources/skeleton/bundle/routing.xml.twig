@@ -7,7 +7,7 @@
 {% block body %}
     {% for name, route in routes %}
 
-    <route id="{{ extension_alias }}_{{ name }}" path="{{ route.path }}"{% if route.method is not empty %} method="{{ route.method|join('|') }}"{% endif %}>
+    <route id="{{ extension_alias }}_{{ name }}" path="{{ route.path }}"{% if route.method is not empty %} methods="{{ route.method|join('|') }}"{% endif %}>
         <default key="_controller">{{ route.controller_action }}</default>
     </route>
     {% endfor %}
