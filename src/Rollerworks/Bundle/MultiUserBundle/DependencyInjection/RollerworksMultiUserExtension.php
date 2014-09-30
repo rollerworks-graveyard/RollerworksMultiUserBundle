@@ -61,9 +61,6 @@ class RollerworksMultiUserExtension extends Extension implements PrependExtensio
             'firewall_name' => 'dummy',
             'user_class' => 'Acme\UserBundle\Entity\User',
             'from_email' => $config['from_email'],
-            'template' => array(
-                'engine' => $config['template']['engine'],
-            ),
             'registration' => array(
                 'confirmation' => array(
                     'enabled' => false,
