@@ -150,27 +150,3 @@ in a similar fashion using either of the two methods shown in this document.
 > Unlike the FOSUserBundle, templates should be placed inside the
 > `src/Acme/UserBundle/Resources/views/UserBundle`.
 > Failing to do so will break the automatic loading of the configured template.
-
-
-### Configuring A Templating Engine Other Than Twig
-
-You can configure a templating engine other than Twig using the bundle's configuration.
-Below is an example configuration for using the PHP templating engine.
-
-**Note:** You can only configure one template engine for the entire system, not per user-bundle.
-
-``` yaml
-rollerworks_multi_user:
-    # ...
-    template:
-        engine: php
-```
-
-The RollerworksMultiUserBundle only provides default templates for the Twig templating engine,
-so you will have to create all of the templates that you are using. The names and
-locations will be the same except that the file extension will be `.php` instead of `.twig`
-
-**Note:**
-
-For your templates to functional properly you also need to create the delegating
-templates found in `app/Resources/RollerworksMultiUserBundle/views/` (everything except the UserBundle directory).

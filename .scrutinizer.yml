@@ -1,6 +1,3 @@
 inherit: true
-tools:
-    external_code_coverage:
-        timeout: 600
 before_commands:
-    - 'composer install --no-dev'
+    - 'composer install'

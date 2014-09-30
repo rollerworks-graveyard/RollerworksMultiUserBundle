@@ -9,12 +9,7 @@ Because its build on-top of the FOSUserBundle, you don't have to change existing
 
 ## Prerequisites
 
-You need at least Symfony 2.2, FOSUserBundle 2.0 and the Composer package manager.
-
-> Using at least Symfony 2.3 and installing the symfony/proxy-manager-bridge is
-> highly recommended, so each UserSystem can be lazy loaded.
->
-> http://symfony.com/doc/current/components/dependency_injection/lazy_services.html
+You need at least Symfony 2.3, FOSUserBundle 2.0 (2.0.0-alpha1) and the Composer package manager.
 
 Most of the configuration and creating of classes is kept in sync with the FOSUserBundle,
 so if something is not described in detail here you can read the FOSUserBundle documentation as reference.
@@ -40,10 +35,13 @@ and delegates all handling to actual user-services.
 **Note:** The original fos_user service definitions and configuration are overwritten and automatically
 configured for multi user support.
 
-**Configuration for the FOSUserBundle is handled trough the RollerworksMultiUserBundle, you must not set the `fos_user` (or remove it if you have it configured) configuration in your app/config, use `rollerworks_multi_user` instead. Setting the fos_user configuration yourself will break the RollerworksMultiUserBundle.**
+**Caution:** Configuration for the FOSUserBundle is handled trough the RollerworksMultiUserBundle,
+you must not set the `fos_user` (or remove it if you have it configured) configuration in your app/config,
+use `rollerworks_multi_user` instead. Setting the fos_user configuration yourself **will**
+break the RollerworksMultiUserBundle.
 
 > Finding the correct user is done using the AuthenticationListener and RequestListener services.
-> You can also choose to build your own discriminator service, just be care full.
+> You can also choose to build your own discriminator service, just be careful.
 
 A user-system is also referred to as a 'user-bundle'.
 
@@ -54,7 +52,8 @@ A user-system is also referred to as a 'user-bundle'.
 > The RollerworksMultiUserBundle allows you to create as many user-systems as you need,
 > just repeat all the steps described in section 3 for each system you want to create.
 >
-> But. Remember that each user-system must have its own: name, firewall and request-matcher to not cause any conflict.
+> But. Remember that each user-system must have its own: name, firewall and request-matcher
+> to not cause any conflict.
 
 1. Download RollerworksMultiUserBundle
 2. Enable the Bundle
