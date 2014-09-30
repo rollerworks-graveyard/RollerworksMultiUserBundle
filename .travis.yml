@@ -1,7 +1,6 @@
 language: php
 
 env:
-    - SYMFONY_VERSION="2.2.*"
     - SYMFONY_VERSION="2.3.*"
     - SYMFONY_VERSION="2.4.*"
     - SYMFONY_VERSION="2.5.*"
@@ -11,12 +10,11 @@ before_script:
     - mkdir -p build/logs
     - echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - COMPOSER_ROOT_VERSION=dev-master
-    - composer self-update
     - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
     - composer require doctrine/mongodb-odm:"1.0.*@dev" --no-update
     - composer require doctrine/mongodb-odm-bundle:"3.0.*@dev" --no-update
     - composer require satooshi/php-coveralls:"dev-master" --no-update
-    - composer install --dev
+    - composer install
 
 php:
   - 5.3
