@@ -11,10 +11,10 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Mailer;
 
-use Rollerworks\Component\SfContainerInjector\ContainerInjector;
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
+use Rollerworks\Component\SfContainerInjector\ContainerInjector;
 
 class DelegatingMailer implements MailerInterface
 {
@@ -29,11 +29,11 @@ class DelegatingMailer implements MailerInterface
 
     public function sendConfirmationEmailMessage(UserInterface $user)
     {
-        $this->container->get($this->userDiscriminator->getCurrentUserConfig()->getServicePrefix() . '.mailer')->sendConfirmationEmailMessage($user);
+        $this->container->get($this->userDiscriminator->getCurrentUserConfig()->getServicePrefix().'.mailer')->sendConfirmationEmailMessage($user);
     }
 
     public function sendResettingEmailMessage(UserInterface $user)
     {
-        $this->container->get($this->userDiscriminator->getCurrentUserConfig()->getServicePrefix() . '.mailer')->sendResettingEmailMessage($user);
+        $this->container->get($this->userDiscriminator->getCurrentUserConfig()->getServicePrefix().'.mailer')->sendResettingEmailMessage($user);
     }
 }

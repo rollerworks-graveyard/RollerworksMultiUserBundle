@@ -63,12 +63,12 @@ class ResettingControllerTest extends WebTestCaseFunctional
         $this->assertRegExp('{To reset your password - please visit http://[^/]+/admin/resetting/reset/[^\s]+}i', $message->getBody());
 
         if (preg_match('{To reset your password - please visit http://[^/]+/admin/resetting/reset/([^\s]+)}i', $message->getBody(), $match) < 0) {
-            $this->fail('Regex did not match email message: ' . $message->getBody());
+            $this->fail('Regex did not match email message: '.$message->getBody());
         }
 
         $token = $match[1];
 
-        $crawler = $client->request('GET', '/admin/resetting/reset/' . $token);
+        $crawler = $client->request('GET', '/admin/resetting/reset/'.$token);
         $this->assertEquals($crawler->filter('form')->count(), 1);
 
         $form = $crawler->selectButton('Change password')->form();
@@ -124,12 +124,12 @@ class ResettingControllerTest extends WebTestCaseFunctional
         $this->assertRegExp('{To reset your password - please visit http://[^/]+/admin/resetting/reset/[^\s]+}i', $message->getBody());
 
         if (preg_match('{To reset your password - please visit http://[^/]+/admin/resetting/reset/([^\s]+)}i', $message->getBody(), $match) < 0) {
-            $this->fail('Regex did not match email message: ' . $message->getBody());
+            $this->fail('Regex did not match email message: '.$message->getBody());
         }
 
         $token = $match[1];
 
-        $crawler = $client->request('GET', '/admin/resetting/reset/' . $token);
+        $crawler = $client->request('GET', '/admin/resetting/reset/'.$token);
         $this->assertEquals($crawler->filter('form')->count(), 1);
 
         $form = $crawler->selectButton('Change password')->form();

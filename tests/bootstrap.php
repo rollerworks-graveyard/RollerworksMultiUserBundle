@@ -9,8 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Composer\Autoload\ClassLoader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -23,7 +23,7 @@ error_reporting(E_ALL | E_STRICT);
 //    throw new \RuntimeException('PHPUnit MockObject plugin is required, at least 1.0.8 version');
 //}
 
-if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
+if (!file_exists(__DIR__.'/../vendor/autoload.php')) {
     throw new \RuntimeException('Did not find vendor/autoload.php. Please Install vendors using command: composer.phar install --dev');
 }
 
@@ -36,14 +36,14 @@ if (version_compare(PHP_VERSION, '5.4', '>=') && gc_enabled()) {
 /**
  * @var $loader ClassLoader
  */
-$loader = require_once __DIR__ . '/../vendor/autoload.php';
+$loader = require_once __DIR__.'/../vendor/autoload.php';
 $loader->add('Rollerworks\\Bundle\\MultiUserBundle\\Tests', __DIR__);
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 // Do this explicit as the Swiftmailer is only loaded automatically when its used by the Application
 // Without this ResettingControllerTest fails
-require_once __DIR__ . '/../vendor/swiftmailer/swiftmailer/lib/classes/Swift.php';
+require_once __DIR__.'/../vendor/swiftmailer/swiftmailer/lib/classes/Swift.php';
 Swift::registerAutoload();
 
 // Don't use the system tempdir on Windows as that fails to work!
@@ -56,7 +56,7 @@ call_user_func(function () {
     }
 
     $rootDir .= '/.tmp_c';
-    putenv('TMPDIR=' . $rootDir);
+    putenv('TMPDIR='.$rootDir);
 
     if (!is_dir($rootDir)) {
         mkdir($rootDir, 0777, true);

@@ -146,13 +146,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testConfigurationSectionGetsEnabled($section, $config, $message = null, $enableServices = null)
     {
         if (null === $enableServices) {
-            $enableServices = constant('Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Configuration::CONFIG_SECTION_' . strtoupper($section));
+            $enableServices = constant('Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Configuration::CONFIG_SECTION_'.strtoupper($section));
             $message = 'Unrecognized options "'.$section.'" under "user"';
         }
 
         $this->assertProcessedConfigurationEquals(
             array(
-                $config
+                $config,
             ),
             $config,
             $enableServices
@@ -160,7 +160,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertConfigurationIsInvalid(
             array(
-                $config
+                $config,
             ),
             Configuration::CONFIG_ALL ^ $enableServices,
             $message

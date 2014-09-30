@@ -12,8 +12,8 @@
 namespace Rollerworks\Bundle\MultiUserBundle\Templating;
 
 use Rollerworks\Bundle\MultiUserBundle\Model\UserConfig;
-use Symfony\Component\Templating\Helper\Helper;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
+use Symfony\Component\Templating\Helper\Helper;
 
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
@@ -55,7 +55,7 @@ class MultiUserHelper extends Helper
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

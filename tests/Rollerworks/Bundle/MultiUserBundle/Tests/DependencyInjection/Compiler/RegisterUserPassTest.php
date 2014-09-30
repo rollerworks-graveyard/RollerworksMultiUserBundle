@@ -11,10 +11,10 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\DependencyInjection\Compiler;
 
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RegisterUserPass;
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RegisterUserPass;
 
 class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,7 +40,7 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory = new UserServicesFactory($container);
@@ -73,7 +73,7 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory = new UserServicesFactory($container);
@@ -90,7 +90,7 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory = new UserServicesFactory($container);
@@ -135,7 +135,7 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory = new UserServicesFactory($container);
@@ -184,7 +184,7 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -201,7 +201,7 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory->create('sf', $config);

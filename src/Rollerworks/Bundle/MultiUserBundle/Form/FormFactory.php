@@ -11,10 +11,10 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Form;
 
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>

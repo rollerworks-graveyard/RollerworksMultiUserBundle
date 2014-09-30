@@ -39,7 +39,7 @@ class ChangePasswordListener implements EventSubscriberInterface
     public function onChangePasswordSuccess(FormEvent $event)
     {
         if (null === $event->getResponse()) {
-            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_profile_show');
+            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_profile_show');
             $event->setResponse(new RedirectResponse($url));
         }
     }

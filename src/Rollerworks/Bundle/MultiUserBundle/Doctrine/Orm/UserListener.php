@@ -11,9 +11,9 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Doctrine\Orm;
 
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events;
 use FOS\UserBundle\Model\UserInterface;
 use Rollerworks\Bundle\MultiUserBundle\Doctrine\AbstractUserListener;
 

@@ -11,9 +11,9 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\EventListener;
 
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 
 /**
  * Tries to determine the current user-system.
@@ -51,7 +51,7 @@ class RequestListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function onKernelRequest(GetResponseEvent $event)
     {

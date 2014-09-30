@@ -9,4 +9,4 @@
  * with this source code in the file LICENSE.
  */
 
-require __DIR__ . '/../../../../../bootstrap.php';
+require __DIR__.'/../../../../../bootstrap.php';

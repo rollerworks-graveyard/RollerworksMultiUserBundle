@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
+if (!file_exists(__DIR__.'/../vendor/autoload.php')) {
     throw new \RuntimeException('Did not find vendor/autoload.php. Please Install vendors using command: composer.phar install --dev');
 }
 
 /**
  * @var $loader ClassLoader
  */
-$loader = require_once __DIR__ . '/../vendor/autoload.php';
+$loader = require_once __DIR__.'/../vendor/autoload.php';
 
 $eventsClass = new \ReflectionClass('FOS\UserBundle\FOSUserEvents');
 $events = $eventsClass->getConstants();
@@ -39,11 +39,10 @@ echo <<<EOT
 EOT;
 
 foreach ($events as $event => $eventName) {
-
     $event = ucfirst($underscoreToCamelCase($event));
     $eventName = substr($eventName, 8);
 
-echo <<<EOT
+    echo <<<EOT
 
     public function dispatch$event(Event \$e)
     {
@@ -69,10 +68,9 @@ echo <<<EOT
 EOT;
 
 foreach ($events as $event => $eventName) {
-
     $eventFunc = ucfirst($underscoreToCamelCase($event));
 
-echo <<<EOT
+    echo <<<EOT
             FOSUserEvents::$event => 'dispatch$eventFunc',
 
 EOT;

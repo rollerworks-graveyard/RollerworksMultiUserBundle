@@ -11,8 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\EventListener;
 
-use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
@@ -66,7 +66,7 @@ class EmailConfirmationListener implements EventSubscriberInterface
         $this->mailer->sendConfirmationEmailMessage($user);
         $this->session->set('fos_user_send_confirmation_email/email', $user->getEmail());
 
-        $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_registration_check_email');
+        $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_registration_check_email');
         $event->setResponse(new RedirectResponse($url));
     }
 }

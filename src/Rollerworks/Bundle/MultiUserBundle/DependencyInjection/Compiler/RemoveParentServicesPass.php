@@ -11,8 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * RemoveParentServicesPass, marks the parent 'FOSUserBundle' services as abstract.

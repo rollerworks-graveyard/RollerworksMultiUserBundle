@@ -69,7 +69,7 @@ class UserBundleGenerator extends Generator
             'bundle'    => $bundle,
             'format'    => $format,
             'db_driver'    => $dbDriver,
-            'model_namespace' => $namespace . '\\' . $driverDir[$dbDriver],
+            'model_namespace' => $namespace.'\\'.$driverDir[$dbDriver],
             'bundle_basename' => $basename,
             'extension_alias' => Container::underscore($basename),
         );
@@ -258,7 +258,7 @@ class UserBundleGenerator extends Generator
                 'format'    => $format,
                 'bundle_basename' => $basename,
                 'extension_alias' => Container::underscore($basename),
-                'routes' => $routes
+                'routes' => $routes,
             );
 
             $this->renderFile('bundle/routing.'.$format.'.twig', $dir.'/Resources/config/routing/'.$fileName.'.'.$format, $parameters);
@@ -280,7 +280,7 @@ class UserBundleGenerator extends Generator
             'format'    => $format,
             'bundle_basename' => $basename,
             'extension_alias' => Container::underscore($basename),
-            'events' => $events
+            'events' => $events,
         );
 
         $this->renderFile('bundle/Events.php.twig', $dir.'/'.$basename.'Events.php', $parameters);

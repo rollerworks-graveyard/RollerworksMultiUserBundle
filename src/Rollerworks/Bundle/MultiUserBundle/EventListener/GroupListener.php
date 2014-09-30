@@ -41,7 +41,7 @@ class GroupListener implements EventSubscriberInterface
     public function onGroupCreateSuccess(FormEvent $event)
     {
         if (null === $event->getResponse()) {
-            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_group_show', array('groupName' => $event->getForm()->getData()->getName()));
+            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_group_show', array('groupName' => $event->getForm()->getData()->getName()));
             $event->setResponse(new RedirectResponse($url));
         }
     }
@@ -49,7 +49,7 @@ class GroupListener implements EventSubscriberInterface
     public function onGroupEditSuccess(FormEvent $event)
     {
         if (null === $event->getResponse()) {
-            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_group_show', array('groupName' => $event->getForm()->getData()->getName()));
+            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_group_show', array('groupName' => $event->getForm()->getData()->getName()));
             $event->setResponse(new RedirectResponse($url));
         }
     }
@@ -57,7 +57,7 @@ class GroupListener implements EventSubscriberInterface
     public function onGroupDeleteCompleted(FormEvent $event)
     {
         if ($event->getResponse() instanceof RedirectResponse) {
-            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_group_list');
+            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_group_list');
             $event->setResponse(new RedirectResponse($url));
         }
     }

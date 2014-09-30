@@ -11,9 +11,9 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Listener;
 
-use Symfony\Component\HttpFoundation\Request;
-use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator;
 use Rollerworks\Bundle\MultiUserBundle\EventListener\RequestListener;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminator;
+use Symfony\Component\HttpFoundation\Request;
 
 class RequestListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -105,5 +105,4 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->listener = new RequestListener($this->userDiscriminator);
     }
-
 }

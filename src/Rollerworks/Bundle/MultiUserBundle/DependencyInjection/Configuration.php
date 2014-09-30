@@ -11,8 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
     private static $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'custom');
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
@@ -51,7 +51,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('orm')
                     ->validate()
                         ->ifNotInArray($supportedDrivers)
-                        ->thenInvalid('The driver %s is not supported. Please choose one of: ' . implode(',', $supportedDrivers))
+                        ->thenInvalid('The driver %s is not supported. Please choose one of: '.implode(',', $supportedDrivers))
                     ->end()
                 ->end()
                 ->booleanNode('use_listener')->defaultTrue()->end()
@@ -86,7 +86,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('orm')
                     ->validate()
                         ->ifNotInArray(self::$supportedDrivers)
-                        ->thenInvalid('The driver %s is not supported. Please choose one of: ' . implode(',', self::$supportedDrivers))
+                        ->thenInvalid('The driver %s is not supported. Please choose one of: '.implode(',', self::$supportedDrivers))
                     ->end()
                 ->end()
                 ->booleanNode('use_listener')->defaultTrue()->end()
@@ -185,7 +185,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('db_driver')
                         ->validate()
                             ->ifTrue(function ($v) use ($supportedDrivers) { return $v !== null && !in_array($v, $supportedDrivers); })
-                            ->thenInvalid('The driver %s is not supported. Please choose one of: ' . implode(',', $supportedDrivers))
+                            ->thenInvalid('The driver %s is not supported. Please choose one of: '.implode(',', $supportedDrivers))
                         ->end()
                     ->end()
                 ->end()
@@ -725,7 +725,7 @@ class Configuration implements ConfigurationInterface
                 throw new \InvalidArgumentException(sprintf('Unable to add unknown configuration-section "%s".', $serviceName));
             }
 
-            $enableServicesMask |= constant(__CLASS__ . '::CONFIG_SECTION_' . strtoupper($enableService));
+            $enableServicesMask |= constant(__CLASS__.'::CONFIG_SECTION_'.strtoupper($enableService));
         }
 
         $enableServices = $enableServicesMask;

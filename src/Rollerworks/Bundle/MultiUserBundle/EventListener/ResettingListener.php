@@ -11,13 +11,13 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\EventListener;
 
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FormEvent;
-use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 
 class ResettingListener implements EventSubscriberInterface
 {
@@ -45,7 +45,7 @@ class ResettingListener implements EventSubscriberInterface
         $tokenTtl = $user->getConfig('resetting.token_ttl', 86400);
 
         if (!$event->getUser()->isPasswordRequestNonExpired($tokenTtl)) {
-            $event->setResponse(new RedirectResponse($this->router->generate($user->getRoutePrefix() .  '_resetting_request')));
+            $event->setResponse(new RedirectResponse($this->router->generate($user->getRoutePrefix().'_resetting_request')));
 
             // Prevent the FOSUserBundle from overwriting
             $event->stopPropagation();
@@ -54,6 +54,6 @@ class ResettingListener implements EventSubscriberInterface
 
     public function onResettingResetSuccess(FormEvent $event)
     {
-        $event->setResponse(new RedirectResponse($this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() .  '_profile_show')));
+        $event->setResponse(new RedirectResponse($this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_profile_show')));
     }
 }

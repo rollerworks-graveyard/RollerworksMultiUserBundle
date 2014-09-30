@@ -30,6 +30,7 @@ class UserServicesFactory
 {
     protected $container;
     protected $servicePrefix;
+    protected $formPrefix;
     protected $routesPrefix;
 
     /**
@@ -83,7 +84,7 @@ class UserServicesFactory
             'from_email' => array(
                 'address' => '%rollerworks_multi_user.from_email.address%',
                 'sender_name' => '%rollerworks_multi_user.from_email.sender_name%',
-            )
+            ),
         ));
 
         // Ensure the service section is always set
@@ -96,6 +97,8 @@ class UserServicesFactory
         $config = $this->processConfiguration($config);
 
         $this->servicePrefix = ($config['services_prefix'] ?: $name);
+        $this->formPrefix = str_replace('.', '_', $this->servicePrefix);
+
         $this->routesPrefix = null !== $config['routes_prefix'] ? $config['routes_prefix'] : $name;
 
         $user = $this->createUserConfig($this->container, $name, $config);
@@ -103,11 +106,11 @@ class UserServicesFactory
         $this->remapParametersNamespaces($config, $this->container, array(
             '' => array(
                 //'db_driver' => $this->servicePrefix . '.storage',
-                'firewall_name' => $this->servicePrefix . '.firewall_name',
-                'model_manager_name' => $this->servicePrefix . '.model_manager_name',
-                'user_class' => $this->servicePrefix . '.model.user.class',
+                'firewall_name' => $this->servicePrefix.'.firewall_name',
+                'model_manager_name' => $this->servicePrefix.'.model_manager_name',
+                'user_class' => $this->servicePrefix.'.model.user.class',
             ),
-            'template' => $this->servicePrefix . '.template.%s',
+            'template' => $this->servicePrefix.'.template.%s',
         ));
 
         $this->loadMailer($config, $this->container);
@@ -146,7 +149,7 @@ class UserServicesFactory
         $this->ensureParameterSet(sprintf('%s.resetting.email.from_email', $this->servicePrefix), $config['from_email']);
 
         if ('db_driver' !== $config['db_driver']) {
-            $this->container->setParameter('fos_user.backend_type_' . $config['db_driver'], true);
+            $this->container->setParameter('fos_user.backend_type_'.$config['db_driver'], true);
         }
     }
 
@@ -238,19 +241,19 @@ class UserServicesFactory
             $type,
             sprintf('%%%s.%s.form.name%%', $this->servicePrefix, $type),
             sprintf('%%%s.%s.form.type%%', $this->servicePrefix, $type),
-            sprintf('%%%s.%s.form.validation_groups%%', $this->servicePrefix, $type)
+            sprintf('%%%s.%s.form.validation_groups%%', $this->servicePrefix, $type),
         ));
     }
 
     protected function convertFormType(ContainerBuilder $container, $type, array $config, $modelRef = null)
     {
-        if ('fos_user_' . $type === $config['type'] && 'FOS\\UserBundle\\Form\\Type\\' !== substr($config['class'], 0, 25)) {
+        if ('fos_user_'.$type === $config['type'] && 'FOS\\UserBundle\\Form\\Type\\' !== substr($config['class'], 0, 25)) {
             throw new \RuntimeException(sprintf('Form type "%s" uses the "fos_user_" prefix with a custom class. Please overwrite the getName() method to return a unique name.', $config['type']));
         }
 
-        if ('fos_user_' . $type === $config['type'] || 'FOS\\UserBundle\\Form\\Type\\' === substr($config['class'], 0, 25)) {
-            $config['type'] = sprintf('%s_%s',  $this->servicePrefix, $type);
-            $config['class'] = 'Rollerworks\\Bundle\\MultiUserBundle\Form\\Type\\' . join('', array_slice(explode('\\', $config['class']), -1));
+        if ('fos_user_'.$type === $config['type'] || 'FOS\\UserBundle\\Form\\Type\\' === substr($config['class'], 0, 25)) {
+            $config['type'] = sprintf('%s_%s',  $this->formPrefix, $type);
+            $config['class'] = 'Rollerworks\\Bundle\\MultiUserBundle\Form\\Type\\'.join('', array_slice(explode('\\', $config['class']), -1));
 
             $container->setDefinition(sprintf('%s.%s.form.type', $this->servicePrefix, $type), new Definition($config['class']))
                 ->setTags(array('form.type' => array(array('alias' => $config['type']))))
@@ -260,8 +263,8 @@ class UserServicesFactory
             $config['class'] = null;
         }
 
-        if ('fos_user_' . $type . '_form' === $config['name']) {
-            $config['name'] = sprintf('%s_%s_form',  $this->servicePrefix, $type);
+        if ('fos_user_'.$type.'_form' === $config['name']) {
+            $config['name'] = sprintf('%s_%s_form', $this->formPrefix, $type);
         }
 
         return $config;
@@ -284,7 +287,7 @@ class UserServicesFactory
         } else {
             $user->addMethodCall('setTemplate', array(
                 $section,
-                sprintf('%%%s.%s.template%%', $this->servicePrefix, $section)
+                sprintf('%%%s.%s.template%%', $this->servicePrefix, $section),
             ));
         }
     }
@@ -310,7 +313,7 @@ class UserServicesFactory
             $tagParams['request_matcher'] = $config['request_matcher'];
         }
 
-        $def = $container->register('rollerworks_multi_user.user_system.' . $name, 'Rollerworks\Bundle\MultiUserBundle\Model\UserConfig');
+        $def = $container->register('rollerworks_multi_user.user_system.'.$name, 'Rollerworks\Bundle\MultiUserBundle\Model\UserConfig');
         $def
             ->addArgument($this->servicePrefix)
             ->addArgument($this->routesPrefix)
@@ -469,7 +472,7 @@ class UserServicesFactory
                 'from_email' => array(
                     'confirmation' => sprintf('%%%s.registration.confirmation.from_email%%', $this->servicePrefix),
                     'resetting' => sprintf('%%%s.resetting.email.from_email%%', $this->servicePrefix),
-                )
+                ),
             ))
             ->setPublic(false);
         }
@@ -482,12 +485,12 @@ class UserServicesFactory
             ->replaceArgument(3, array(
                 'template' => array(
                     'confirmation' => sprintf('%%%s.registration.confirmation.email.template%%', $this->servicePrefix),
-                    'resetting' => sprintf('%%%s.resetting.email.template%%', $this->servicePrefix)
+                    'resetting' => sprintf('%%%s.resetting.email.template%%', $this->servicePrefix),
                 ),
                 'from_email' => array(
                     'confirmation' => sprintf('%%%s.registration.confirmation.from_email%%', $this->servicePrefix),
                     'resetting' => sprintf('%%%s.resetting.email.from_email%%', $this->servicePrefix),
-                )
+                ),
             ))
             ->setPublic(false);
         }
@@ -503,7 +506,7 @@ class UserServicesFactory
     {
         $this->setTemplates('security.login', $config['login'], $user);
         $this->remapParametersNamespaces($config, $container, array(
-            'login' => array('template' => $this->servicePrefix . '.security.login.template'),
+            'login' => array('template' => $this->servicePrefix.'.security.login.template'),
         ));
     }
 
@@ -514,8 +517,8 @@ class UserServicesFactory
         $this->setTemplates('profile', $config, $user);
 
         $this->remapParametersNamespaces($config, $container, array(
-            'form' => $this->servicePrefix . '.profile.form.%s',
-            'template' => $this->servicePrefix . '.profile.%s.template',
+            'form' => $this->servicePrefix.'.profile.form.%s',
+            'template' => $this->servicePrefix.'.profile.%s.template',
         ));
     }
 
@@ -531,18 +534,18 @@ class UserServicesFactory
             unset($config['confirmation']['from_email']);
         }
 
-        $container->setParameter($this->servicePrefix . '.registration.confirmation.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
+        $container->setParameter($this->servicePrefix.'.registration.confirmation.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
         $user->addMethodCall('setConfig', array('registering.confirmation.enabled', isset($config['confirmation']) ? $config['confirmation']['enabled'] : false));
 
         $this->remapParametersNamespaces($config, $container, array(
-            'confirmation' => $this->servicePrefix . '.registration.confirmation.%s',
-            'form' => $this->servicePrefix . '.registration.form.%s',
-            'template' => $this->servicePrefix . '.registration.%s.template',
+            'confirmation' => $this->servicePrefix.'.registration.confirmation.%s',
+            'form' => $this->servicePrefix.'.registration.form.%s',
+            'template' => $this->servicePrefix.'.registration.%s.template',
         ));
 
         if (isset($config['confirmation'])) {
             $this->remapParametersNamespaces($config['confirmation'], $container, array(
-                'template' => $this->servicePrefix . '.registration.confirmation.%s.template',
+                'template' => $this->servicePrefix.'.registration.confirmation.%s.template',
             ));
 
             $this->setTemplates('registration.confirmation', $config['confirmation'], $user);
@@ -556,8 +559,8 @@ class UserServicesFactory
         $this->setTemplates('change_password', $config, $user);
 
         $this->remapParametersNamespaces($config, $container, array(
-            'form' => $this->servicePrefix . '.change_password.form.%s',
-            'template' => $this->servicePrefix . '.change_password.%s.template',
+            'form' => $this->servicePrefix.'.change_password.form.%s',
+            'template' => $this->servicePrefix.'.change_password.%s.template',
         ));
     }
 
@@ -573,16 +576,16 @@ class UserServicesFactory
             unset($config['email']['from_email']);
         }
 
-        $container->setParameter($this->servicePrefix . '.resetting.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
-        $user->addMethodCall('setConfig', array('resetting.token_ttl', '%' . $this->servicePrefix . '.resetting.token_ttl' . '%'));
+        $container->setParameter($this->servicePrefix.'.resetting.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
+        $user->addMethodCall('setConfig', array('resetting.token_ttl', '%'.$this->servicePrefix.'.resetting.token_ttl'.'%'));
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array (
-                'token_ttl' => $this->servicePrefix . '.resetting.token_ttl',
+                'token_ttl' => $this->servicePrefix.'.resetting.token_ttl',
             ),
-            'email' => $this->servicePrefix . '.resetting.email.%s',
-            'form' => $this->servicePrefix . '.resetting.form.%s',
-            'template' => $this->servicePrefix . '.resetting.%s.template',
+            'email' => $this->servicePrefix.'.resetting.email.%s',
+            'form' => $this->servicePrefix.'.resetting.form.%s',
+            'template' => $this->servicePrefix.'.resetting.%s.template',
         ));
     }
 
@@ -609,10 +612,10 @@ class UserServicesFactory
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
-                'group_class' => $this->servicePrefix . '.model.group.class',
+                'group_class' => $this->servicePrefix.'.model.group.class',
             ),
-            'form' => $this->servicePrefix . '.group.form.%s',
-            'template' => $this->servicePrefix . '.group.%s.template',
+            'form' => $this->servicePrefix.'.group.form.%s',
+            'template' => $this->servicePrefix.'.group.%s.template',
         ));
     }
 }

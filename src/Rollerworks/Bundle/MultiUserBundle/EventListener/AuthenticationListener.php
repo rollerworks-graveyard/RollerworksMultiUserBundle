@@ -11,12 +11,12 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\EventListener;
 
-use Symfony\Component\Security\Http\SecurityEvents;
+use FOS\UserBundle\Event\UserEvent;
+use FOS\UserBundle\FOSUserEvents;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\UserEvent;
-use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
+use Symfony\Component\Security\Http\SecurityEvents;
 
 /**
  * Determines the current user-object by the authentication.

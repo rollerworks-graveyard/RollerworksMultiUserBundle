@@ -11,13 +11,13 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle;
 
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RegisterUserPass;
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RemoveParentServicesPass;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RegisterUserPass;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RemoveParentServicesPass;
 
 /**
  * RollerworksMultiUserBundle.

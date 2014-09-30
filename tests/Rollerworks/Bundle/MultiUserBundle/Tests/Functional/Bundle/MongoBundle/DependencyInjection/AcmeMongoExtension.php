@@ -11,14 +11,14 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\MongoBundle\DependencyInjection;
 
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
 
 class AcmeMongoExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $config, ContainerBuilder $container)
     {
@@ -37,7 +37,7 @@ class AcmeMongoExtension extends Extension
                 'security' => array(
                     'login' => array(
                         'template' => 'AcmeMongoBundle:Security:login.html.twig',
-                    )
+                    ),
                 ),
 
                 'registration' => array(
@@ -51,7 +51,7 @@ class AcmeMongoExtension extends Extension
                     ),
                 ),
 
-            )
+            ),
         ));
     }
 }

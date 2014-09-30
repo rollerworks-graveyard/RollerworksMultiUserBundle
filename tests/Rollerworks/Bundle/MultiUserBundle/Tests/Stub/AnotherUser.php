@@ -13,5 +13,4 @@ namespace Rollerworks\Bundle\MultiUserBundle\Tests\Stub;
 
 class AnotherUser
 {
-
 }

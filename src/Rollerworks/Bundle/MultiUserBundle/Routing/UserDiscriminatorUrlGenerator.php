@@ -11,10 +11,10 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Routing;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Routing\RequestContext;
 use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Changes the route name to a userDiscriminated version
@@ -61,12 +61,12 @@ class UserDiscriminatorUrlGenerator implements RouterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
     {
         if (substr($name, 0, $this->prefixLen) === $this->prefix) {
-            $name = $this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . substr($name, $this->prefixLen);
+            $name = $this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().substr($name, $this->prefixLen);
         }
 
         return $this->generator->generate($name, $parameters, $referenceType);

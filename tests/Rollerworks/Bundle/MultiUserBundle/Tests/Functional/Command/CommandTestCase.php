@@ -33,7 +33,7 @@ abstract class CommandTestCase extends WebTestCaseFunctional
     protected function deleteAllUsers($userSys)
     {
         $container = $this->application->getKernel()->getContainer();
-        $userManager = $container->get($userSys . '.user_manager');
+        $userManager = $container->get($userSys.'.user_manager');
 
         foreach ($userManager->findUsers() as $user) {
             $userManager->deleteUser($user);

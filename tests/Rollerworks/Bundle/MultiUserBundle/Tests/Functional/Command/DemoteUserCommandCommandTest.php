@@ -52,7 +52,7 @@ class DemoteUserCommandCommandTest extends CommandTestCase
             'command' => $command->getName(),
             'username' => 'testUser',
             'role' => 'ROLE_INVOICE_CREATE',
-            'user-system' => 'acme_admin'
+            'user-system' => 'acme_admin',
         ));
 
         $this->assertNotNull($acmeAdminUserManager->findUserByUsername('testUser'));

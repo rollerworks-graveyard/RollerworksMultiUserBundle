@@ -11,22 +11,20 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Controller;
 
+use FOS\UserBundle\Controller\ResettingController as BaseResettingController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\UserBundle\Controller\ResettingController as BaseResettingController;
-use FOS\UserBundle\Model\UserInterface;
 
 class ResettingController extends BaseResettingController
 {
     public function checkEmailAction(Request $request)
     {
         $userDiscriminator = $this->container->get('rollerworks_multi_user.user_discriminator');
-        /** @var \Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface $userDiscriminator */
         $email = $request->query->get('email');
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
-            return new RedirectResponse($this->container->get('router')->generate($userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_resetting_request'));
+            return new RedirectResponse($this->container->get('router')->generate($userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_resetting_request'));
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.twig', array(
@@ -37,10 +35,7 @@ class ResettingController extends BaseResettingController
     public function sendEmailAction(Request $request)
     {
         $userDiscriminator = $this->container->get('rollerworks_multi_user.user_discriminator');
-        /** @var \Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface $userDiscriminator */
-
         $username = $request->request->get('username');
-        /** @var $user UserInterface */
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
@@ -52,7 +47,6 @@ class ResettingController extends BaseResettingController
         }
 
         if (null === $user->getConfirmationToken()) {
-            /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
             $user->setConfirmationToken($tokenGenerator->generateToken());
         }
@@ -62,7 +56,7 @@ class ResettingController extends BaseResettingController
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
         return new RedirectResponse($this->container->get('router')->generate(
-            $userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_resetting_check_email',
+            $userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_resetting_check_email',
             array('email' => $this->getObfuscatedEmail($user))
         ));
     }

@@ -11,8 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Routing;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Rollerworks\Bundle\MultiUserBundle\Routing\UserDiscriminatorUrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserDiscriminatorUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {

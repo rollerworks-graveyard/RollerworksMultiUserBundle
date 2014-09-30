@@ -11,8 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
@@ -25,7 +25,7 @@ class AppKernel extends Kernel
 
         $fs = new Filesystem();
         if (!$fs->isAbsolutePath($config)) {
-            $config = __DIR__ . '/config/' . $config;
+            $config = __DIR__.'/config/'.$config;
         }
 
         if (!file_exists($config)) {
@@ -73,7 +73,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return getenv('TMPDIR') . '/MultiUserBundle/' . substr(sha1($this->config), 0, 6);
+        return getenv('TMPDIR').'/MultiUserBundle/'.substr(sha1($this->config), 0, 6);
     }
 
     public function serialize()

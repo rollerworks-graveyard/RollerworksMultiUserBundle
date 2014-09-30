@@ -100,7 +100,7 @@ class EventDiscriminatorTest extends \PHPUnit_Framework_TestCase
             $finalEvents[] = array(
                 $eventValue,
                 ucfirst(self::underscoreToCamelCase($event)),
-                'acme_user' . substr($eventValue, 8)
+                'acme_user'.substr($eventValue, 8),
             );
         }
 

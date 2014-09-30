@@ -11,9 +11,9 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Doctrine\MongoDB;
 
-use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
+use Doctrine\ODM\MongoDB\Events;
 use FOS\UserBundle\Model\UserInterface;
 use Rollerworks\Bundle\MultiUserBundle\Doctrine\AbstractUserListener;
 

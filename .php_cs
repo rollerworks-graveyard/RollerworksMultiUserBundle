@@ -1,39 +1,72 @@
 <?php
 
-/**
- * @link http://cs.sensiolabs.org/
- * @link http://symfony.com/doc/current/components/finder.html
- */
+use Symfony\CS\FixerInterface;
+use Symfony\CS\Tokens;
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
-    ->notName('LICENSE')
-    ->notName('README.md')
-    ->notName('.php_cs')
-    ->notName('composer.*')
-    ->notName('phpunit.xml*')
-    ->notName('*.phar')
-    ->notName('bootstrap.php.cache')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true)
+$finder = Symfony\CS\Finder\DefaultFinder::create();
+/** @var \Symfony\Component\Finder\Finder $finder */
+$finder
+    ->exclude('docs')
+    ->exclude('bin')
+    ->notName('*.php.twig')
 
-    ->exclude(
-        array(
-            'vendor',
-            '.idea',
-            '.sql',
-        )
-    )
-
-    // Ignore Resources/{meta,doc,public} and fixture dirs
     ->files()->filter(function (\SplFileInfo $file) {
-        if (preg_match('#(Resources/(meta|doc|public))|/fixtures/#i', str_replace('\\', '/', $file->getPath()))) {
+        $path = str_replace('\\', '/', $file->getPath()).'/';
+
+        if (true === strpos($path, '/Resources/')) {
             return false;
         }
+
+        return true;
     })
-    ->in(__DIR__)
+    ->files()->filter(function (\SplFileInfo $file) {
+        if (preg_match('{Kernel}i', str_replace('\\', '/', $file->getPath()))) {
+           return false;
+        }
+
+        return true;
+    })
 ;
 
+if (file_exists('local.php_cs')) {
+    require 'local.php_cs';
+}
+
+$fixers = array(
+    'encoding',
+    'short_tag',
+    'braces',
+    'elseif',
+    'eof_ending',
+    'function_declaration',
+    'indentation',
+    'line_after_namespace',
+    'linefeed',
+    'lowercase_constants',
+    'lowercase_keywords',
+    'multiple_use',
+    'php_closing_tag',
+    'trailing_spaces',
+    'concat_without_spaces',
+    'extra_empty_lines',
+    'include',
+    'multiline_array_trailing_comma',
+    'new_with_braces',
+    'object_operator',
+    'operators_spaces',
+    'phpdoc_params',
+    'return',
+    'single_array_no_trailing_comma',
+    'spaces_cast',
+    'standardize_not_equal',
+    'ternary_spaces',
+    'unused_use',
+    'whitespacy_lines',
+    'ordered_use',
+    //'short_array_syntax',
+);
+
 return Symfony\CS\Config\Config::create()
+    ->fixers($fixers)
     ->finder($finder)
-    ->fixers(Symfony\CS\FixerInterface::ALL_LEVEL)
 ;

@@ -11,10 +11,10 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\DependencyInjection\Compiler;
 
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
 
 class OverrideServiceCompilerPassTest extends \PHPUnit_Framework_TestCase
 {

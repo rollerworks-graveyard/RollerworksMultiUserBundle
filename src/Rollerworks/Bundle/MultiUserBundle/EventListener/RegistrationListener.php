@@ -11,13 +11,13 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\EventListener;
 
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 
 class RegistrationListener implements EventSubscriberInterface
 {
@@ -41,7 +41,7 @@ class RegistrationListener implements EventSubscriberInterface
     public function onRegistrationSuccess(FormEvent $event)
     {
         if (null === $event->getResponse()) {
-            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() . '_registration_confirmed');
+            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_registration_confirmed');
             $event->setResponse(new RedirectResponse($url));
         }
     }
@@ -49,7 +49,7 @@ class RegistrationListener implements EventSubscriberInterface
     public function onRegistrationConfirm(GetResponseUserEvent $event)
     {
         if (null === $event->getResponse()) {
-            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix() .  '_registration_confirmed');
+            $url = $this->router->generate($this->userDiscriminator->getCurrentUserConfig()->getRoutePrefix().'_registration_confirmed');
             $event->setResponse(new RedirectResponse($url));
         }
     }

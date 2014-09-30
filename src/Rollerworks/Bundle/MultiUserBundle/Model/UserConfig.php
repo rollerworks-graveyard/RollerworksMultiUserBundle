@@ -11,8 +11,8 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Model;
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Model\GroupManagerInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use Rollerworks\Bundle\MultiUserBundle\Exception\MissingTemplateException;
 
 /**

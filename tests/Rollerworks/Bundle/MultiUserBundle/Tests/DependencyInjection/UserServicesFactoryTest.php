@@ -11,12 +11,11 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
-
 use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * @todo Test canonicalizer
@@ -44,7 +43,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -81,7 +80,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -122,7 +121,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => false,
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -134,7 +133,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($class, $def->getClass());
 
         $def = $this->containerBuilder->findDefinition(sprintf('rollerworks_multi_user.%s.user_listener', $driver));
-        $this->assertRegExp('{Rollerworks\\\\Bundle\\\\MultiUserBundle\\\\Doctrine\\\\' . $driver . '\\\\UserListener}i', $def->getClass());
+        $this->assertRegExp('{Rollerworks\\\\Bundle\\\\MultiUserBundle\\\\Doctrine\\\\'.$driver.'\\\\UserListener}i', $def->getClass());
 
         if ('orm' === $driver) {
             $this->assertTrue($def->hasTag('doctrine.event_subscriber'));
@@ -162,7 +161,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'confirmation' => array(),
                 'registration' => array(),
                 'resetting' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -179,7 +178,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
             'from_email' => array(
                 'confirmation' => sprintf('%%%s.registration.confirmation.from_email%%', 'acme_user'),
                 'resetting' => sprintf('%%%s.resetting.email.from_email%%', 'acme_user'),
-            )
+            ),
         ), $def->getArgument(3));
 
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
@@ -208,7 +207,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'confirmation' => array(),
                 'registration' => array(),
                 'resetting' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -222,12 +221,12 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             'template' => array(
                 'confirmation' => sprintf('%%%s.registration.confirmation.email.template%%', 'acme_user'),
-                'resetting' => sprintf('%%%s.resetting.email.template%%', 'acme_user')
+                'resetting' => sprintf('%%%s.resetting.email.template%%', 'acme_user'),
             ),
             'from_email' => array(
                 'confirmation' => sprintf('%%%s.registration.confirmation.from_email%%', 'acme_user'),
                 'resetting' => sprintf('%%%s.resetting.email.from_email%%', 'acme_user'),
-            )
+            ),
         ), $def->getArgument(3));
 
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
@@ -258,7 +257,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'confirmation' => array(),
                 'registration' => array(),
                 'resetting' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -298,7 +297,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'confirmation' => array(),
                 'registration' => array(),
                 'resetting' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -330,7 +329,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'change_password' => false,
 
                 'profile' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -388,10 +387,10 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                         'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\ProfileType',
                         'type' => 'acme_user_profile',
                         'name' => 'acme_user_profile_form',
-                        'validation_groups' => array('Profile')
-                    )
-                )
-            )
+                        'validation_groups' => array('Profile'),
+                    ),
+                ),
+            ),
         );
 
         $factory->create('acme', $config);
@@ -444,7 +443,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'resetting' => false,
                 'change_password' => false,
                 'registration' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -499,9 +498,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => array(
                     'confirmation' => array(
                         'enabled' => true,
-                    )
+                    ),
                 ),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -555,7 +554,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'change_password' => false,
                 'resetting' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -629,7 +628,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                 'registration' => false,
                 'resetting' => false,
                 'change_password' => array(),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -684,8 +683,8 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
                 'group' => array(
                     'group_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Group',
-                )
-            )
+                ),
+            ),
         );
 
         $factory->create('acme', $config);
@@ -747,9 +746,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                     'form' => array(
                         'type' => 'fos_user_registration',
                         'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\RegistrationFormType',
-                    )
+                    ),
                 ),
-            )
+            ),
         );
 
         $this->setExpectedException('RuntimeException', 'Form type "fos_user_registration" uses the "fos_user_" prefix with a custom class. Please overwrite the getName() method to return a unique name.');
@@ -775,9 +774,9 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                     'form' => array(
                         'type' => 'acme_user_registration',
                         'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\RegistrationFormType',
-                    )
+                    ),
                 ),
-            )
+            ),
         );
 
         $factory->create('acme', $config);
@@ -854,7 +853,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
                     $type,
                     sprintf('%%%s.%s.form.name%%', $servicePrefix, $type),
                     sprintf('%%%s.%s.form.type%%', $servicePrefix, $type),
-                    sprintf('%%%s.%s.form.validation_groups%%', $servicePrefix, $type)
+                    sprintf('%%%s.%s.form.validation_groups%%', $servicePrefix, $type),
                 ), $call[1]);
             }
         }
@@ -862,7 +861,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
 
     protected function assertTemplateConfigEqual($expected, $servicePrefix, $section, $name, Definition $userSystem = null)
     {
-        $actual = $this->containerBuilder->getParameter(sprintf($servicePrefix . '.%s.%s.template', $section, $name));
+        $actual = $this->containerBuilder->getParameter(sprintf($servicePrefix.'.%s.%s.template', $section, $name));
         $this->assertEquals($expected, $actual);
 
         if ($userSystem) {

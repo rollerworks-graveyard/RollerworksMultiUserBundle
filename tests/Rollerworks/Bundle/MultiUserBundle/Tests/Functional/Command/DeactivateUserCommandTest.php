@@ -49,12 +49,11 @@ class DeactivateUserCommandTest extends CommandTestCase
         $commandTester->execute(array(
             'command' => $command->getName(),
             'username' => 'testUser',
-            'user-system' => 'acme_admin'
+            'user-system' => 'acme_admin',
         ));
 
         $this->assertNotNull($acmeAdminUserManager->findUserByUsername('testUser'));
         $this->assertNull($acmeUserUserManager->findUserByUsername('testUser'));
         $this->assertFalse($acmeAdminUserManager->findUserByUsername('testUser')->isEnabled());
-
     }
 }

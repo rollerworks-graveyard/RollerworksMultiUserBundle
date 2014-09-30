@@ -48,154 +48,154 @@ class EventDiscriminator implements EventSubscriberInterface
     public function dispatchChangePasswordInitialize(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.change_password.edit.initialize', $e);
+            $this->eventDispatcher->dispatch($userSys.'.change_password.edit.initialize', $e);
         }
     }
 
     public function dispatchChangePasswordSuccess(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.change_password.edit.success', $e);
+            $this->eventDispatcher->dispatch($userSys.'.change_password.edit.success', $e);
         }
     }
 
     public function dispatchChangePasswordCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.change_password.edit.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.change_password.edit.completed', $e);
         }
     }
 
     public function dispatchGroupCreateInitialize(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.create.initialize', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.create.initialize', $e);
         }
     }
 
     public function dispatchGroupCreateSuccess(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.create.success', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.create.success', $e);
         }
     }
 
     public function dispatchGroupCreateCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.create.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.create.completed', $e);
         }
     }
 
     public function dispatchGroupDeleteCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.delete.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.delete.completed', $e);
         }
     }
 
     public function dispatchGroupEditInitialize(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.edit.initialize', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.edit.initialize', $e);
         }
     }
 
     public function dispatchGroupEditSuccess(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.edit.success', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.edit.success', $e);
         }
     }
 
     public function dispatchGroupEditCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.group.edit.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.group.edit.completed', $e);
         }
     }
 
     public function dispatchProfileEditInitialize(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.profile.edit.initialize', $e);
+            $this->eventDispatcher->dispatch($userSys.'.profile.edit.initialize', $e);
         }
     }
 
     public function dispatchProfileEditSuccess(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.profile.edit.success', $e);
+            $this->eventDispatcher->dispatch($userSys.'.profile.edit.success', $e);
         }
     }
 
     public function dispatchProfileEditCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.profile.edit.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.profile.edit.completed', $e);
         }
     }
 
     public function dispatchRegistrationInitialize(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.registration.initialize', $e);
+            $this->eventDispatcher->dispatch($userSys.'.registration.initialize', $e);
         }
     }
 
     public function dispatchRegistrationSuccess(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.registration.success', $e);
+            $this->eventDispatcher->dispatch($userSys.'.registration.success', $e);
         }
     }
 
     public function dispatchRegistrationCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.registration.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.registration.completed', $e);
         }
     }
 
     public function dispatchRegistrationConfirm(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.registration.confirm', $e);
+            $this->eventDispatcher->dispatch($userSys.'.registration.confirm', $e);
         }
     }
 
     public function dispatchRegistrationConfirmed(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.registration.confirmed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.registration.confirmed', $e);
         }
     }
 
     public function dispatchResettingResetInitialize(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.resetting.reset.initialize', $e);
+            $this->eventDispatcher->dispatch($userSys.'.resetting.reset.initialize', $e);
         }
     }
 
     public function dispatchResettingResetSuccess(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.resetting.reset.success', $e);
+            $this->eventDispatcher->dispatch($userSys.'.resetting.reset.success', $e);
         }
     }
 
     public function dispatchResettingResetCompleted(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.resetting.reset.completed', $e);
+            $this->eventDispatcher->dispatch($userSys.'.resetting.reset.completed', $e);
         }
     }
 
     public function dispatchSecurityImplicitLogin(Event $e)
     {
         if ($userSys = $this->userDiscriminator->getCurrentUser()) {
-            $this->eventDispatcher->dispatch($userSys . '.security.implicit_login', $e);
+            $this->eventDispatcher->dispatch($userSys.'.security.implicit_login', $e);
         }
     }
 

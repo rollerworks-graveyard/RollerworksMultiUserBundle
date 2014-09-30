@@ -11,14 +11,14 @@
 
 namespace Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\UserBundle\DependencyInjection;
 
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
 
 class AcmeUserExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $config, ContainerBuilder $container)
     {
@@ -34,11 +34,11 @@ class AcmeUserExtension extends Extension
                 'security' => array(
                     'login' => array(
                         'template' => 'AcmeUserBundle:Security:login.html.twig',
-                    )
+                    ),
                 ),
 
                 'group' => array(
-                    'group_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\UserBundle\Entity\Group'
+                    'group_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Functional\Bundle\UserBundle\Entity\Group',
                 ),
 
                 'profile' => array(
@@ -75,15 +75,15 @@ class AcmeUserExtension extends Extension
                         'password_already_requested' => 'AcmeUserBundle:Resetting:passwordAlreadyRequested.html.twig',
                         'request' => 'AcmeUserBundle:Resetting:request.html.twig',
                         'reset' => 'AcmeUserBundle:Resetting:reset.html.twig',
-                    )
+                    ),
                 ),
 
                 'change_password' => array(
                     'template' => array(
                         'change_password' => 'AcmeUserBundle:ChangePassword:changePassword.html.twig',
-                    )
+                    ),
                 ),
-            )
+            ),
         ));
     }
 }

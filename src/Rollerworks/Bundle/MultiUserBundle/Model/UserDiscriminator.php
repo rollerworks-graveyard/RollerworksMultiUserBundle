@@ -46,7 +46,7 @@ class UserDiscriminator implements UserDiscriminatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function addUser($name, UserConfig $user)
     {
@@ -54,7 +54,7 @@ class UserDiscriminator implements UserDiscriminatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getCurrentUserConfig()
     {
@@ -66,7 +66,7 @@ class UserDiscriminator implements UserDiscriminatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function hasCurrentUserConfig()
     {
@@ -74,7 +74,7 @@ class UserDiscriminator implements UserDiscriminatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setCurrentUser($name)
     {
@@ -86,7 +86,7 @@ class UserDiscriminator implements UserDiscriminatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getCurrentUser()
     {
