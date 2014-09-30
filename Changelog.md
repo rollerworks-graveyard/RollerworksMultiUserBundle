@@ -1,7 +1,7 @@
  Changelog
 =========
 
-### 1.0.0-BETA3 (2014-XX-XX)
+### 1.0.0-BETA3 (2014-09-30)
 
 This version reflects the changes done in the FOSUserBundle done after 2.0.0-alpha1
 
