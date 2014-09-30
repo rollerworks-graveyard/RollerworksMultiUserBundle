@@ -61,10 +61,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $this->assertEquals(array('acme_user', 'acme_user', new Reference('acme_user.user_manager'), new Reference('acme_user.group_manager')), $def->getArguments());
     }
@@ -101,10 +98,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => null, 'host' => null, 'request_matcher' => 'acme_user.request_matcher', 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $this->assertEquals(array('acme_user', 'acme_user', new Reference('acme_user.user_manager'), new Reference('acme_user.group_manager')), $def->getArguments());
     }
@@ -353,10 +347,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $expected = array(
             'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\ProfileFormType',
@@ -417,10 +408,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $expected = array(
             'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\Form\Type\ProfileType',
@@ -473,10 +461,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
         $this->assertUserConfigEquals($def, 'registering.confirmation.enabled', false, true);
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $expected = array(
             'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\RegistrationFormType',
@@ -534,10 +519,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
         $this->assertUserConfigEquals($def, 'registering.confirmation.enabled', true);
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $expected = array(
             'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\RegistrationFormType',
@@ -590,10 +572,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $found = false;
         foreach ($def->getMethodCalls() as $call) {
@@ -667,10 +646,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $expected = array(
             'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\ChangePasswordFormType',
@@ -730,10 +706,7 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.user_system.acme');
         $this->assertEquals('Rollerworks\Bundle\MultiUserBundle\Model\UserConfig', $def->getClass());
         $this->assertEquals(array(array('alias' => 'acme', 'class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User', 'path' => '/', 'host' => null, 'db_driver' => 'orm')), $def->getTag('rollerworks_multi_user.user_system'));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $this->assertTrue($def->isLazy());
-        }
+        $this->assertTrue($def->isLazy());
 
         $expected = array(
             'class' => 'Rollerworks\Bundle\MultiUserBundle\Form\Type\GroupFormType',

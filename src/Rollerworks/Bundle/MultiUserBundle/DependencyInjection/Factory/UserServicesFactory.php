@@ -322,10 +322,7 @@ class UserServicesFactory
         ;
 
         $def->addMethodCall('setTemplate', array('layout', $config['template']['layout']));
-
-        if (version_compare(Kernel::VERSION, '2.3.0', '>=')) {
-            $def->setLazy(true);
-        }
+        $def->setLazy(true);
 
         return $def;
     }
