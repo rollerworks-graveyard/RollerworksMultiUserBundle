@@ -5,7 +5,6 @@ RollerworksMultiUserBundle
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/badges/quality-score.png?s=d98ca957ce5deb8b4bd41532cae263b8a1639121)](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/9a47cef8-7640-4f20-9efe-0153325d66ba/mini.png)](https://insight.sensiolabs.com/projects/9a47cef8-7640-4f20-9efe-0153325d66ba)
 
-
 The RollerworksMultiUserBundle adds support for a multi-user set-up using the FOSUserBundle.
 It provides a fully compatible in-place replacement for the 'fos_user' services.
 
@@ -20,6 +19,8 @@ Features include:
 
 **Caution:** This bundle is developed in sync with [FOSUserBundle's repository](https://github.com/FriendsOfSymfony/FOSUserBundle).
 For FOSUserBundle 2.0.x, you need to use the 1.0 release of the bundle (or lower).
+
+**As the FOSUserBundle 2.0 is not stable yet, multi-user support is considered experimental!**
 
 **Warning:** This bundle can not be used in combination with the PUGXMultiUserBundle.
 If the PUGXMultiUserBundle is installed, then please remove it before continuing.
@@ -61,7 +62,7 @@ built using the [Symfony Standard Edition](https://github.com/symfony/symfony-st
 to allow developers of the bundle to reproduce the issue by simply cloning it
 and following some steps.
 
-For opening a PR please use [Gush](http://gushphp.org/) with the standard template.
+For opening a PR please use [Gush](http://gushphp.org/) so the information template is included.
 
 Credits
 -------
@@ -103,5 +104,5 @@ PDO_SQLite and the PHP extension for MongoDB are installed, and launch phpunit w
 $ bin/phpunit -c phpunit.xml.dist --exclude-group ""
 ```
 
-> Optionally you skip the functional tests as these are always run automatically on Travis-CI
+> Optionally you may skip the functional tests as these are always run automatically on Travis-CI
 > when opening a Pull Request.
