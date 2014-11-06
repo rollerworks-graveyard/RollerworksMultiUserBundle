@@ -144,6 +144,42 @@ class UserServicesFactoryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testCustomModelManager()
+    {
+        $factory = new UserServicesFactory($this->containerBuilder);
+
+        $config = array(
+            array(
+                'path' => '/',
+                'db_driver' => 'orm',
+                'model_manager_name' => 'admin',
+                'user_class' => 'Rollerworks\Bundle\MultiUserBundle\Tests\Stub\User',
+                'services_prefix' => 'acme_user',
+                'routes_prefix' => 'acme_user',
+
+                'profile' => false,
+                'registration' => false,
+                'resetting' => false,
+                'change_password' => false,
+            ),
+        );
+
+        $factory->create('acme', $config);
+
+        $this->assertTrue($this->containerBuilder->hasDefinition('rollerworks_multi_user.acme_user.model_manager'));
+
+        $def = $this->containerBuilder->getDefinition('rollerworks_multi_user.acme_user.model_manager');
+        $this->assertEquals('doctrine', $def->getFactoryService());
+        $this->assertEquals('Doctrine\ORM\EntityManager', $def->getClass());
+        $this->assertTrue($this->containerBuilder->hasParameter('acme_user.backend_type_orm'));
+        $this->assertEquals('admin', $this->containerBuilder->getParameter('acme_user.model_manager_name'));
+
+        $def = $this->containerBuilder->findDefinition('rollerworks_multi_user.orm.user_listener');
+        $this->assertRegExp('{Rollerworks\\\\Bundle\\\\MultiUserBundle\\\\Doctrine\\\\Orm\\\\UserListener}i', $def->getClass());
+
+        $this->assertTrue($def->hasTag('doctrine.event_subscriber'));
+    }
+
     public function testDefaultMailer()
     {
         $factory = new UserServicesFactory($this->containerBuilder);

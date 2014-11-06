@@ -361,6 +361,10 @@ class UserServicesFactory
             ->setPublic(false)
             ->setArguments(array($config['model_manager_name']));
 
+            if ('custom' !== $config['db_driver']) {
+                $container->setParameter($this->servicePrefix.'.backend_type_'.$config['db_driver'], true);
+            }
+
             // Note. Its no issue to set the listener multiple times
             // Symfony will just overwrite them, each listener is unique per db-driver
             $this->registerUserListener($container, $config['db_driver']);

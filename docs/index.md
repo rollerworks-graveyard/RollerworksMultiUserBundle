@@ -143,6 +143,29 @@ which will be planed in the `Acme\UserBundle` namespace with YAML as configurati
 
 See [FOSUserBundle - Create your User class](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md#step-3-create-your-user-class) for full details.
 
+**Caution:** The Doctrine mappings of the FOSUserBundle may not be enabled properly, make sure you either use
+the `rollerworks:multi-user:generate:usersys` command or load them manually for each model-manager that is used
+by the configured user-systems.
+
+```yaml
+doctrine:
+    orm:
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    FOSUserBundle: ~
+                        mapping:              true
+                        type:                 xml
+                        dir:                  Resources/config/doctrine/model
+                        alias:                ~
+                        prefix:               FOS\UserBundle\Model
+                        is_bundle:            true
+```
+
+**For other Doctrine drivers please refer to official documentation.**
+
 #### 3.2: Register the user-system
 
 **Note.** Activating the new user-system requires it to be enabled in the AppKernel.
