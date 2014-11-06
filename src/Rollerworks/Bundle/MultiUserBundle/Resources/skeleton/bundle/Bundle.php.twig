@@ -4,6 +4,8 @@ namespace {{ namespace }};
 
 {% block use_statements %}
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RegisterFosUserMappingsPass;
 {% endblock use_statements %}
 
 {% block class_definition %}
@@ -17,35 +19,13 @@ class {{ bundle }} extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-
-        $this->addRegisterMappingsPass($container, '{{ extension_alias }}');
-    }
-
-    /**
-     * Registers the DoctrineMappingsPass for loading the FOSUserBundle base-mappings
-     * with the correct driver and model-manager.
-     *
-     * @param ContainerBuilder $container
-     */
-    private function addRegisterMappingsPass(ContainerBuilder $container, $servicePrefix)
-    {
-        $r = new \ReflectionClass('FOS\UserBundle\FOSUserBundle');
-
-        $mappings = array(
-            realpath(dirname($r->getFilename()).'/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
-        );
-
-        if (class_exists('Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass')) {
-            $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array($servicePrefix.'.model_manager_name'), '.backend_type_orm'));
-        }
-
-        if (class_exists('Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass')) {
-            $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver($mappings, array($servicePrefix.'.model_manager_name'), $servicePrefix.'.backend_type_mongodb'));
-        }
-
-        if (class_exists('Doctrine\Bundle\CouchDBBundle\DependencyInjection\Compiler\DoctrineCouchDBMappingsPass')) {
-            $container->addCompilerPass(DoctrineCouchDBMappingsPass::createXmlMappingDriver($mappings, array($servicePrefix.'.model_manager_name'), $servicePrefix.'.backend_type_couchdb'));
-        }
+{% if db_driver == 'orm' %}
+        $container->addCompilerPass(RegisterFosUserMappingsPass::createOrmMappingDriver('{{ extension_alias }}'));
+{% elseif db_driver == 'mongodb' %}
+        $container->addCompilerPass(RegisterFosUserMappingsPass::createMongoDBMappingDriver('{{ extension_alias }}'));
+{% elseif db_driver == 'couchdb' %}
+        $container->addCompilerPass(RegisterFosUserMappingsPass::createCouchDBMappingDriver('{{ extension_alias }}'));
+{% endif %}
     }
 {% endblock class_body %}
 }
