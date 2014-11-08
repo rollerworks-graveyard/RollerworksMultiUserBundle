@@ -156,12 +156,10 @@ doctrine:
                 connection: default
                 mappings:
                     FOSUserBundle: ~
-                        mapping:              true
                         type:                 xml
-                        dir:                  Resources/config/doctrine/model
-                        alias:                ~
+                        dir:                  '%kernel.root_dir%/../vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/doctrine/model'
                         prefix:               FOS\UserBundle\Model
-                        is_bundle:            true
+                        is_bundle:            false
 ```
 
 **For other Doctrine drivers please refer to official documentation.**
