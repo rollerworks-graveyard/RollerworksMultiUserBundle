@@ -12,9 +12,10 @@
 namespace Rollerworks\Bundle\MultiUserBundle\Command;
 
 use FOS\UserBundle\Command\ActivateUserCommand as BaseActivateUserCommand;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
@@ -29,8 +30,8 @@ class ActivateUserCommand extends BaseActivateUserCommand
         parent::configure();
 
         $definition = $this->getDefinition();
-        $definition->addArgument(
-            new InputArgument('user-system', InputArgument::REQUIRED, 'The user-system to use')
+        $definition->addOption(
+            new InputOption('user-system', null, InputOption::VALUE_REQUIRED, 'The user-system to use')
         );
 
         $this
@@ -49,7 +50,7 @@ EOT
     {
         /** @var UserDiscriminatorInterface $discriminator */
         $discriminator = $this->getContainer()->get('rollerworks_multi_user.user_discriminator');
-        $discriminator->setCurrentUser($input->getArgument('user-system'));
+        $discriminator->setCurrentUser($input->getOption('user-system'));
 
         parent::interact($input, $output);
     }
