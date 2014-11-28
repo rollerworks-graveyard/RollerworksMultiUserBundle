@@ -43,7 +43,7 @@ class CreateUserCommandTest extends CommandTestCase
             'username' => 'testUser',
             'email' => 'test@example.com',
             'password' => 'very-not-secure',
-            'user-system' => 'acme_admin',
+            '--user-system' => 'acme_admin',
         ));
 
         $this->assertNotNull($acmeAdminUserManager->findUserByUsername('testUser'));
@@ -54,7 +54,7 @@ class CreateUserCommandTest extends CommandTestCase
             'username' => 'testUser',
             'email' => 'test@example.com',
             'password' => 'very-not-secure',
-            'user-system' => 'acme_user',
+            '--user-system' => 'acme_user',
         ));
 
         $this->assertNotNull($acmeAdminUserManager->findUserByUsername('testUser'));
@@ -110,7 +110,7 @@ class CreateUserCommandTest extends CommandTestCase
             'username' => 'testUser',
             'email' => 'test@example.com',
             'password' => 'very-not-secure',
-            'user-system' => 'acme_nothing',
+            '--user-system' => 'acme_nothing',
         ));
     }
 }
