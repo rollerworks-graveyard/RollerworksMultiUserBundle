@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Rollerworks\Bundle\MultiUserBundle\Model\UserDiscriminatorInterface;
 
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
@@ -33,8 +34,8 @@ class PromoteUserCommand extends BasePromoteUserCommand
         $definition = new InputDefinition();
         $definition->setDefinition(array(
             new InputArgument('username', InputArgument::REQUIRED, 'The username'),
-            new InputArgument('user-system', InputArgument::REQUIRED, 'The user-system to use'),
             new InputArgument('role', InputArgument::OPTIONAL, 'The role'),
+            new InputOption('user-system', null, InputOption::VALUE_REQUIRED, 'The user-system to use'),
             new InputOption('super', null, InputOption::VALUE_NONE, 'Instead specifying role, use this to quickly add the super administrator role'),
         ));
 
@@ -53,7 +54,7 @@ EOT
     {
         /** @var UserDiscriminatorInterface $discriminator */
         $discriminator = $this->getContainer()->get('rollerworks_multi_user.user_discriminator');
-        $discriminator->setCurrentUser($input->getArgument('user-system'));
+        $discriminator->setCurrentUser($input->getOption('user-system'));
 
         parent::interact($input, $output);
     }

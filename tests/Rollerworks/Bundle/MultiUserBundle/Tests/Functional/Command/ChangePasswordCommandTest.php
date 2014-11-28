@@ -50,7 +50,7 @@ class ChangePasswordCommandTest extends CommandTestCase
             'command' => $command->getName(),
             'username' => 'testUser',
             'password' => 'very-not-secure-or-something-like-that',
-            'user-system' => 'acme_admin',
+            '--user-system' => 'acme_admin',
         ));
 
         $this->assertNotNull($acmeAdminUserManager->findUserByUsername('testUser'));
