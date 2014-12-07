@@ -8,6 +8,10 @@
         {
             "name": "Sebastiaan Stok",
             "email": "s.stok@rollercapes.net"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/rollerworks/RollerworksMultiUserBundle/graphs/contributors"
         }
     ],
     "minimum-stability": "dev",
@@ -42,8 +46,13 @@
         "pugx/multi-user-bundle": "*"
     },
     "autoload": {
-        "psr-0": {
-            "Rollerworks\\Bundle\\MultiUserBundle": "src/"
+        "psr-4": {
+            "Rollerworks\\Bundle\\MultiUserBundle\\": "src/Rollerworks/Bundle/MultiUserBundle"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rollerworks\\Bundle\\MultiUserBundle\\Tests\\": "tests/Rollerworks/Bundle/MultiUserBundle"
         }
     },
     "config": {
