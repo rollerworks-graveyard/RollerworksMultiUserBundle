@@ -15,7 +15,7 @@
 
     <testsuites>
         <testsuite name="Rollerworks MultiUserBundle Test Suite">
-            <directory suffix="Test.php">./tests/Rollerworks/Bundle/MultiUserBundle/Tests</directory>
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
 

@@ -47,12 +47,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Rollerworks\\Bundle\\MultiUserBundle\\": "src/Rollerworks/Bundle/MultiUserBundle"
+            "Rollerworks\\Bundle\\MultiUserBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rollerworks\\Bundle\\MultiUserBundle\\Tests\\": "tests/Rollerworks/Bundle/MultiUserBundle"
+            "Rollerworks\\Bundle\\MultiUserBundle\\Tests\\": "tests/"
         }
     },
     "config": {
