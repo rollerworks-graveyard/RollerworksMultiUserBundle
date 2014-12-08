@@ -29,6 +29,9 @@ if (version_compare(PHP_VERSION, '5.4', '>=') && gc_enabled()) {
  */
 $loader = require_once __DIR__.'/../vendor/autoload.php';
 
+// Disable E_USER_DEPRECATED until 3.0
+ini_set('error_reporting', -1 & ~E_USER_DEPRECATED);
+
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 // Do this explicit as the Swiftmailer is only loaded automatically when its used by the Application
