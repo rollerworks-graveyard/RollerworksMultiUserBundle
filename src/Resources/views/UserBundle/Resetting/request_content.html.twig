@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<form action="{{ path(rollerworks_multi_user_user().getRoutePrefix() ~ '_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+{{ form_start(form, {'action': path(rollerworks_multi_user_user().getRoutePrefix() ~ '_resetting_send_email'), 'attr': {'class': 'fos_user_resetting_request'} }) }}
     <div>
         {% if invalid_username is defined %}
             <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
@@ -11,4 +11,4 @@
     <div>
         <input type="submit" value="{{ 'resetting.request.submit'|trans }}" />
     </div>
-</form>
+{{ form_end(form) }}
