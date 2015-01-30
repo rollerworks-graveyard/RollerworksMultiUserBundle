@@ -1,6 +1,8 @@
 RollerworksMultiUserBundle
 ==========================
 
+[![Join the chat at https://gitter.im/rollerworks/RollerworksMultiUserBundle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/rollerworks/RollerworksMultiUserBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/rollerworks/RollerworksMultiUserBundle.png?branch=master)](https://travis-ci.org/rollerworks/RollerworksMultiUserBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/badges/quality-score.png?s=d98ca957ce5deb8b4bd41532cae263b8a1639121)](https://scrutinizer-ci.com/g/rollerworks/RollerworksMultiUserBundle/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/9a47cef8-7640-4f20-9efe-0153325d66ba/mini.png)](https://insight.sensiolabs.com/projects/9a47cef8-7640-4f20-9efe-0153325d66ba)
