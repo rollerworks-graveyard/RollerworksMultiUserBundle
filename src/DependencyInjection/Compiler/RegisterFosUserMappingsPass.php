@@ -86,7 +86,7 @@ class RegisterFosUserMappingsPass extends RegisterMappingsPass
         if (null === $mappings) {
             $r = new \ReflectionClass('FOS\UserBundle\FOSUserBundle');
             $mappings = array(
-                realpath(dirname($r->getFilename()).'/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
+                realpath(dirname($r->getFilename()).'/Resources/config/doctrine-mapping') => 'FOS\UserBundle\Model',
             );
         }
 
