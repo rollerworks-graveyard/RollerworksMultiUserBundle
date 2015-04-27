@@ -33,7 +33,7 @@ doctrine:
                 mappings:
                     FOSUserBundle:
                         type:        xml
-                        dir:         '%kernel.root_dir%/../vendor/friendsofsymfony/user-bundle/Resources/config/doctrine/model'
+                        dir:         '%kernel.root_dir%/../vendor/friendsofsymfony/user-bundle/Resources/config/doctrine-mapping'
                         prefix:      FOS\UserBundle\Model
                         is_bundle:   false
 ```
