@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -46,7 +46,7 @@ abstract class AbstractUserListener implements EventSubscriber
     private $container;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param ContainerInjector $container
      */
@@ -56,12 +56,12 @@ abstract class AbstractUserListener implements EventSubscriber
     }
 
     /**
-     * {inheritdoc}
+     * {inheritdoc}.
      */
     public function prePersist($args)
     {
         if (null === $this->userDiscriminator->getCurrentUser()) {
-            return ;
+            return;
         }
 
         $object = $args->getObject();
@@ -80,7 +80,7 @@ abstract class AbstractUserListener implements EventSubscriber
     public function preUpdate($args)
     {
         if (null === $this->userDiscriminator->getCurrentUser()) {
-            return ;
+            return;
         }
 
         $object = $args->getObject();
@@ -103,7 +103,7 @@ abstract class AbstractUserListener implements EventSubscriber
 
         // Can only use the user manager when there is an user-system active
         if (null === $this->userDiscriminator->getCurrentUser() || true !== $this->userDiscriminator->getCurrentUserConfig()->getConfig('use_listener', true)) {
-            return ;
+            return;
         }
 
         if (null === $this->userManager) {

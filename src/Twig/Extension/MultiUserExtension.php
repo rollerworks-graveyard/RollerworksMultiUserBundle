@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -39,7 +39,7 @@ class MultiUserExtension extends \Twig_Extension
     }
 
     /**
-     * @param boolean $getName
+     * @param bool $getName
      *
      * @return \Rollerworks\Bundle\MultiUserBundle\Model\UserConfig|string|null
      */

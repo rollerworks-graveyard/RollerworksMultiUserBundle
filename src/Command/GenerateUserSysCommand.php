@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -15,7 +15,6 @@ use Rollerworks\Bundle\MultiUserBundle\Generator\UserBundleGenerator;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateBundleCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
@@ -266,7 +265,7 @@ EOT
     }
 
     /**
-     * add this bundle skeleton dirs to the beginning of the parent skeletonDirs array
+     * add this bundle skeleton dirs to the beginning of the parent skeletonDirs array.
      *
      * @param BundleInterface $bundle
      *

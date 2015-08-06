@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -72,9 +72,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param ArrayNodeDefinition $rootNode
      *
-     * @return ArrayNodeDefinition
-     *
      * @throws \InvalidArgumentException on unknown section
+     *
+     * @return ArrayNodeDefinition
      *
      * @internal
      */
@@ -148,12 +148,12 @@ class Configuration implements ConfigurationInterface
      * When calling this method.
      *
      * @param ArrayNodeDefinition $rootNode
-     * @param array|integer       $enableServices Bitmask of enabled configurations or array of enabled-services (compatibility only)
+     * @param array|int           $enableServices Bitmask of enabled configurations or array of enabled-services (compatibility only)
      *                                            Accepted array values: 'profile', 'change_password', 'registration', 'resetting', 'group'
      *
-     * @return ArrayNodeDefinition
-     *
      * @throws \InvalidArgumentException on unknown section
+     *
+     * @return ArrayNodeDefinition
      *
      * @internal
      */
@@ -184,7 +184,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('db_driver')
                         ->validate()
-                            ->ifTrue(function ($v) use ($supportedDrivers) { return $v !== null && !in_array($v, $supportedDrivers); })
+                            ->ifTrue(function ($v) use ($supportedDrivers) { return $v !== null && !in_array($v, $supportedDrivers, true); })
                             ->thenInvalid('The driver %s is not supported. Please choose one of: '.implode(',', $supportedDrivers))
                         ->end()
                     ->end()
@@ -721,7 +721,7 @@ class Configuration implements ConfigurationInterface
         $enableServicesMask = self::CONFIG_ALL ^ self::CONFIG_SECTION_PROFILE ^ self::CONFIG_SECTION_CHANGE_PASSWORD ^ self::CONFIG_SECTION_REGISTRATION ^ self::CONFIG_SECTION_RESETTING ^ self::CONFIG_SECTION_GROUP;
 
         foreach ($enableServices as $enableService) {
-            if (!in_array($enableService, $availableSections)) {
+            if (!in_array($enableService, $availableSections, true)) {
                 throw new \InvalidArgumentException(sprintf('Unable to add unknown configuration-section "%s".', $serviceName));
             }
 

@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -24,7 +24,7 @@ class Validators extends BaseValidators
     {
         $format = strtolower($format);
 
-        if (!in_array($format, array('php', 'xml', 'yml'))) {
+        if (!in_array($format, array('php', 'xml', 'yml'), true)) {
             throw new \RuntimeException(sprintf('Format "%s" is not supported.', $format));
         }
 
@@ -35,7 +35,7 @@ class Validators extends BaseValidators
     {
         $format = strtolower($format);
 
-        if (!in_array($format, array('orm', 'mongodb', 'couchdb', 'custom'))) {
+        if (!in_array($format, array('orm', 'mongodb', 'couchdb', 'custom'), true)) {
             throw new \RuntimeException(sprintf('Format "%s" is not supported.', $format));
         }
 

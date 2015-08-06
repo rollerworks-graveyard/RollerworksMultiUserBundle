@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -66,9 +66,9 @@ class UserBundleGenerator extends Generator
         $basename = substr($bundle, 0, -6);
         $parameters = array(
             'namespace' => $namespace,
-            'bundle'    => $bundle,
-            'format'    => $format,
-            'db_driver'    => $dbDriver,
+            'bundle' => $bundle,
+            'format' => $format,
+            'db_driver' => $dbDriver,
             'model_namespace' => $namespace.'\\'.$driverDir[$dbDriver],
             'bundle_basename' => $basename,
             'extension_alias' => Container::underscore($basename),
@@ -109,7 +109,7 @@ class UserBundleGenerator extends Generator
     {
         $parameters = array(
             'namespace' => $namespace,
-            'bundle'    => $bundle,
+            'bundle' => $bundle,
             'bundle_basename' => $basename,
             'extension_alias' => Container::underscore($basename),
         );
@@ -254,8 +254,8 @@ class UserBundleGenerator extends Generator
         foreach ($baseRoutes as $fileName => $routes) {
             $parameters = array(
                 'namespace' => $namespace,
-                'bundle'    => $bundle,
-                'format'    => $format,
+                'bundle' => $bundle,
+                'format' => $format,
                 'bundle_basename' => $basename,
                 'extension_alias' => Container::underscore($basename),
                 'routes' => $routes,
@@ -276,8 +276,8 @@ class UserBundleGenerator extends Generator
 
         $parameters = array(
             'namespace' => $namespace,
-            'bundle'    => $bundle,
-            'format'    => $format,
+            'bundle' => $bundle,
+            'format' => $format,
             'bundle_basename' => $basename,
             'extension_alias' => Container::underscore($basename),
             'events' => $events,

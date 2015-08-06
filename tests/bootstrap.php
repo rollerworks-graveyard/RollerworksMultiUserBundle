@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -24,9 +24,7 @@ if (version_compare(PHP_VERSION, '5.4', '>=') && gc_enabled()) {
     gc_disable();
 }
 
-/**
- * @var $loader ClassLoader
- */
+/** @var $loader ClassLoader */
 $loader = require_once __DIR__.'/../vendor/autoload.php';
 
 // Disable E_USER_DEPRECATED until 3.0
@@ -43,7 +41,7 @@ Swift::registerAutoload();
 // The path gets to long when it also includes the 5 character hash of the Container with functional tests.
 call_user_func(function () {
     if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
-        $rootDir = substr(realpath(substr(__DIR__, 0, strpos(__DIR__, '\\')+1)), 0, -1);
+        $rootDir = substr(realpath(substr(__DIR__, 0, strpos(__DIR__, '\\') + 1)), 0, -1);
     } else {
         $rootDir = sys_get_temp_dir();
     }

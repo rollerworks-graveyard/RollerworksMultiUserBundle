@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -33,14 +33,14 @@ class UserDiscriminatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
         $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
-        /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
 
+        /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager2 */
         $userManager2 = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager2 = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
-        /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager2 */
         $config2 = new UserConfig('acme_user', 'acme_user_route', $userManager2, $groupManager2);
 
         $this->discriminator = new UserDiscriminator(array('user1' => $config, 'user2' => $config2));

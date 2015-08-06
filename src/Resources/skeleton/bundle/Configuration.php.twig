@@ -1,14 +1,26 @@
 <?php
 
-namespace {{ namespace }}\DependencyInjection;
+/*
+ * This file is part of the RollerworksMultiUserBundle package.
+ *
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
-{% block use_statements %}
+namespace {{
+
+namespace }}\DependencyInjection;
+
+{ % block use_statements % }
 use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Configuration as UserConfiguration;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-{% endblock use_statements %}
 
-/**
+{ % endblock use_statements % }
+
+/*
 {% block phpdoc_class_header %}
  * This is the class that validates and merges configuration from your app/config files
 {% endblock phpdoc_class_header %}
@@ -16,11 +28,13 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  * To learn more about the user-configuration see {@link https://github.com/rollerworks/RollerworksMultiUserBundle/blob/master/docs/index.md#33-make-your-bundle-configurable}
  */
-{% block class_definition %}
+{ % block class_definition % }
 class Configuration implements ConfigurationInterface
-{% endblock class_definition %}
 {
-{% block class_body %}
+    % endblock class_definition %
+}
+{
+{ % block class_body % }
     /**
      * {@inheritdoc}
      */
@@ -41,5 +55,5 @@ class Configuration implements ConfigurationInterface
 
         return $treeBuilder;
     }
-{% endblock class_body %}
+{ % endblock class_body % }
 }

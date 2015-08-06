@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -185,7 +185,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param integer|array $enableServices
+     * @param int|array $enableServices
      *
      * @return ArrayNodeDefinition|NodeDefinition
      */
@@ -206,7 +206,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      * Optionally provide (part of) the exception message that you expect to receive.
      *
      * @param array       $configurationValues
-     * @param integer     $enableServices
+     * @param int         $enableServices
      * @param string|null $expectedMessage
      */
     protected function assertConfigurationIsInvalid(array $configurationValues, $enableServices = Configuration::CONFIG_ALL, $expectedMessage = null)
@@ -221,11 +221,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Assert that the given configuration values, when processed, will equal to the given array
+     * Assert that the given configuration values, when processed, will equal to the given array.
      *
-     * @param array   $configurationValues
-     * @param array   $expectedProcessedConfiguration
-     * @param integer $enableServices
+     * @param array $configurationValues
+     * @param array $expectedProcessedConfiguration
+     * @param int   $enableServices
      */
     protected function assertProcessedConfigurationEquals(array $configurationValues, array $expectedProcessedConfiguration, $enableServices = Configuration::CONFIG_ALL)
     {

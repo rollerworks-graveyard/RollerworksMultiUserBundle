@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -17,8 +17,8 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUserManager()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
@@ -31,10 +31,10 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetGroupManager()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
-        $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\GroupManagerInterface $groupManager */
+        $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme', 'acme', $userManager, $groupManager);
         $this->assertSame($userManager, $config->getUserManager());
@@ -43,8 +43,8 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testForm()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
@@ -62,8 +62,8 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testConfig()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
@@ -77,8 +77,8 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testTemplate()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
@@ -92,8 +92,8 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetEmptyTemplate()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);
@@ -106,8 +106,8 @@ class UserConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetUnregisteredTemplate()
     {
-        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         /** @var \FOS\UserBundle\Model\UserManagerInterface $userManager */
+        $userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $groupManager = $this->getMock('FOS\UserBundle\Model\GroupManagerInterface');
 
         $config = new UserConfig('acme_user', 'acme_user_route', $userManager, $groupManager);

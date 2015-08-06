@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -54,8 +54,8 @@ class UserListener extends AbstractUserListener
             $this->updateUserFields($object);
             // We are doing a update, so we must force Doctrine to update the
             // changeset in case we changed something above
-            $dm   = $args->getDocumentManager();
-            $uow  = $dm->getUnitOfWork();
+            $dm = $args->getDocumentManager();
+            $uow = $dm->getUnitOfWork();
             $meta = $dm->getClassMetadata(get_class($object));
             $uow->recomputeSingleDocumentChangeSet($meta, $object);
         }

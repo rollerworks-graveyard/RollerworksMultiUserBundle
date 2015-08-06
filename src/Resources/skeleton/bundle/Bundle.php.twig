@@ -1,31 +1,52 @@
 <?php
 
-namespace {{ namespace }};
+/*
+ * This file is part of the RollerworksMultiUserBundle package.
+ *
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
-{% block use_statements %}
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+namespace {{
+
+namespace }};
+
+{ % block use_statements % }
 use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Compiler\RegisterFosUserMappingsPass;
-{% endblock use_statements %}
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-{% block class_definition %}
-class {{ bundle }} extends Bundle
-{% endblock class_definition %}
+{ % endblock use_statements % }
+
+{ % block class_definition % }
+class
 {
-{% block class_body %}
+    { bundle }
+} extends Bundle
+{ % endblock class_definition % }
+{
+{ % block class_body % }
     /**
      * {@inheritdoc}
      */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-{% if db_driver == 'orm' %}
-        $container->addCompilerPass(RegisterFosUserMappingsPass::createOrmMappingDriver('{{ extension_alias }}'));
-{% elseif db_driver == 'mongodb' %}
-        $container->addCompilerPass(RegisterFosUserMappingsPass::createMongoDBMappingDriver('{{ extension_alias }}'));
-{% elseif db_driver == 'couchdb' %}
-        $container->addCompilerPass(RegisterFosUserMappingsPass::createCouchDBMappingDriver('{{ extension_alias }}'));
-{% endif %}
+        { % if {
+     db_driver == 'orm' %
+ }
+        $container->addCompilerPass(RegisterFosUserMappingsPass::createOrmMappingDriver('{{ extension_alias }}')); }
+        { % elseif {
+     db_driver == 'mongodb' %
+ }
+        $container->addCompilerPass(RegisterFosUserMappingsPass::createMongoDBMappingDriver('{{ extension_alias }}')); }
+        { % elseif {
+     db_driver == 'couchdb' %
+ }
+        $container->addCompilerPass(RegisterFosUserMappingsPass::createCouchDBMappingDriver('{{ extension_alias }}')); }
+        { % endif % }
     }
-{% endblock class_body %}
+{ % endblock class_body % }
 }

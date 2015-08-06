@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -51,8 +51,6 @@ class UserDiscriminatorUrlGenerator implements RouterInterface
     }
 
     /**
-     * @return void
-     *
      * @codeCoverageIgnore
      */
     public function getContext()
@@ -73,8 +71,6 @@ class UserDiscriminatorUrlGenerator implements RouterInterface
     }
 
     /**
-     * @return void
-     *
      * @codeCoverageIgnore
      */
     public function getRouteCollection()
@@ -85,7 +81,6 @@ class UserDiscriminatorUrlGenerator implements RouterInterface
     /**
      * @param string $pathinfo
      *
-     * @return void
      *
      * @codeCoverageIgnore
      */

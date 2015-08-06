@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -252,8 +252,8 @@ class UserServicesFactory
         }
 
         if ('fos_user_'.$type === $config['type'] || 'FOS\\UserBundle\\Form\\Type\\' === substr($config['class'], 0, 25)) {
-            $config['type'] = sprintf('%s_%s',  $this->formPrefix, $type);
-            $config['class'] = 'Rollerworks\\Bundle\\MultiUserBundle\Form\\Type\\'.join('', array_slice(explode('\\', $config['class']), -1));
+            $config['type'] = sprintf('%s_%s', $this->formPrefix, $type);
+            $config['class'] = 'Rollerworks\\Bundle\\MultiUserBundle\Form\\Type\\'.implode('', array_slice(explode('\\', $config['class']), -1));
 
             $container->setDefinition(sprintf('%s.%s.form.type', $this->servicePrefix, $type), new Definition($config['class']))
                 ->setTags(array('form.type' => array(array('alias' => $config['type']))))
@@ -584,7 +584,7 @@ class UserServicesFactory
         $user->addMethodCall('setConfig', array('resetting.token_ttl', '%'.$this->servicePrefix.'.resetting.token_ttl'.'%'));
 
         $this->remapParametersNamespaces($config, $container, array(
-            '' => array (
+            '' => array(
                 'token_ttl' => $this->servicePrefix.'.resetting.token_ttl',
             ),
             'email' => $this->servicePrefix.'.resetting.email.%s',

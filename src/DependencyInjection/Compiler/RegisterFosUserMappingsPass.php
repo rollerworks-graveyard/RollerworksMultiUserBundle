@@ -3,7 +3,7 @@
 /*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -27,7 +27,7 @@ class RegisterFosUserMappingsPass extends RegisterMappingsPass
         $managerParameters = array($servicePrefix.'.model_manager_name', 'doctrine.default_entity_manager');
         $enabledParameter = $servicePrefix.'.backend_type_orm';
 
-        return new RegisterFosUserMappingsPass(
+        return new self(
             $driver,
             $namespaces,
             $managerParameters,
@@ -48,7 +48,7 @@ class RegisterFosUserMappingsPass extends RegisterMappingsPass
         $managerParameters = array($servicePrefix.'.model_manager_name', 'doctrine_mongodb.odm.default_document_manager');
         $enabledParameter = $servicePrefix.'.backend_type_mongodb';
 
-        return new RegisterFosUserMappingsPass(
+        return new self(
             $driver,
             $namespaces,
             $managerParameters,
@@ -69,7 +69,7 @@ class RegisterFosUserMappingsPass extends RegisterMappingsPass
         $managerParameters = array($servicePrefix.'.model_manager_name', 'doctrine_couchdb.default_document_manager');
         $enabledParameter = $servicePrefix.'.backend_type_couchdb';
 
-        return new RegisterFosUserMappingsPass(
+        return new self(
             $driver,
             $namespaces,
             $managerParameters,

@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -53,8 +53,8 @@ class UserConfig
     /**
      * Set a config.
      *
-     * @param string                       $name
-     * @param string|integer|boolean|array $value
+     * @param string                $name
+     * @param string|int|bool|array $value
      */
     public function setConfig($name, $value)
     {
@@ -62,10 +62,10 @@ class UserConfig
     }
 
     /**
-     * @param string                       $name
-     * @param string|integer|boolean|array $defaultValue
+     * @param string                $name
+     * @param string|int|bool|array $defaultValue
      *
-     * @return string|integer|boolean|array
+     * @return string|int|bool|array
      */
     public function getConfig($name, $defaultValue = null)
     {

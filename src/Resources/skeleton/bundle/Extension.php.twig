@@ -1,27 +1,42 @@
 <?php
 
-namespace {{ namespace }}\DependencyInjection;
+/*
+ * This file is part of the RollerworksMultiUserBundle package.
+ *
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
-{% block use_statements %}
+namespace {{
+
+namespace }}\DependencyInjection;
+
+{ % block use_statements % }
 use Rollerworks\Bundle\MultiUserBundle\DependencyInjection\Factory\UserServicesFactory;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-{% endblock use_statements %}
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
+{ % endblock use_statements % }
+
+/*
 {% block phpdoc_class_header %}
  * This is the class that loads and manages your bundle configuration
 {% endblock phpdoc_class_header %}
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-{% block class_definition %}
-class {{ bundle_basename }}Extension extends Extension
-{% endblock class_definition %}
+{ % block class_definition % }
+class
 {
-{% block class_body %}
+    { bundle_basename }
+}Extension extends Extension
+{ % endblock class_definition % }
+{
+{ % block class_body % }
     /**
      * {@inheritdoc}
      */
@@ -196,20 +211,25 @@ class {{ bundle_basename }}Extension extends Extension
                 ),
                 */
             ),
-            $config
+            $config,
         ));
 
-        {% if format == 'yml' -%}
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        { % if {
+     format == 'yml' - %
+ }
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config')); }
         $loader->load('services.yml');
-        {%- elseif format == 'xml' -%}
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        { % - elseif {
+    format == 'xml' - %
+}
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config')); }
         $loader->load('services.xml');
-        {%- elseif format == 'php' -%}
-        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        { % - elseif {
+    format == 'php' - %
+}
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config')); }
         $loader->load('services.php');
-        {%- endif %}
-
+        { % -endif % }
     }
-{% endblock class_body %}
+{ % endblock class_body % }
 }

@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksMultiUserBundle package.
  *
- * (c) 2013 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -159,8 +159,8 @@ class RegisterUserPassTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($requestListener->hasMethodCall('addUser'));
 
         $calls = $requestListener->getMethodCalls();
-        $requestMatcher = $calls[0][1][1];
         /** @var Reference $requestMatcher */
+        $requestMatcher = $calls[0][1][1];
 
         $def = $container->getDefinition((string) $requestMatcher);
         $this->assertEquals('%rollerworks_multi_user.matcher.class%', $def->getClass());

@@ -1,16 +1,30 @@
 <?php
 
-namespace {{ namespace }}\Model;
+/*
+ * This file is part of the RollerworksMultiUserBundle package.
+ *
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
-{% block use_statements %}
+namespace {{
+
+namespace }}\Model;
+
+{ % block use_statements % }
 use FOS\UserBundle\Model\User as BaseUser;
-{% endblock use_statements %}
 
-{% block class_definition %}
+{ % endblock use_statements % }
+
+{ % block class_definition % }
 class User extends BaseUser
-{% endblock class_definition %}
 {
-{% block class_body %}
+    % endblock class_definition %
+}
+{
+{ % block class_body % }
     protected $id;
-{% endblock class_body %}
+{ % endblock class_body % }
 }
