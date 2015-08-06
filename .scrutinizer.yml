@@ -1,3 +1,0 @@
-inherit: true
-before_commands:
-    - 'composer install'
