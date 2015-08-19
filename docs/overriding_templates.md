@@ -1,6 +1,9 @@
 Overriding Default RollerworksMultiUserBundle Templates
 =======================================================
 
+**Tip:** Each UserBundle can have it's own templates, the technique
+described in this section is only meant for when you want to "keep things simple".
+
 As you start to incorporate RollerworksMultiUserBundle into your application,
 you will probably find that you need to override the default templates that are
 provided by the bundle. Although the template names are not configurable, the Symfony2
@@ -11,6 +14,14 @@ framework provides two ways to override the templates of a bundle.
 
 1. Define a new template of the same name in the `app/Resources` directory
 2. Create a new bundle that is defined as a child of `RollerworksMultiUserBundle`
+
+**Caution:**
+
+Unlike the FOSUserBundle template files (except `layout.html.twig`) 
+should be placed inside `views/UserBundle` (instead of directly
+in the `views` folder).
+
+Failing to do so will break the automatic loading of the configured template.
 
 ### Example: Overriding The Default layout.html.twig
 
@@ -144,9 +155,3 @@ to take effect, even in a development environment.
 
 Overriding all of the other templates provided by the RollerworksMultiUserBundle can be done
 in a similar fashion using either of the two methods shown in this document.
-
-**Note:**
-
-> Unlike the FOSUserBundle, templates should be placed inside the
-> `src/Acme/UserBundle/Resources/views/UserBundle`.
-> Failing to do so will break the automatic loading of the configured template.
