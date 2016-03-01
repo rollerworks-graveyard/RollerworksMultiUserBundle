@@ -1,6 +1,12 @@
 RollerworksMultiUserBundle
 ==========================
 
+# !! MAINTAINERS WANTED !!
+
+**This project is no longer actively maintained!**
+If you would like to takeover this project please leave a comment in:
+https://github.com/rollerworks/RollerworksMultiUserBundle/issues/96
+
 [![Join the chat at https://gitter.im/rollerworks/RollerworksMultiUserBundle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/rollerworks/RollerworksMultiUserBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Build Status](https://travis-ci.org/rollerworks/RollerworksMultiUserBundle.png?branch=master)](https://travis-ci.org/rollerworks/RollerworksMultiUserBundle)
